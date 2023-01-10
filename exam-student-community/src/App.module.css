@@ -1,0 +1,9 @@
+.Container {
+  width: 400px;
+  margin: auto;
+}
+
+.Title {
+  background-color: yellow;
+  color: blue;
+}
