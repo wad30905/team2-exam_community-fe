@@ -1,47 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { SetRecoilState, useRecoilState } from "recoil";
-import { userState } from "../../store/atoms";
-import styled from "styled-components";
-import { TopBar, IconBar, IconSearch } from "./Main";
 import { Link } from "react-router-dom";
-
-const LoginForm = styled.form`
-  width: 40%;
-  max-width: 500px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 20px;
-
-  label {
-    display: inline;
-  }
-
-  input[type="id"],
-  input[type="password"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    border: 2px solid ${(props) => props.theme.grayColor};
-    border-radius: 4px;
-  }
-
-  button {
-    background-color: ${(props) => props.theme.whiteColor};
-    color: ${(props) => props.theme.accentColor};
-    /* padding: 14px 20px; */
-    padding: 20px 20%;
-    border: 1px solid ${(props) => props.theme.accentColor};
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: ${(props) => props.theme.accentColor};
-    color: ${(props) => props.theme.whiteColor};
-  }
-`;
+import { Bar, LoginForm } from "../molecules/small/styled";
+import { IconBar, IconSearch } from "../molecules/small/icons";
+import { useNavigate } from "react-router-dom";
+import TopBar from "../molecules/TopBar";
+import Dropdown from "../molecules/Dropdown";
 
 interface IForm {
   id: string;
@@ -55,11 +20,17 @@ function Login() {
     formState: { errors },
     setError,
   } = useForm<IForm>();
-
-  const [user, setUser] = useRecoilState(userState);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   function onSubmit(data: IForm) {
-    document.location.href = "/";
+    //  axios.post 해서 isLoggedIn false 받았다고 가정
+    // 일단 localStorage 로 해놓음.
+    localStorage.setItem("isLoggedIn", JSON.stringify(true));
+    navigate("/");
+
     // Validate data here
     // Submit the form to the server
     // ------------------------------------------------------
@@ -114,20 +85,14 @@ function Login() {
 
   return (
     <>
-      <TopBar style={{ paddingBottom: "0px" }}>
-        <div className="top">
-          <span>
-            <IconBar />
-          </span>
-          <span className="logo">서비스명</span>
-          <span>
-            <Link to="/login">로그인</Link>
-          </span>
-        </div>
-      </TopBar>
+      <TopBar
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        toggle={toggle}
+      />
+      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <label>ID</label>
-
+        <label>아이디</label>
         <input
           {...register("id", {
             required: "아이디를 입력해주세요",
@@ -135,22 +100,25 @@ function Login() {
           name="id"
           type="id"
         />
-        <span>{errors?.id?.message}</span>
+        <span className="errorMessage">{errors?.id?.message}</span>
 
         <br />
-        <label>
-          Password
-          <input
-            {...register("password", {
-              required: "비밀번호를 입력해주세요",
-            })}
-            type="password"
-            name="password"
-          />
-          <span>{errors?.password?.message}</span>
-        </label>
+        <label>비밀번호</label>
+        <input
+          {...register("password", {
+            required: "비밀번호를 입력해주세요",
+          })}
+          type="password"
+          name="password"
+        />
+        <span className="errorMessage">{errors?.password?.message}</span>
         <br />
-        <button type="submit">Log in</button>
+        <button type="submit">로그인</button>
+        <div className="signUpBox">
+          <Link to="/register">아이디 찾기</Link>
+          <Link to="/register">비밀번호 찾기</Link>
+          <Link to="/register">회원가입</Link>
+        </div>
       </LoginForm>
     </>
   );
