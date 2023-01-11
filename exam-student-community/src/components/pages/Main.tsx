@@ -3,13 +3,30 @@ import { useLocation } from "react-router-dom";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { AuthChecker } from "../../api";
+import { authCheck, SERVER_URL } from "../../api";
+import axios from "axios";
 
 function Main() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const onClickApi = () => {
+    console.log("api 실행");
+
+    axios({
+      method: "post",
+      url: `${SERVER_URL}/test`,
+      data: {
+        test: 1,
+        data: "data",
+      },
+    }).then((res) => {
+      console.log("res : ", res);
+      console.log("res.data : ", res.data);
+    });
+  };
 
   //  유저 확인 코드.
   // 일단 localStorage 로 야매로 구현
@@ -22,12 +39,16 @@ function Main() {
       setIsLoggedIn(location.state.isLoggedIn);
     } else {
       const isTrueSet = localStorage.getItem("isLoggedIn") === "true";
-      setIsLoggedIn((isLoggedIn) => isTrueSet);
+      setIsLoggedIn(isTrueSet);
     }
+    // -----------------------------------------
+    // 진짜 코드
+    // setIsLoggedIn(authCheck);
   }, []);
 
   return (
     <>
+      <button onClick={onClickApi}>API 실행</button>
       <TopBar
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}

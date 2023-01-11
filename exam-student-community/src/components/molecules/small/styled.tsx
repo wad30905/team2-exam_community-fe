@@ -109,7 +109,6 @@ export const Bar = styled.div`
     margin: 0px 20px;
     padding: 20px;
     font-size: 15px;
-
     .logo {
       font-size: 18px;
     }

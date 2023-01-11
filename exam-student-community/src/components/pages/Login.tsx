@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { Bar, LoginForm } from "../molecules/small/styled";
-import { IconBar, IconSearch } from "../molecules/small/icons";
+import { LoginForm } from "../molecules/small/styled";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
+import { loginCheck } from "../../api";
 
 interface IForm {
   id: string;
@@ -28,59 +27,12 @@ function Login() {
   function onSubmit(data: IForm) {
     //  axios.post 해서 isLoggedIn false 받았다고 가정
     // 일단 localStorage 로 해놓음.
-    localStorage.setItem("isLoggedIn", JSON.stringify(true));
-    navigate("/");
+    // 추후 api 에서 LoginCheck api 따오기.
 
-    // Validate data here
-    // Submit the form to the server
-    // ------------------------------------------------------
-    // 서버에서 아이디/비번 유효성 체크 (서버에 보내주는 코드)
-    // 서버에다가 post 요청 후 userState에 저장하기
-    // axios({
-    //   method: "post",
-    //   url: "http://192.168.187.137/user/login",
-    //   data: {
-    //     id: data.id,
-    //     password: data.password,
-    //   },
-    // }).then((res) => {
-    //   // [정상 로그인]res 에는 id:string, password:string, token:string,
-    //   // [로그인 안되면] res에는 error:string 에다가 에러메시지 담아주기
-    //   if (res.status === 401) {
-    //     alert("에러메시지");
-    //   } else {
-    //     // 로그인 성공하면 200 status code반환
-    //     // 로그인 실패하면 401 status code반환
-    //     // 해당 코드는 구글링 해보기
-    //     document.location.href = "/";
-    //   }
-    // });
-    // ---------------------------------------------------------------------------
-    // // 리액트에서 아이디/비번 유효성 체크
-    // // ID CHECK
-    // if (Object.keys(sampleId).includes(data.id)) {
-    //   // ID TRUE
-    //   // PASSWORD CHECK
-    //   //// 수정소요 : sample 데이터에서, data.id를 뽑아내는 코드 수정 필요 (현재는 sampleId1 으로 뽑음)
-    //   if (sampleId.sampleId1 === data.password) {
-    //     console.log("login success");
-    //     setUser({ id: "id", password: "2" });
-    //     // document.location.href = "/";
-    //   } else {
-    //     setError(
-    //       "password",
-    //       { message: "잘못된 비밀번호입니다." },
-    //       { shouldFocus: true }
-    //     );
-    //   }
-    // } else {
-    //   // ID FALSE
-    //   setError(
-    //     "id",
-    //     { message: "잘못된 아이디입니다." },
-    //     { shouldFocus: true }
-    //   );
-    // }
+    console.log("로그인 성공");
+    // loginCheck(data.id, data.password);
+    // localStorage.setItem("isLoggedIn", JSON.stringify(true));
+    navigate("/");
   }
 
   return (

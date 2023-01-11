@@ -12,7 +12,7 @@ function Boards() {
       {boards.map((board, index) => {
         return (
           <Board key={index}>
-            <Link to={`/${board.index}`}>
+            <Link to={`/blogs`}>
               <div className="title_row">
                 <span className="title">
                   {board.name} <IconRarr />
