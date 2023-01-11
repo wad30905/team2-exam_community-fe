@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-export {};
-=======
 import "styled-components";
 
 // and extend them!
@@ -13,4 +10,3 @@ declare module "styled-components" {
     blackColor: string;
   }
 }
->>>>>>> upstream/main
