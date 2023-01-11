@@ -69,6 +69,7 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
   const [gender, setGender] = useState(0); // 0: 선택 x , 1 : 남성 , 2 : 여성
+  
 
   const onClickNext = () => {
     const num = page + 1;
@@ -87,6 +88,13 @@ const RegisterPage = () => {
       setPage((prev) => prev - 1);
     }
   };
+
+  const onIdHandler = (e)=>{
+    const value = e.target.value;
+    if(value==""){
+
+    }
+  }
 
   return (
     <>
@@ -118,7 +126,10 @@ const RegisterPage = () => {
                 type="text"
                 name="id"
                 placeholder="아이디를 입력해주세요"
+                onChange={onIdHandler}
+                value={userId}
               />
+              <button>중복확인</button>
             </InputBox>
             <InputBox>
               <Label>비밀번호</Label>
