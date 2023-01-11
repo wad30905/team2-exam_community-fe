@@ -15,6 +15,6 @@ export const IconSearch = IoMdSearch;
 export const IconRarr = AiOutlineRight;
 export const IconLock = AiTwotoneLock;
 export const IconPower = AiOutlinePoweroff;
-// 추가
 export const IconBackBtn = MdArrowBackIos;
 export const IconMoreBtn = MdMoreVert;
+

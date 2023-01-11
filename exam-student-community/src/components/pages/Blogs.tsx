@@ -6,6 +6,11 @@ import { Routes, Route } from "react-router-dom";
 import Write from "./Write";
 import { sampleBlogs } from "../molecules/atoms/sampleData";
 
+import Dropdown from "../molecules/Dropdown";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
+import TopBar from "../molecules/TopBar";
+
 const Container = styled.div`
   max-width: 480px;
   height: 100vh;
@@ -134,12 +139,17 @@ const Img = styled.img`
 `;
 
 function Blogs() {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
     <Container>
-      <Header />
+      <TopBar toggle={toggle} />
+      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <BlogsList>
-        {sampleBlogs.map((blog) => (
-          <Blog key={blog.id}>
+        {sampleBlogs.map((blog, index) => (
+          <Blog key={index}>
             <Link to={`./${blog.id}`}>
               <BlogTitle>{blog.name}</BlogTitle>
               <BlogInfo>{blog.info}</BlogInfo>
