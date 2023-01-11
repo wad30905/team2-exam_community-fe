@@ -5,10 +5,11 @@ import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
 import { authCheck, SERVER_URL } from "../../api";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
 
 function Main() {
-  const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -28,30 +29,19 @@ function Main() {
     });
   };
 
-  //  유저 확인 코드.
-  // 일단 localStorage 로 야매로 구현
+  //  유저 확인 코드. 들어가야함.
+  // 일단 recoil로 구현.
   // 추후 authCheck api 가져와서 하기.
   // api 동작하는지 확인 필요.
-  useEffect(() => {
-    console.log("useEffect 실행");
-    console.log("location :", location.state);
-    if (location.state) {
-      setIsLoggedIn(location.state.isLoggedIn);
-    } else {
-      const isTrueSet = localStorage.getItem("isLoggedIn") === "true";
-      setIsLoggedIn(isTrueSet);
-    }
-    // -----------------------------------------
-    // 진짜 코드
-    // setIsLoggedIn(authCheck);
-  }, []);
+  // useEffect(() => {
+  //   authCheck();
+  // }, []);
 
   return (
     <>
-      <button onClick={onClickApi}>API 실행</button>
       <TopBar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
+        // isLoggedIn={isLoggedIn}
+        // setIsLoggedIn={setIsLoggedIn}
         toggle={toggle}
       />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}

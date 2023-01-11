@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { DropdownBox, Menu } from "./small/styled";
-import { IconRarr, IconLock, IconPower } from "./small/icons";
+import { DropdownBox, Menu } from "./atoms/styled";
+import { IconRarr, IconLock, IconPower } from "./atoms/icons";
 
 const options = ["기능1", "기능2", "기능3"];
 
