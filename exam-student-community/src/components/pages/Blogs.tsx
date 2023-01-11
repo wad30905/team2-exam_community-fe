@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useQueries, useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Write from "./Write";
 import { sampleBlogs } from "../molecules/atoms/sampleData";
-
 import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
@@ -17,81 +16,6 @@ const Container = styled.div`
   margin: 0 auto;
   background: white;
 `;
-
-const LogoBar = styled.div`
-  padding: 15px 0px;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${(props) => props.theme.accentColor};
-  a {
-    font-size: 18px;
-    color: ${(props) => props.theme.bgColor};
-  }
-`;
-
-const Logo = styled.h3`
-  width: 33.3%;
-  a {
-    font-size: 25px;
-    font-weight: bold;
-  }
-`;
-
-const MenuBtn = styled.a`
-  width: 33.3%;
-`;
-
-const WriteBtn = styled.a``;
-
-const LogOutBtn = styled.a`
-  margin-left: 10px;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  background: ${(props) => props.theme.accentColor};
-  height: 10vh;
-  justify-content: center;
-  padding-top: 10px;
-`;
-
-const SearBox = styled.input`
-  border: none;
-  border-radius: 5px;
-  width: 95%;
-  height: 40px;
-`;
-
-function Header() {
-  return (
-    <div>
-      <LogoBar>
-        <MenuBtn>
-          <Link to={"/"}>메뉴</Link>
-        </MenuBtn>
-        <Logo>
-          <Link to={"/"}>서비스명</Link>
-        </Logo>
-        <WriteBtn>
-          <Link
-            to={"/write"}
-            state={{ userId: "userId", time: "2023-01-13", blogs: "1" }}
-          >
-            글쓰기
-          </Link>
-        </WriteBtn>
-        <LogOutBtn>
-          <Link to={"/"}>로그아웃</Link>
-        </LogOutBtn>
-      </LogoBar>
-      <SearchBar>
-        <SearBox placeholder="게시판을 입력하시오" />
-      </SearchBar>
-    </div>
-  );
-}
 
 const BlogsList = styled.ul``;
 
@@ -137,6 +61,12 @@ const Img = styled.img`
   height: 35px;
   margin-right: 10px;
 `;
+
+interface ILocation {
+  state : {
+    blogsId: number;
+  }
+}
 
 function Blogs() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
