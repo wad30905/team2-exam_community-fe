@@ -1,5 +1,6 @@
 import { Bar, Search } from "./atoms/styled";
 import { IconSearch, IconBar } from "./atoms/icons";
+
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
