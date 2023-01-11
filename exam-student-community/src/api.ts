@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import axios from "axios";
 
 export const SERVER_URL = "http://172.30.1.38:8080";
@@ -11,7 +10,7 @@ export function authCheck() {
   // 사용자가 맞으면 true / 아니면 false를 반환함.
   try {
     axios
-      .get(`${SERVER_URL}/auth`)
+      .get(`${SERVER_URL}/1`)
       // auth 맞음
       .then((response) => {
         if (response.data.authenticated) {
@@ -27,56 +26,37 @@ export function authCheck() {
   }
 }
 
-// 첫 로그인 관련
+// 첫 로그인 처리 api
 // 얘는 form 데이터 post 해줘서 사용자 인증
 export function loginCheck(dataId: string, dataPw: string) {
-  // Validate data here
-  // Submit the form to the server
-  // ------------------------------------------------------
-  // 서버에서 아이디/비번 유효성 체크 (서버에 보내주는 코드)
-  // 서버에다가 post 요청 후 userState에 저장하기
+  // 서버에 입력데이터 보내주는 코드 (서버에서 유효성 체크)
+  // response 값에 따라 true / false 반환.
   axios({
     method: "post",
     url: `${SERVER_URL}/login`,
     data: {
-      id: dataId,
-      password: dataPw,
+      user_id: dataId,
+      user_pw: dataPw,
     },
+    withCredentials: true,
   })
-    //로그인 성공
     .then((response) => {
-      console.log(response);
-      return true;
+      if (response.data) {
+        //로그인 성공
+        console.log("response :", response);
+        console.log("유저 맞음.");
+        return true;
+      } else {
+        //로그인 실패
+        console.log("response :", response);
+        console.log("유저 아님.");
+        return false;
+      }
     })
-    //로그인 실패
+    // 로그인 실패 (에러 관련)
     .catch((error) => {
-      console.log(error);
+      console.log("서버 에러 :", error);
     });
   return false;
   // ---------------------------------------------------------------------------
-  // // 리액트에서 아이디/비번 유효성 체크
-  // // ID CHECK
-  // if (Object.keys(sampleId).includes(data.id)) {
-  //   // ID TRUE
-  //   // PASSWORD CHECK
-  //   //// 수정소요 : sample 데이터에서, data.id를 뽑아내는 코드 수정 필요 (현재는 sampleId1 으로 뽑음)
-  //   if (sampleId.sampleId1 === data.password) {
-  //     console.log("login success");
-  //     setUser({ id: "id", password: "2" });
-  //     // document.location.href = "/";
-  //   } else {
-  //     setError(
-  //       "password",
-  //       { message: "잘못된 비밀번호입니다." },
-  //       { shouldFocus: true }
-  //     );
-  //   }
-  // } else {
-  //   // ID FALSE
-  //   setError(
-  //     "id",
-  //     { message: "잘못된 아이디입니다." },
-  //     { shouldFocus: true }
-  //   );
-  // }
 }
