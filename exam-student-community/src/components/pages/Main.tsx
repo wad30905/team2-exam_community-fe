@@ -33,8 +33,8 @@ function Main() {
   // 추후 authCheck api 가져와서 하기.
   // api 동작하는지 확인 필요.
   useEffect(() => {
-    // console.log("useEffect 실행");
-    // console.log("location :", location.state);
+    console.log("useEffect 실행");
+    console.log("location :", location.state);
     if (location.state) {
       setIsLoggedIn(location.state.isLoggedIn);
     } else {
