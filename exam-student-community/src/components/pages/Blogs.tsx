@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Write from "./Write";
-import { sampleBlogs } from "../molecules/small/sampleData";
+import { sampleBlogs } from "../molecules/atoms/sampleData";
 
 const Container = styled.div`
   max-width: 480px;

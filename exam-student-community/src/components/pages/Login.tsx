@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { LoginForm } from "../molecules/small/styled";
+import { LoginForm } from "../molecules/atoms/styled";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";

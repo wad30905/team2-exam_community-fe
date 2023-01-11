@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-export {};
-=======
 import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
@@ -10,4 +7,3 @@ export const theme: DefaultTheme = {
   whiteColor: "white",
   blackColor: "black",
 };
->>>>>>> upstream/main
