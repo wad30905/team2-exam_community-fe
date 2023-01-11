@@ -37,11 +37,7 @@ function Login() {
 
   return (
     <>
-      <TopBar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
-      />
+      <TopBar toggle={toggle} />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>

@@ -6,6 +6,7 @@ import Boards from "../molecules/Boards";
 import { authCheck, SERVER_URL } from "../../api";
 import axios from "axios";
 
+
 function Main() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
@@ -49,11 +50,7 @@ function Main() {
   return (
     <>
       <button onClick={onClickApi}>API 실행</button>
-      <TopBar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
-      />
+      <TopBar toggle={toggle} />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <Boards />
     </>

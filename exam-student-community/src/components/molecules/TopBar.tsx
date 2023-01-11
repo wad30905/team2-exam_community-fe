@@ -1,28 +1,28 @@
 import { Bar, Search } from "./atoms/styled";
 import { IconBar, IconSearch } from "./atoms/icons";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
 
 interface ITopBarProps {
-  isLoggedIn: Boolean;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<Boolean>>;
-
   toggle: VoidFunction;
 }
 
-function TopBar({ isLoggedIn, setIsLoggedIn, toggle }: ITopBarProps) {
-  const onClickLogOut = () => {
-    const isLoggedInPromise = new Promise((resolve, reject) => {
-      resolve(isLoggedIn);
-    });
+function TopBar({ toggle }: ITopBarProps) {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
-    isLoggedInPromise
-      .then((value) => !value)
-      .then((value) => {
-        setIsLoggedIn(value);
-        localStorage.setItem("isLoggedIn", JSON.stringify(value));
-        return value;
-      })
-      .then((value) => console.log(value));
+  const onClickLogOut = () => {
+    setIsLoggedIn(false);
+    // const isLoggedInPromise = new Promise((resolve, reject) => {
+    //   resolve(isLoggedIn);
+    // });
+    // isLoggedInPromise
+    //   .then((value) => !value)
+    //   .then((value) => {
+    //     setIsLoggedIn(value);
+    //     return value;
+    //   })
+    //   .then((value) => console.log(value));
   };
   return (
     <Bar>
