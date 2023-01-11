@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { sampleBoards } from "../molecules/small/sampleData";
-import { Post } from "./small/styled";
+import { sampleBoards } from "./atoms/sampleData";
+import { Post } from "./atoms/styled";
 
 interface IPostListProps {
   boardIndex: string | undefined;

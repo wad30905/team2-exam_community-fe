@@ -1,5 +1,5 @@
-import { Bar, Search } from "./small/styled";
-import { IconBar, IconSearch } from "./small/icons";
+import { Bar, Search } from "./atoms/styled";
+import { IconBar, IconSearch } from "./atoms/icons";
 import { Link } from "react-router-dom";
 
 interface ITopBarProps {

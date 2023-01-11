@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Board, BoardPost } from "./small/styled";
-import { IconComment, IconRarr } from "../molecules/small/icons";
-import { sampleBoards } from "../molecules/small/sampleData";
+import { Board, BoardPost } from "./atoms/styled";
+import { IconComment, IconRarr } from "./atoms/icons";
+import { sampleBoards } from "./atoms/sampleData";
 
 function Boards() {
   const [boards, setBoards] = useState(sampleBoards);
@@ -12,7 +12,7 @@ function Boards() {
       {boards.map((board, index) => {
         return (
           <Board key={index}>
-            <Link to={`/blogs`}>
+            <Link to={`/blogs`} state={{blogsId: 2,}}>
               <div className="title_row">
                 <span className="title">
                   {board.name} <IconRarr />

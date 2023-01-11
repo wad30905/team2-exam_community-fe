@@ -10,8 +10,8 @@ function Router() {
     <Routes>
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/blogs" element={<Blogs />} />
-      <Route path="/blogs/:blogid" element={<Blog />} />
+      <Route path="/:blogs" element={<Blogs />} />
+      <Route path="/:blogs/:blogid" element={<Blog />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   );
