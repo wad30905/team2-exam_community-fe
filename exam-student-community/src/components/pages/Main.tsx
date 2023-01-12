@@ -43,6 +43,8 @@ function Main() {
         // isLoggedIn={isLoggedIn}
         // setIsLoggedIn={setIsLoggedIn}
         toggle={toggle}
+        mainService={"서비스명"}
+        needWrite={isLoggedIn ? true : false}
       />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <Boards />

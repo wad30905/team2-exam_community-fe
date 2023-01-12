@@ -42,6 +42,8 @@ function Login() {
         // isLoggedIn={isLoggedIn}
         // setIsLoggedIn={setIsLoggedIn}
         toggle={toggle}
+        mainService={"로그인"}
+        needWrite={false}
       />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>

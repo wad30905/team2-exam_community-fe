@@ -53,13 +53,15 @@ table {
   border-spacing: 0;
 }
 *{
- box-sizing:border-box; 
+ box-sizing: border-box; 
 }
 body{
-    font-family: 'Stylish', sans-serif;
+  font-family: 'Stylish', sans-serif;
     /* background-image: radial-gradient(circle at 10% 10%, rgb(255, 156, 156) 0%, rgb(179, 201, 241) 80%); */
-  background-color:${(props) => props.theme.bgColor};
+  background-color:${(props) => props.theme.whiteColor};
   color:black;
+  width: 33.3vw;
+  margin: 0 auto;
 }
 a{
   display:block;
