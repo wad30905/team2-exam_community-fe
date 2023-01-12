@@ -3,44 +3,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Blogs from "./Blogs";
-
-const Container = styled.div`
-  max-width: 480px;
-  height: 100vh;
-  /* scroll: auto; */
-  margin: 0 auto;
-  background: white;
-`;
-
-const LogoBar = styled.div`
-  padding: 15px 0px;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${(props) => props.theme.accentColor};
-  a {
-    font-size: 18px;
-    color: ${(props) => props.theme.bgColor};
-  }
-`;
-
-const Logo = styled.h3`
-  width: 33.3%;
-  a {
-    font-size: 25px;
-    font-weight: bold;
-  }
-`;
-
-const MenuBtn = styled.a`
-  width: 33.3%;
-`;
-
-const LogOutBtn = styled.a`
-  margin-left: 10px;
-`;
-
+import TopBar from "../molecules/TopBar";
+import Dropdown from "../molecules/Dropdown";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
 const BlogInfo = styled.div`
   display: flex;
   justify-content: start;
@@ -198,28 +164,14 @@ const BlogSampleData = {
   ],
 };
 
-function Header() {
-  return (
-    <div>
-      <LogoBar>
-        <MenuBtn>
-          <Link to={"/"}>메뉴</Link>
-        </MenuBtn>
-        <Logo>
-          <Link to={"/"}>서비스명</Link>
-        </Logo>
-        <LogOutBtn>
-          <Link to={"/"}>로그아웃</Link>
-        </LogOutBtn>
-      </LogoBar>
-    </div>
-  );
-}
-
 function Blog() {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
   return (
-    <Container>
-      <Header />
+    <>
+      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false}/>
+      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <MainContents>
         <BlogInfo>
           <ProfilePic></ProfilePic>
@@ -254,7 +206,7 @@ function Blog() {
       <CommentInputBox>
         <CommentInput placeholder="댓글을 입력해주세요."></CommentInput>
       </CommentInputBox>
-    </Container>
+    </>
   );
 }
 

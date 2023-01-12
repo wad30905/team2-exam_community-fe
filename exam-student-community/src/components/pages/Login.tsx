@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { loginCheck } from "../../api";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
 
 interface IForm {
   id: string;
@@ -20,24 +22,29 @@ function Login() {
     setError,
   } = useForm<IForm>();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   function onSubmit(data: IForm) {
-    //  axios.post 해서 isLoggedIn false 받았다고 가정
-    // 일단 localStorage 로 해놓음.
-    // 추후 api 에서 LoginCheck api 따오기.
-
-    console.log("로그인 성공");
-    // loginCheck(data.id, data.password);
-    // localStorage.setItem("isLoggedIn", JSON.stringify(true));
+    // const loginResult = loginCheck(data.id, data.password);
+    // if (loginResult) {
+    //   setIsLoggedIn({ isLoggedIn: true });
+    //   navigate("/");
+    // }
+    setIsLoggedIn(true);
     navigate("/");
   }
 
   return (
     <>
-      <TopBar toggle={toggle} />
+      <TopBar
+        // isLoggedIn={isLoggedIn}
+        // setIsLoggedIn={setIsLoggedIn}
+        toggle={toggle}
+        mainService={"로그인"}
+        needWrite={false}
+      />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>

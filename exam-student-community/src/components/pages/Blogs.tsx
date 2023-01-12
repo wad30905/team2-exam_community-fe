@@ -75,7 +75,7 @@ function Blogs() {
 
   return (
     <Container>
-      <TopBar toggle={toggle} />
+      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={isLoggedIn ? true : false}/>
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <BlogsList>
         {sampleBlogs.map((blog, index) => (

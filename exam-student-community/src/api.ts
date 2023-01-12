@@ -30,11 +30,6 @@ export function authCheck() {
 // 첫 로그인 관련
 // 얘는 form 데이터 post 해줘서 사용자 인증
 export function loginCheck(dataId: string, dataPw: string) {
-  // Validate data here
-  // Submit the form to the server
-  // ------------------------------------------------------
-  // 서버에서 아이디/비번 유효성 체크 (서버에 보내주는 코드)
-  // 서버에다가 post 요청 후 userState에 저장하기
   axios({
     method: "post",
     url: `${SERVER_URL}/login`,
@@ -53,30 +48,25 @@ export function loginCheck(dataId: string, dataPw: string) {
       console.log(error);
     });
   return false;
-  // ---------------------------------------------------------------------------
-  // // 리액트에서 아이디/비번 유효성 체크
-  // // ID CHECK
-  // if (Object.keys(sampleId).includes(data.id)) {
-  //   // ID TRUE
-  //   // PASSWORD CHECK
-  //   //// 수정소요 : sample 데이터에서, data.id를 뽑아내는 코드 수정 필요 (현재는 sampleId1 으로 뽑음)
-  //   if (sampleId.sampleId1 === data.password) {
-  //     console.log("login success");
-  //     setUser({ id: "id", password: "2" });
-  //     // document.location.href = "/";
-  //   } else {
-  //     setError(
-  //       "password",
-  //       { message: "잘못된 비밀번호입니다." },
-  //       { shouldFocus: true }
-  //     );
-  //   }
-  // } else {
-  //   // ID FALSE
-  //   setError(
-  //     "id",
-  //     { message: "잘못된 아이디입니다." },
-  //     { shouldFocus: true }
-  //   );
-  // }
+};
+
+export function writeBlog(user_name: string, title: string, num:string, content: string ) {
+  axios({
+    method: "post",
+    url: `${SERVER_URL}/detail`,
+    data: {
+      user_name,
+      title,
+      num,
+      content
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    return false;
 }
