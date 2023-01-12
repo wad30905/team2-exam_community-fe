@@ -8,7 +8,6 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 
-
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
