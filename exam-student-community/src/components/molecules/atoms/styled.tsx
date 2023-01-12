@@ -209,3 +209,74 @@ export const DropdownBox = styled.div`
     gap: 10px;
   }
 `;
+
+// by kuk329
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 5px;
+
+  h1 {
+    font-size: 20px;
+  }
+
+  button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+  }
+`;
+
+export const GenderCheckBtn = styled.button`
+  color: black;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  border: none;
+  &:hover {
+    background-color: #5928e5;
+    color: white;
+  }
+  &.on {
+    background-color: #5928e5;
+    color: white;
+  }
+`;
+export const FormBox = styled.div`
+  margin: 0 auto;
+  width: 80%;
+`;
+export const RegisterButton = styled.button`
+  background-color: gray;
+  color: white;
+  border: none;
+  /* width: 100%; */
+  width: 100%;
+  font-size: 20px;
+  padding: 5px;
+  &:hover {
+    background-color: #5928e5;
+  }
+  margin: 0 auto;
+`;
+
+export const InputBox = styled.div`
+  padding: 10px;
+
+  input {
+    margin-top: 10px;
+    width: 100%;
+    padding: 7px;
+
+    &:focus {
+      border-color: #5928e5;
+      outline: none;
+    }
+  }
+  label {
+    color: gray;
+    font-weight: 700;
+  }
+`;

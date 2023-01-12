@@ -70,7 +70,7 @@ function Login() {
         <div className="signUpBox">
           <Link to="/register">아이디 찾기</Link>
           <Link to="/register">비밀번호 찾기</Link>
-          <Link to="/register">회원가입</Link>
+          <Link to="/register1">회원가입</Link>
         </div>
       </LoginForm>
     </>
