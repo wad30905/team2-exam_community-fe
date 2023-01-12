@@ -10,13 +10,6 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import TopBar from "../molecules/TopBar";
 
-const Container = styled.div`
-  max-width: 480px;
-  height: 100vh;
-  margin: 0 auto;
-  background: white;
-`;
-
 const BlogsList = styled.ul``;
 
 const Blog = styled.li`
@@ -74,8 +67,8 @@ function Blogs() {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Container>
-      <TopBar toggle={toggle} />
+    <>
+      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={isLoggedIn ? true : false}/>
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <BlogsList>
         {sampleBlogs.map((blog, index) => (
@@ -87,7 +80,7 @@ function Blogs() {
           </Blog>
         ))}
       </BlogsList>
-    </Container>
+    </>
   );
 }
 export default Blogs;

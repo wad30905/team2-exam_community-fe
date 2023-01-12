@@ -29,8 +29,6 @@ export function authCheck() {
 // 첫 로그인 처리 api
 // 얘는 form 데이터 post 해줘서 사용자 인증
 export function loginCheck(dataId: string, dataPw: string) {
-  // 서버에 입력데이터 보내주는 코드 (서버에서 유효성 체크)
-  // response 값에 따라 true / false 반환.
   axios({
     method: "post",
     url: `${SERVER_URL}/login`,
@@ -58,5 +56,25 @@ export function loginCheck(dataId: string, dataPw: string) {
       console.log("서버 에러 :", error);
     });
   return false;
-  // ---------------------------------------------------------------------------
+};
+
+export function writeBlog(user_name: string, title: string, num:string, content: string ) {
+  axios({
+    method: "post",
+    url: `${SERVER_URL}/detail`,
+    data: {
+      user_name,
+      title,
+      num,
+      content
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    return false;
 }

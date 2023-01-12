@@ -98,51 +98,18 @@ export const BoardPost = styled.li`
   font-weight: 600;
 `;
 
-export const Bar = styled.div`
-  background-color: ${(props) => props.theme.accentColor};
-  .top {
-    color: white;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0px 20px;
-    padding: 20px;
-    font-size: 15px;
-    .logo {
-      font-size: 18px;
-    }
-  }
-  span {
-    cursor: pointer;
-  }
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-`;
-
-export const Search = styled.form`
-  background-color: white;
-  border-radius: 5px;
-  width: 90%;
-  height: 40px;
-  margin: 0 auto;
+export const SearchContainer = styled.div`
+  background-color: ${props => props.theme.accentColor};
   display: flex;
-  position: relative;
-  input {
-    padding: 15px;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    top: 50%;
-    right: 0%;
-    transform: translate(-50%, -50%);
-  }
-`;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+`
+export const Search = styled.input`
+  width: 90%;
+  height: 40%;
+`
 
 export const Post = styled.li`
   display: flex;
@@ -210,7 +177,65 @@ export const DropdownBox = styled.div`
   }
 `;
 
-// by kuk329
+export const ErrorMessage = styled.span`
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: red;
+  font-size: 15px;
+  font-weight: 600;
+  width: 90%;
+  padding: 20px;
+`;
+
+export const TopBarMenu = styled.div`
+  background-color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 20%;
+`
+
+export const TopBarMain = styled.div`
+  background-color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  cursor: pointer;
+  width: 60%;
+`
+
+export const TopBarBtns = styled.div`
+  background-color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 20%;
+  a{
+    margin: 5px;
+    font-size: 0.0001em;
+  }
+`;
+
+export const TopContainer = styled.div`
+  background-color: ${props => props.theme.accentColor};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 7%;
+  padding: 5%;
+`;
+
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
