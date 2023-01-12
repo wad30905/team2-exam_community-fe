@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -62,11 +63,14 @@ const GenderCheckBtn = styled.button`
 `;
 
 const Register = () => {
-  const [page, setPage] = useState(1);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState("");
-  const [gender, setGender] = useState(0); // 0: 선택 x , 1 : 남성 , 2 : 여성
+  const [page, setPage] = useState<number>(1);
+  const [email, setEmail] = useState<string>(""); // 이메일
+  const [username, setUsername] = useState<string>(""); // 유저 이름
+  const [userId, setUserId] = useState<string>(""); // 아이디
+  const [gender, setGender] = useState<number>(0); // 0: 선택 x , 1 : 남성 , 2 : 여성
+  const [password, setPassword] = useState<string>(""); // 비번
+  const [passwordConfirm, setPasswordConfirm] = useState<string>(""); // 비번 확인
+  const [pdCheckText, setPdCheckText] = useState<string>("");
 
   const onClickNext = () => {
     const num = page + 1;
@@ -85,16 +89,29 @@ const Register = () => {
       setPage((prev) => prev - 1);
     }
   };
+  const onHandlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 비밀번호 확인
+    const pd = e.target.value;
+    console.log(pd);
+    if (pd !== password) {
+      setPdCheckText("동일한 비밀번호를 입력하세요");
+    } else if (pd === password) {
+      setPdCheckText("");
+    }
+  };
 
+  const onHandlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
   return (
     <>
       <Header>
         <Button onClick={onClickPrev}>
-          <i className="fa-solid fa-chevron-left"></i>
+          <IconBackBtn />
         </Button>
         <Title>회원가입({page}/2)</Title>
         <Button>
-          <i className="fa-solid fa-ellipsis-vertical"></i>
+          <IconMoreBtn />
         </Button>
       </Header>
       <FormBox>
@@ -122,9 +139,11 @@ const Register = () => {
               <Label>비밀번호</Label>
               <br />
               <Input
+                value={password}
                 type="password"
                 name="password"
                 placeholder="8~30자리 사이로 입력해주세요"
+                onChange={onHandlePassword}
               />
             </InputBox>
             <InputBox>
@@ -134,7 +153,9 @@ const Register = () => {
                 type="password"
                 name="password-confirm"
                 placeholder="8~30자리 사이로 입력해주세요"
+                onChange={onHandlePasswordConfirm}
               />
+              <p style={{ color: "red" }}>{pdCheckText}</p>
             </InputBox>
             <InputBox>
               <Label>휴대전화 번호</Label>
