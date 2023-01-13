@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import { useQueries, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Routes, Route } from "react-router-dom";
-import Write from "./Write";
 import { sampleBlogs } from "../molecules/atoms/sampleData";
 import Dropdown from "../molecules/Dropdown";
-import { useRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
 import TopBar from "../molecules/TopBar";
 import { authCheck } from "../../api";
 import Loading from "../molecules/Loading";
