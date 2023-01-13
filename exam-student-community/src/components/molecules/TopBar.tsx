@@ -1,10 +1,14 @@
-import { Search, TopBarBtns, TopContainer, TopBarMenu, TopBarMain } from "./atoms/styled";
-import { IconBar, IconSearch } from "./atoms/icons";
+import {
+  TopBarBtns,
+  TopContainer,
+  TopBarMenu,
+  TopBarMain,
+} from "./atoms/styled";
+import { IconBar } from "./atoms/icons";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-
-import styled from "styled-components";
 interface ITopBarProps {
   toggle: VoidFunction;
   mainService: string;
@@ -15,16 +19,7 @@ function TopBar({ toggle, mainService, needWrite }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const onClickLogOut = () => {
     setIsLoggedIn(false);
-    // const isLoggedInPromise = new Promise((resolve, reject) => {
-    //   resolve(isLoggedIn);
-    // });
-    // isLoggedInPromise
-    //   .then((value) => !value)
-    //   .then((value) => {
-    //     setIsLoggedIn(value);
-    //     return value;
-    //   })
-    //   .then((value) => console.log(value));
+    Cookies.remove("COOKIE_KEY");
   };
   return (
     <TopContainer>
@@ -36,7 +31,7 @@ function TopBar({ toggle, mainService, needWrite }: ITopBarProps) {
       </TopBarMain>
       {isLoggedIn ? (
         <TopBarBtns onClick={onClickLogOut}>
-          {needWrite ? <Link to="/:blogs/write" >글쓰기</Link> : null}
+          {needWrite ? <Link to="/:blogs/write">글쓰기</Link> : null}
           <Link to="/">로그아웃</Link>
         </TopBarBtns>
       ) : (
@@ -47,5 +42,4 @@ function TopBar({ toggle, mainService, needWrite }: ITopBarProps) {
     </TopContainer>
   );
 }
-
 export default TopBar;

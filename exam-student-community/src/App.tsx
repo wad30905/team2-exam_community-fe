@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import Router from "./Router";
 import GlobalStyle from "./lib/StyledComponents/GlobalStyle";
@@ -6,7 +5,7 @@ import GlobalStyle from "./lib/StyledComponents/GlobalStyle";
 function App() {
   return (
     <>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Router />
     </>
   );

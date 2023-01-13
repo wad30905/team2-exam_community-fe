@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Blogs from "./Blogs";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
+import { authCheck } from "../../api";
+
 const BlogInfo = styled.div`
   display: flex;
   justify-content: start;
@@ -168,10 +170,25 @@ function Blog() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    checkUserAuth();
+  }, []);
+
   return (
     <>
-      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false}/>
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false} />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
       <MainContents>
         <BlogInfo>
           <ProfilePic></ProfilePic>

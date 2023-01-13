@@ -25,27 +25,23 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const username = "로그인 안함";
 
   function onSubmit(data: IForm) {
-    // const loginResult = loginCheck(data.id, data.password);
-    // if (loginResult) {
-    //   setIsLoggedIn({ isLoggedIn: true });
-    //   navigate("/");
-    // }
-    setIsLoggedIn(true);
-    navigate("/");
+    const checkLogin = async () => {
+      const loginStatus = await loginCheck(data.id, data.password);
+      console.log("loginStatus : ", loginStatus);
+      setIsLoggedIn(loginStatus);
+      console.log("navigate()");
+      navigate("/");
+    };
+    checkLogin();
   }
 
   return (
     <>
-      <TopBar
-        // isLoggedIn={isLoggedIn}
-        // setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
-        mainService={"로그인"}
-        needWrite={false}
-      />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      <TopBar toggle={toggle} mainService={"로그인"} needWrite={false} />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input

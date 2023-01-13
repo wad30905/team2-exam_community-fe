@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { useQueries, useQuery } from "react-query";
 import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Routes, Route } from "react-router-dom";
-import Write from "./Write";
 import { sampleBlogs } from "../molecules/atoms/sampleData";
 import Dropdown from "../molecules/Dropdown";
-import { useRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
 import TopBar from "../molecules/TopBar";
+import { authCheck } from "../../api";
+import Loading from "../molecules/Loading";
 
 const BlogsList = styled.ul``;
 
@@ -56,20 +54,38 @@ const Img = styled.img`
 `;
 
 interface ILocation {
-  state : {
+  state: {
     blogsId: number;
-  }
+  };
 }
 
 function Blogs() {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("야매");
+
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    checkUserAuth();
+  }, []);
 
   return (
     <>
-      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={isLoggedIn ? true : false}/>
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      <TopBar
+        toggle={toggle}
+        mainService={"자유게시판"}
+        needWrite={isLoggedIn ? true : false}
+      />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
       <BlogsList>
         {sampleBlogs.map((blog, index) => (
           <Blog key={index}>

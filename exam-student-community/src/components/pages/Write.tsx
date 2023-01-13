@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage } from "../molecules/atoms/styled";
 import { writeBlog } from "../../api";
+import { authCheck } from "../../api";
 const Container = styled.div`
   max-width: 480px;
   height: 100vh;
@@ -76,9 +77,9 @@ const BlogsList = [
 ];
 
 interface IWriteForm {
-  BoardId: string,
-  BlogTitle: string,
-  BlogContent: string,
+  BoardId: string;
+  BlogTitle: string;
+  BlogContent: string;
 }
 
 function Write() {
@@ -92,6 +93,20 @@ function Write() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    checkUserAuth();
+  }, []);
 
   function onSubmit(data: IWriteForm) {
     writeBlog("hongjin", data.BlogTitle, data.BoardId, data.BlogContent);
@@ -99,18 +114,23 @@ function Write() {
   }
   return (
     <Container>
-      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false}/>
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false} />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
       <WriteContents onSubmit={handleSubmit(onSubmit)}>
         <Selector {...register("BoardId")}>
           {BlogsList.map((Blogs) => (
-            <option>{Blogs}</option>))}
+            <option>{Blogs}</option>
+          ))}
         </Selector>
-        <TitleInput placeholder="제목" {...register("BlogTitle",
-        {required: "제목을 입력하세요"})}/>
+        <TitleInput
+          placeholder="제목"
+          {...register("BlogTitle", { required: "제목을 입력하세요" })}
+        />
         <ErrorMessage>{errors?.BlogTitle?.message}</ErrorMessage>
-        <ContentInput placeholder="내용을 입력하세요."  {...register("BlogContent",
-        {required: "내용을 입력하세요"})}/>
+        <ContentInput
+          placeholder="내용을 입력하세요."
+          {...register("BlogContent", { required: "내용을 입력하세요" })}
+        />
         <ErrorMessage>{errors?.BlogContent?.message}</ErrorMessage>
         <Submit>작성 완료</Submit>
       </WriteContents>

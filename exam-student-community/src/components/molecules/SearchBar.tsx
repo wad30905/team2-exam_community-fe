@@ -1,11 +1,11 @@
 import { Search, SearchContainer } from "./atoms/styled";
 
-function SearchBar(placeholder:string) {
+function SearchBar(placeholder: string) {
   return (
     <SearchContainer>
-      <Search placeholder={placeholder}/>
+      <Search placeholder={placeholder} />
     </SearchContainer>
-  )
-};
+  );
+}
 
-export default SearchBar
+export default SearchBar;
