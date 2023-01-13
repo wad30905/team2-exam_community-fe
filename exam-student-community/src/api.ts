@@ -2,10 +2,6 @@ import axios from "axios";
 
 export const SERVER_URL = "http://localhost:8080";
 
-// auth check
-// 각 컴포넌트마다 위에 실행할 auth check
-// 얘는 get 요청 쏴서, 쿠키가지고 사용자인증.
-
 export async function authCheck() {
   const response = await axios({
     method: "get",
@@ -53,4 +49,30 @@ export async function loginCheck(dataId: string, dataPw: string) {
   // });
   return response.data;
   // ---------------------------------------------------------------------------
+}
+
+export function writeBlog(
+  user_name: string,
+  title: string,
+  num: string,
+  content: string
+) {
+  axios({
+    method: "post",
+    url: `${SERVER_URL}/detail`,
+    data: {
+      user_name,
+      title,
+      num,
+      content,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return false;
 }

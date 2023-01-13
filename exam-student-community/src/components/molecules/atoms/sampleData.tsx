@@ -1,3 +1,4 @@
+
 export const sampleBoards = [
   {
     index: 0,

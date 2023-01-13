@@ -35,7 +35,7 @@ function Dropdown({ isLoggedIn, username }: IDropdownProps) {
   return (
     <DropdownBox>
       <h1 className="title">
-        <span>{username} 님 환영합니다</span>
+        <span>{username}님 환영합니다</span>
       </h1>
       <ul>
         {options.map((option, index) => (

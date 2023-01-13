@@ -1,93 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useQueries, useQuery } from "react-query";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { sampleBlogs } from "../molecules/atoms/sampleData";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import { authCheck } from "../../api";
 import Loading from "../molecules/Loading";
-
-export const Container = styled.div`
-  max-width: 480px;
-  height: 100vh;
-  margin: 0 auto;
-  background: white;
-`;
-
-const LogoBar = styled.div`
-  padding: 15px 0px;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: ${(props) => props.theme.accentColor};
-  a {
-    font-size: 18px;
-    color: ${(props) => props.theme.bgColor};
-  }
-`;
-
-const Logo = styled.h3`
-  width: 33.3%;
-  a {
-    font-size: 25px;
-    font-weight: bold;
-  }
-`;
-
-const MenuBtn = styled.a`
-  width: 33.3%;
-`;
-
-const WriteBtn = styled.a``;
-
-const LogOutBtn = styled.a`
-  margin-left: 10px;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  background: ${(props) => props.theme.accentColor};
-  height: 10vh;
-  justify-content: center;
-  padding-top: 10px;
-`;
-
-const SearBox = styled.input`
-  border: none;
-  border-radius: 5px;
-  width: 95%;
-  height: 40px;
-`;
-
-function Header() {
-  return (
-    <div>
-      <LogoBar>
-        <MenuBtn>
-          <Link to={"/"}>메뉴</Link>
-        </MenuBtn>
-        <Logo>
-          <Link to={"/"}>서비스명</Link>
-        </Logo>
-        <WriteBtn>
-          <Link
-            to={"/write"}
-            state={{ userId: "userId", time: "2023-01-13", blogs: "1" }}
-          >
-            글쓰기
-          </Link>
-        </WriteBtn>
-        <LogOutBtn>
-          <Link to={"/"}>로그아웃</Link>
-        </LogOutBtn>
-      </LogoBar>
-      <SearchBar>
-        <SearBox placeholder="게시판을 입력하시오" />
-      </SearchBar>
-    </div>
-  );
-}
 
 const BlogsList = styled.ul``;
 
@@ -134,12 +53,18 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
+interface ILocation {
+  state: {
+    blogsId: number;
+  };
+}
+
 function Blogs() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [isLoading, setIsLoading] = useState(true);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("야매");
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -155,28 +80,22 @@ function Blogs() {
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Container>
-          <TopBar
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            toggle={toggle}
-          />
-          {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
-          <BlogsList>
-            {sampleBlogs.map((blog, index) => (
-              <Blog key={index}>
-                <Link to={`./${blog.id}`}>
-                  <BlogTitle>{blog.name}</BlogTitle>
-                  <BlogInfo>{blog.info}</BlogInfo>
-                </Link>
-              </Blog>
-            ))}
-          </BlogsList>
-        </Container>
-      )}
+      <TopBar
+        toggle={toggle}
+        mainService={"자유게시판"}
+        needWrite={isLoggedIn ? true : false}
+      />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
+      <BlogsList>
+        {sampleBlogs.map((blog, index) => (
+          <Blog key={index}>
+            <Link to={`./${blog.id}`}>
+              <BlogTitle>{blog.name}</BlogTitle>
+              <BlogInfo>{blog.info}</BlogInfo>
+            </Link>
+          </Blog>
+        ))}
+      </BlogsList>
     </>
   );
 }

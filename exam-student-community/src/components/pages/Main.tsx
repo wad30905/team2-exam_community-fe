@@ -28,19 +28,13 @@ function Main() {
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <TopBar
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            toggle={toggle}
-          />
-          {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
-          <Boards />
-        </>
-      )}
+      <TopBar
+        toggle={toggle}
+        mainService={"서비스명"}
+        needWrite={isLoggedIn ? true : false}
+      />
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
+      <Boards />
     </>
   );
 }
