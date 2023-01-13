@@ -209,3 +209,22 @@ export const DropdownBox = styled.div`
     gap: 10px;
   }
 `;
+
+export const LoadingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-height: 100vh;
+  transform: translateY(-50px);
+  span {
+    font-size: 30px;
+    color: ${(props) => props.theme.accentColor};
+    font-weight: 600;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+  }
+`;

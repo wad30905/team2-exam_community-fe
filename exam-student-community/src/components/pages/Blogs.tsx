@@ -10,8 +10,9 @@ import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import TopBar from "../molecules/TopBar";
 import { authCheck } from "../../api";
+import Loading from "../molecules/Loading";
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 480px;
   height: 100vh;
   margin: 0 auto;
@@ -142,34 +143,46 @@ function Blogs() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const checkUserAuth = async () => {
-      const authStatus = await authCheck();
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
       setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
     };
     checkUserAuth();
   }, []);
 
   return (
-    <Container>
-      <TopBar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
-      />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
-      <BlogsList>
-        {sampleBlogs.map((blog, index) => (
-          <Blog key={index}>
-            <Link to={`./${blog.id}`}>
-              <BlogTitle>{blog.name}</BlogTitle>
-              <BlogInfo>{blog.info}</BlogInfo>
-            </Link>
-          </Blog>
-        ))}
-      </BlogsList>
-    </Container>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Container>
+          <TopBar
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            toggle={toggle}
+          />
+          {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
+          <BlogsList>
+            {sampleBlogs.map((blog, index) => (
+              <Blog key={index}>
+                <Link to={`./${blog.id}`}>
+                  <BlogTitle>{blog.name}</BlogTitle>
+                  <BlogInfo>{blog.info}</BlogInfo>
+                </Link>
+              </Blog>
+            ))}
+          </BlogsList>
+        </Container>
+      )}
+    </>
   );
 }
 export default Blogs;

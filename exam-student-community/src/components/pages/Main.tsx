@@ -1,44 +1,46 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, SERVER_URL } from "../../api";
-import axios from "axios";
+import { authCheck } from "../../api";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import Cookies from "js-cookie";
+import Loading from "../molecules/Loading";
 
 function Main() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const checkUserAuth = async () => {
-    const authStatus = await authCheck();
-    console.log("atuhStatus : ", authStatus);
-    setIsLoggedIn(authStatus);
-    const value = Cookies.get("COOKIE_KEY");
-    console.log("COOKIE_KEY : ", value);
-  };
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
     checkUserAuth();
   }, []);
 
-  // const COOKIE_KEY = window.user;
-
   return (
     <>
-      ``
-      {isLoggedIn ? "유저다" : "유저아니다"}
-      <TopBar
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
-      />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
-      <Boards />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <TopBar
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            toggle={toggle}
+          />
+          {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
+          <Boards />
+        </>
+      )}
     </>
   );
 }

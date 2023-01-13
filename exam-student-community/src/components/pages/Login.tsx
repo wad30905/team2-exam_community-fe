@@ -25,11 +25,14 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const username = "야매";
 
   function onSubmit(data: IForm) {
     const checkLogin = async () => {
       const loginStatus = await loginCheck(data.id, data.password);
+      console.log("loginStatus : ", loginStatus);
       setIsLoggedIn(loginStatus);
+      console.log("navigate()");
       navigate("/");
     };
     checkLogin();
@@ -42,7 +45,7 @@ function Login() {
         setIsLoggedIn={setIsLoggedIn}
         toggle={toggle}
       />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input
