@@ -3,16 +3,18 @@ import { IconSearch, IconBar } from "./atoms/icons";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
+import Cookies from "js-cookie";
 
 interface ITopBarProps {
   toggle: VoidFunction;
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function TopBar({ toggle }: ITopBarProps) {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-
+function TopBar({ toggle, isLoggedIn, setIsLoggedIn }: ITopBarProps) {
   const onClickLogOut = () => {
     setIsLoggedIn(false);
+    Cookies.remove("COOKIE_KEY", { path: "/" });
     // const isLoggedInPromise = new Promise((resolve, reject) => {
     //   resolve(isLoggedIn);
     // });
@@ -31,7 +33,9 @@ function TopBar({ toggle }: ITopBarProps) {
           <IconBar />
         </span>
         <span className="logo">
-          <Link to="/">서비스명</Link>
+          <Link to="/" state={{ isLoggedIn: { isLoggedIn } }}>
+            서비스명
+          </Link>
         </span>
         {isLoggedIn ? (
           <span onClick={onClickLogOut}>

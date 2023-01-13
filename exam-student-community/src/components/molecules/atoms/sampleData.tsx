@@ -128,6 +128,49 @@ export const sampleBoards = [
       },
     ],
   },
+  {
+    index: 0,
+    name: "자유게시판",
+    total_num: 123,
+    posts: [
+      {
+        id: 0,
+        title: "자유 post1",
+        comment_num: 3,
+        click_num: 100,
+        writer: "손채환",
+        m_date: 1,
+        d_date: 3,
+      },
+      {
+        id: 1,
+        title: "자유 post2",
+        comment_num: 3,
+        click_num: 100,
+        writer: "손채환",
+        m_date: 1,
+        d_date: 3,
+      },
+      {
+        id: 2,
+        title: "자유 post3",
+        comment_num: 3,
+        click_num: 100,
+        writer: "손채환",
+        m_date: 1,
+        d_date: 3,
+      },
+      {
+        id: 3,
+        title: "자유 post4",
+        comment_num: 3,
+        click_num: 100,
+        writer: "손채환",
+        m_date: 1,
+        d_date: 3,
+      },
+    ],
+  },
 ];
 
 export const sampleBlogs = [

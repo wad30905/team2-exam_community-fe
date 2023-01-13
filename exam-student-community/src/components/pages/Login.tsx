@@ -27,20 +27,19 @@ function Login() {
   const toggle = () => setIsOpen(!isOpen);
 
   function onSubmit(data: IForm) {
-    // const loginResult = loginCheck(data.id, data.password);
-    // if (loginResult) {
-    //   setIsLoggedIn({ isLoggedIn: true });
-    //   navigate("/");
-    // }
-    setIsLoggedIn(true);
-    navigate("/");
+    const checkLogin = async () => {
+      const loginStatus = await loginCheck(data.id, data.password);
+      setIsLoggedIn(loginStatus);
+      navigate("/");
+    };
+    checkLogin();
   }
 
   return (
     <>
       <TopBar
-        // isLoggedIn={isLoggedIn}
-        // setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
         toggle={toggle}
       />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}

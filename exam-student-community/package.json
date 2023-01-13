@@ -2,6 +2,7 @@
   "name": "exam-student-community",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -10,7 +11,10 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
     "axios": "^1.2.2",
+    "http-proxy-middleware": "^2.0.6",
+    "js-cookie": "^3.0.1",
     "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.5",
     "react-icons": "^4.7.1",
@@ -47,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "@types/styled-components": "^5.1.26"

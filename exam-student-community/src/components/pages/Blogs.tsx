@@ -9,6 +9,7 @@ import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import TopBar from "../molecules/TopBar";
+import { authCheck } from "../../api";
 
 const Container = styled.div`
   max-width: 480px;
@@ -138,13 +139,25 @@ const Img = styled.img`
 `;
 
 function Blogs() {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authStatus = await authCheck();
+      setIsLoggedIn(authStatus);
+    };
+    checkUserAuth();
+  }, []);
+
   return (
     <Container>
-      <TopBar toggle={toggle} />
+      <TopBar
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        toggle={toggle}
+      />
       {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <BlogsList>
         {sampleBlogs.map((blog, index) => (
