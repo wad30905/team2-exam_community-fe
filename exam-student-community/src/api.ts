@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IBoards } from "./components/pages/Main";
 
 export const SERVER_URL = "http://172.30.1.38:8080";
 
@@ -57,6 +58,56 @@ export function loginCheck(dataId: string, dataPw: string) {
     });
   return false;
 };
+
+
+export function fetchBlogs(blogsId: string) {
+  return (
+    axios({
+      method: "get",
+      url: `'/blogs/:id'`,
+      data: {
+        blogsId,
+      },
+    })
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        console.log("서버 에러 :", error);
+      })
+  )
+}
+
+
+export function fetchBoards() {
+  return (
+    axios<IBoards[]>({
+      method: "get",
+      url: `/blogs`,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("서버 에러 :", error);
+      })
+  )
+}
+
+export function fetchBlog() {
+  return (
+    axios({
+      method: "get",
+      url: `/detail/:id'`,
+    })
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        console.log("서버 에러 :", error);
+      })
+  )
+}
 
 export function writeBlog(user_name: string, title: string, num:string, content: string ) {
   axios({

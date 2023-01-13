@@ -1,6 +1,10 @@
 import { Search, SearchContainer } from "./atoms/styled";
 
-function SearchBar(placeholder:string) {
+interface SearchBarProps {
+  placeholder: string;
+}
+
+function SearchBar({placeholder}: SearchBarProps) {
   return (
     <SearchContainer>
       <Search placeholder={placeholder}/>

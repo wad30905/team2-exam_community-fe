@@ -3,15 +3,33 @@ import { useLocation } from "react-router-dom";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, SERVER_URL } from "../../api";
+import { authCheck, fetchBoards, SERVER_URL } from "../../api";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
+import SearchBar from "../molecules/SearchBar";
+import { useQuery } from "react-query";
+import { Loader } from "../molecules/atoms/styled";
+export interface IPost {
+  id: Number,
+  title: String,
+  comment_num: Number,
+  click_num: Number,
+  writer: String,
+  m_date: Date,
+  d_date: Date,
+};
+
+export interface IBoards{
+  index: Number,
+  name: String,
+  total_num: Number,
+  posts: IPost[]
+};
 
 function Main() {
+  const {isLoading, data} = useQuery(["allBoards"], fetchBoards)
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
 
   const onClickApi = () => {
     console.log("api 실행");
@@ -28,26 +46,14 @@ function Main() {
       console.log("res.data : ", res.data);
     });
   };
-
-  //  유저 확인 코드. 들어가야함.
-  // 일단 recoil로 구현.
-  // 추후 authCheck api 가져와서 하기.
-  // api 동작하는지 확인 필요.
-  // useEffect(() => {
-  //   authCheck();
-  // }, []);
-
   return (
     <>
       <TopBar
-        // isLoggedIn={isLoggedIn}
-        // setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
         mainService={"서비스명"}
         needWrite={isLoggedIn ? true : false}
+        needSearch={true}
       />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
-      <Boards />
+      {isLoading ? (<Loader>로딩중...</Loader>): (<Boards data={data as any}/>)}
     </>
   );
 }

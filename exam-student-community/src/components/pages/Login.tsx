@@ -23,8 +23,6 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
 
   function onSubmit(data: IForm) {
     // const loginResult = loginCheck(data.id, data.password);
@@ -39,13 +37,10 @@ function Login() {
   return (
     <>
       <TopBar
-        // isLoggedIn={isLoggedIn}
-        // setIsLoggedIn={setIsLoggedIn}
-        toggle={toggle}
         mainService={"로그인"}
         needWrite={false}
+        needSearch={false}
       />
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input

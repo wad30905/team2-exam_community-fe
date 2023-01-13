@@ -3,79 +3,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
-import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ErrorMessage } from "../molecules/atoms/styled";
+import { ErrorMessage, Search, WriteSelectorContainer, WriteSubmitContainer } from "../molecules/atoms/styled";
 import { writeBlog } from "../../api";
-const Container = styled.div`
-  max-width: 480px;
-  height: 100vh;
-  margin: 0 auto;
-  background: white;
-`;
-
-const Selector = styled.select`
-  margin: 10px;
-  display: block;
-  height: 5vh;
-  width: 40%;
-  border-radius: 5px;
-  border: 1px solid #aaa;
-  margin-left: 5%;
-`;
-
-const WriteContents = styled.form``;
-
-const TitleInput = styled.input`
-  display: block;
-  height: 10vh;
-  width: 90%;
-  margin: 20px auto;
-  font-size: 25px;
-  overflow: hidden;
-  border: none;
-  border-bottom: 1px solid #aaa;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const ContentInput = styled.textarea`
-  display: block;
-  height: 50vh;
-  width: 90%;
-  margin: 10px auto;
-  border: none;
-  resize: none;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Submit = styled.button`
-  background: ${(props) => props.theme.accentColor};
-  color: white;
-  height: 10vh;
-  width: 70%;
-  margin: 20px auto;
-  display: block;
-  border: none;
-  font-size: 30px;
-`;
-
-const BlogsList = [
-  "게시판1",
-  "게시판2",
-  "게시판3",
-  "게시판4",
-  "게시판5",
-  "게시판6",
-];
-
-interface IWriteForm {
+import {WriteContents, WriteSelector , TitleInput, ContentInput, Submit} from "../molecules/atoms/styled"
+import {BlogsList} from "../molecules/atoms/sampleData";
+import {useQuery} from "react-query";
+interface IWriteForm
+ {
   BoardId: string,
   BlogTitle: string,
   BlogContent: string,
@@ -90,31 +28,30 @@ function Write() {
   } = useForm<IWriteForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
 
   function onSubmit(data: IWriteForm) {
     writeBlog("hongjin", data.BlogTitle, data.BoardId, data.BlogContent);
     navigate("/blogs");
   }
   return (
-    <Container>
-      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false}/>
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+    <>
+      <TopBar mainService={"자유게시판"} needWrite={false} needSearch={false}/>
       <WriteContents onSubmit={handleSubmit(onSubmit)}>
-        <Selector {...register("BoardId")}>
-          {BlogsList.map((Blogs) => (
-            <option>{Blogs}</option>))}
-        </Selector>
+        <WriteSelectorContainer>
+          <WriteSelector {...register("BoardId")}>
+            {BlogsList.map((Blogs) => (
+              <option>{Blogs}</option>))}
+          </WriteSelector>
+          </WriteSelectorContainer>
         <TitleInput placeholder="제목" {...register("BlogTitle",
         {required: "제목을 입력하세요"})}/>
-        <ErrorMessage>{errors?.BlogTitle?.message}</ErrorMessage>
         <ContentInput placeholder="내용을 입력하세요."  {...register("BlogContent",
         {required: "내용을 입력하세요"})}/>
-        <ErrorMessage>{errors?.BlogContent?.message}</ErrorMessage>
-        <Submit>작성 완료</Submit>
+        <WriteSubmitContainer>
+          <Submit>작성 완료</Submit>
+        </WriteSubmitContainer>
       </WriteContents>
-    </Container>
+    </>
   );
 }
 
