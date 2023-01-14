@@ -16,7 +16,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 main, menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, textarea {
   margin: 0;
   padding: 0;
   border: 0;
@@ -60,7 +60,11 @@ body{
   background-color:${(props) => props.theme.whiteColor};
   color:black;
   width: 33.3vw;
+  height: 100vh;
+  position: fixed;
   margin: 0 auto;
+  left: 0;
+  right: 0;
 }
 a{
   display:block;

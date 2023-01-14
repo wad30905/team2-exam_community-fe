@@ -104,12 +104,24 @@ export const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 10%;
-`;
+  height: 8vh;
+`
+export interface SearchProps {
+  placeholder: string;
+}
 export const Search = styled.input`
   width: 90%;
-  height: 40%;
-`;
+  height: 4vh;
+  placeholder: ${props => props.placeholder};
+  background-image: url(./images/SearchIcon.png);
+  background-repeat: no-repeat;
+  background-size: 13px;
+  background-position: 98%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  
+`
 
 export const Post = styled.li`
   display: flex;
@@ -251,7 +263,7 @@ export const TopContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 7%;
+  height: 7vh;
   padding: 5%;
 `;
 
@@ -323,4 +335,237 @@ export const InputBox = styled.div`
     color: gray;
     font-weight: 700;
   }
+`;
+
+export const Blog = styled.li`
+  a {
+    background-color: white;
+    color: black;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    padding: 5px;
+    transition: color 0.2s ease-in;
+  }
+  &:hover {
+    a {
+      color: ${(props) => props.theme.accentColor};
+    }
+  }
+`;
+export const BlogTitle = styled.h3`
+  font-weight: bold;
+  font-size: 18px;
+`;
+export const BlogInfo = styled.span`
+  font-size: 10px;
+  font-weight: lighter;
+`;
+
+export interface UserProps {
+  height: string;
+};
+
+export const User = styled.div<UserProps>`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: ${props => props.height};
+  width: 100%;
+`;
+
+export const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const Writer = styled.h3`
+  font-size: 20px;
+`;
+
+export const Details = styled.p`
+  font-size: 10px;
+  color: #aaa;
+`;
+
+export const Title = styled.h3`
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+export const Content = styled.div`
+  padding: 20px 10px;
+  p {
+    font-size: 15px;
+    background: white;
+  }
+`;
+export const ContentInfo = styled.p`
+  font-weight: lighter;
+  font-size: 10px;
+  color: #aaa;
+`;
+
+export const ContentBtns = styled.div`
+  margin-top: 10px;
+  height: 5vh;
+  display: flex;
+  justify-content: start;
+`;
+
+export const ContentBtn = styled.div`
+  display: flex;
+  width: 15%;
+  height: 100%;
+  color: black;
+  align-items: center;
+  span {
+    width: 50%;
+    font-size: 12px;
+    font-weight: bold;
+  }
+`;
+
+export const CommentBtn = styled.div`
+  width: 6vh;
+  background: purple;
+`;
+
+export const CommentsList = styled.ul`
+  margin: 10px 0;
+  list-style: none;
+`;
+
+export const Comment = styled.li`
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const CommenterBox = styled.div`
+  display: flex;
+  justify-content: start;
+  height: 3vh;
+  align-items: center;
+`;
+
+export const CommenterName = styled.p`
+  font-size: 15px;
+  font-weight: bold;
+`;
+
+export const CommentContent = styled.div`
+  margin-top: 5px;
+  p {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+`;
+
+export const CommentInputBox = styled.div`
+  padding: 20px 10px;
+`;
+
+export const CommentInput = styled.textarea`
+  display: block;
+  border: 1px solid black;
+  padding: 5px;
+  resize: none;
+  width: 100%;
+  margin: 10px auto;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const BlogMain = styled.div`
+  height: 90vh;
+  overflow: scroll;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: spac-between;
+`;
+
+export const BoardsList = styled.ul`
+  height: 85vh;
+  overflow: scroll;
+  padding: 10px;
+`;
+
+export const BlogsContainer = styled.ul`
+  list-style:none;
+  height: 85vh;
+  overflow: scroll;
+`
+
+export const WriteSelectorContainer = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+`
+export const WriteSelector = styled.select`
+  display: block;
+  width: 60%;
+  height: 60%;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+`;
+
+export const WriteContents = styled.form`
+  height: 93vh;
+`;
+
+export const TitleInput = styled.input`
+  padding: 10px 20px;
+  display: block;
+  height: 10%;
+  width: 100%;
+  font-size: 25px;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const ContentInput = styled.textarea`
+  padding: 20px;
+  font-size: 18px;
+  display: block;
+  width: 100%;
+  height: 60%;
+  border: none;
+  resize: none;
+  &:focus {
+    outline: none;
+  }
+`;
+export const WriteSubmitContainer = styled.div`
+  height: 20%;
+  display: flex;
+  justify-content: center;
+`
+export const Submit = styled.button`
+  background: ${(props) => props.theme.accentColor};
+  color: white;
+  height: 60%;
+  width: 80%;
+  border: none;
+  font-size: 30px;
+`;
+
+export const Loader = styled.span`
+  text-align: center;
+  display: block;
 `;
