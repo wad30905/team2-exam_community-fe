@@ -10,6 +10,7 @@ import SearchBar from "../molecules/SearchBar";
 import { useQuery } from "react-query";
 import { Loader } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
+import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
 
 export interface IPost {
   id: Number,
@@ -17,8 +18,8 @@ export interface IPost {
   comment_num: Number,
   click_num: Number,
   writer: String,
-  m_date: Date,
-  d_date: Date,
+  m_date: Number,
+  d_date: Number,
 };
 
 export interface IBoards{
@@ -71,6 +72,7 @@ function Main() {
         needSearch={true}
         userName={userName}
       />
+      <Boards data={sampleBoards}/>
     </>
   );
 }

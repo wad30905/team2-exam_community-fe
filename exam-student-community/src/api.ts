@@ -42,7 +42,8 @@ export async function loginCheck(dataId: string, dataPw: string) {
   } else {
     //로그인 실패
     console.log("loginCheck / 유저 아님");
-  }
+  }}
+
 export function fetchBlogs(blogsId: string) {
   return (
     axios({
@@ -111,4 +112,4 @@ export function writeBlog(user_name: string, title: string, num:string, content:
       console.log(error);
     });
   return false;
-}
+};
