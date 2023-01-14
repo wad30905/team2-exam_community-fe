@@ -1,6 +1,12 @@
-import { Search, TopBarBtns, TopContainer, TopBarMenu, TopBarMain } from "./atoms/styled";
-import { IconBar, IconSearch } from "./atoms/icons";
+import {
+  TopBarBtns,
+  TopContainer,
+  TopBarMenu,
+  TopBarMain,
+} from "./atoms/styled";
+import { IconBar } from "./atoms/icons";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { useState } from "react";
@@ -12,13 +18,15 @@ interface ITopBarProps {
   mainService: String;
   needWrite: Boolean,
   needSearch: Boolean,
+  userName: String
 }
 
-function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
+function TopBar({ mainService, needWrite, needSearch, userName}: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const onClickLogOut = () => {
     setIsLoggedIn(false);
+    Cookies.remove("COOKIE_KEY");
   };
   const toggle = () => setIsOpen(!isOpen);
   return (
@@ -42,7 +50,7 @@ function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
         )}
       </TopContainer>
       {needSearch ? <SearchBar placeholder={"asdf"} /> : null}
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} />}
+      {isOpen && <Dropdown isLoggedIn={isLoggedIn} userName={userName} />}
     </>
   );
 }

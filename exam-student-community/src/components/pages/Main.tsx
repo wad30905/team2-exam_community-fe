@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
@@ -10,6 +9,8 @@ import { loginState } from "../../store/atoms";
 import SearchBar from "../molecules/SearchBar";
 import { useQuery } from "react-query";
 import { Loader } from "../molecules/atoms/styled";
+import Loading from "../molecules/Loading";
+
 export interface IPost {
   id: Number,
   title: String,
@@ -28,8 +29,24 @@ export interface IBoards{
 };
 
 function Main() {
-  const {isLoading, data} = useQuery(["allBoards"], fetchBoards)
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const [userName, setUsername] = useState("");
+
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["userName"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    checkUserAuth();
+  }, []);
+
 
   const onClickApi = () => {
     console.log("api 실행");
@@ -52,8 +69,8 @@ function Main() {
         mainService={"서비스명"}
         needWrite={isLoggedIn ? true : false}
         needSearch={true}
+        userName={userName}
       />
-      {isLoading ? (<Loader>로딩중...</Loader>): (<Boards data={data as any}/>)}
     </>
   );
 }

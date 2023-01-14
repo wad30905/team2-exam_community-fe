@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const RegisterNavBar = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return <div></div>;
 };
 
 export default RegisterNavBar;

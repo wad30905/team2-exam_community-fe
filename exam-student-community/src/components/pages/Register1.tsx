@@ -9,25 +9,6 @@ import {
   RegisterButton,
   InputBox,
 } from "../molecules/atoms/styled";
-// const FormBox = styled.div`
-//   margin: 0 auto;
-//   width: 80%;
-// `;
-
-// const InputBox = styled.div`
-//   padding: 10px;
-// `;
-
-// const Input = styled.input`
-//   margin-top: 10px;
-//   width: 100%;
-//   padding: 7px;
-// `;
-
-// const Label = styled.label`
-//   color: gray;
-//   font-weight: 700;
-// `;
 
 const Register = () => {
   const [username, setUsername] = useState<string>(""); // 유저 이름

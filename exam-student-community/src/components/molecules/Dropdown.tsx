@@ -6,9 +6,10 @@ const options = ["기능1", "기능2", "기능3"];
 
 interface IDropdownProps {
   isLoggedIn: Boolean;
+  username: string;
 }
 
-function Dropdown({ isLoggedIn }: IDropdownProps) {
+function Dropdown({ isLoggedIn, username }: IDropdownProps) {
   if (!isLoggedIn) {
     return (
       <DropdownBox>
@@ -34,7 +35,7 @@ function Dropdown({ isLoggedIn }: IDropdownProps) {
   return (
     <DropdownBox>
       <h1 className="title">
-        <span>USER NAME님, 환영합니다</span>
+        <span>{username}님 환영합니다</span>
       </h1>
       <ul>
         {options.map((option, index) => (
