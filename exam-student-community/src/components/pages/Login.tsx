@@ -23,15 +23,19 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const userName = "로그인 안함";
 
   function onSubmit(data: IForm) {
-    // const loginResult = loginCheck(data.id, data.password);
-    // if (loginResult) {
-    //   setIsLoggedIn({ isLoggedIn: true });
-    //   navigate("/");
-    // }
-    setIsLoggedIn(true);
-    navigate("/");
+    const checkLogin = async () => {
+      const loginStatus = await loginCheck(data.id, data.password);
+      console.log("loginStatus : ", loginStatus);
+      setIsLoggedIn(loginStatus);
+      console.log("navigate()");
+      navigate("/");
+    };
+    checkLogin();
   }
 
   return (
@@ -40,6 +44,7 @@ function Login() {
         mainService={"로그인"}
         needWrite={false}
         needSearch={false}
+        userName={userName}
       />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>

@@ -99,7 +99,7 @@ export const BoardPost = styled.li`
 `;
 
 export const SearchContainer = styled.div`
-  background-color: ${props => props.theme.accentColor};
+  background-color: ${(props) => props.theme.accentColor};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -189,6 +189,25 @@ export const DropdownBox = styled.div`
   }
 `;
 
+export const LoadingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  min-height: 100vh;
+  transform: translateY(-50px);
+  span {
+    font-size: 30px;
+    color: ${(props) => props.theme.accentColor};
+    font-weight: 600;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 export const ErrorMessage = styled.span`
   display: block;
   margin-top: 5px;
@@ -209,7 +228,7 @@ export const TopBarMenu = styled.div`
   align-items: center;
   cursor: pointer;
   width: 20%;
-`
+`;
 
 export const TopBarMain = styled.div`
   background-color: ${(props) => props.theme.accentColor};
@@ -221,7 +240,7 @@ export const TopBarMain = styled.div`
   font-size: 1.1em;
   cursor: pointer;
   width: 60%;
-`
+`;
 
 export const TopBarBtns = styled.div`
   background-color: ${(props) => props.theme.accentColor};
@@ -230,16 +249,16 @@ export const TopBarBtns = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   width: 20%;
-  a{
-    margin: 5px;
+  a {
+    cursor: pointer;
+    padding: 5px;
     font-size: 0.0001em;
   }
 `;
 
 export const TopContainer = styled.div`
-  background-color: ${props => props.theme.accentColor};
+  background-color: ${(props) => props.theme.accentColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
