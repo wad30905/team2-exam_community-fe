@@ -10,24 +10,27 @@ import SearchBar from "../molecules/SearchBar";
 import { useQuery } from "react-query";
 import { Loader } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
+
+import DropdownMenu from "../molecules/Practice";
+
 import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
 
 export interface IPost {
-  id: Number,
-  title: String,
-  comment_num: Number,
-  click_num: Number,
-  writer: String,
-  m_date: Number,
-  d_date: Number,
-};
+  id: Number;
+  title: String;
+  comment_num: Number;
+  click_num: Number;
+  writer: String;
+  m_date: Number;
+  d_date: Number;
+}
 
-export interface IBoards{
-  index: Number,
-  name: String,
-  total_num: Number,
-  posts: IPost[]
-};
+export interface IBoards {
+  index: Number;
+  name: String;
+  total_num: Number;
+  posts: IPost[];
+}
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -47,7 +50,6 @@ function Main() {
     };
     checkUserAuth();
   }, []);
-
 
   const onClickApi = () => {
     console.log("api 실행");

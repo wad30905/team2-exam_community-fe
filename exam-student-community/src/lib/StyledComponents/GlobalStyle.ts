@@ -60,6 +60,7 @@ body{
   background-color:${(props) => props.theme.whiteColor};
   color:black;
   width: 33.3vw;
+  min-width:375px;
   height: 100vh;
   position: fixed;
   margin: 0 auto;

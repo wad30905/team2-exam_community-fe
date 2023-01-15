@@ -1,4 +1,3 @@
-
 export const sampleBoards = [
   {
     index: 0,
@@ -243,7 +242,6 @@ export const sampleBlogs = [
     info: "18분전|조회100|좋아요90",
   },
 ];
-
 
 export const BlogSampleData = {
   blogs: 1,

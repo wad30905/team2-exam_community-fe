@@ -54,10 +54,12 @@ export const LoginForm = styled.form`
 
   .signUpBox {
     display: flex;
-    padding: 20px;
+    padding: 20px 10px;
     justify-content: space-around;
+    gap: 10px;
     font-weight: 600;
     color: ${(props) => props.theme.grayColor};
+    font-size: 13px;
   }
 `;
 
@@ -105,14 +107,14 @@ export const SearchContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 8vh;
-`
+`;
 export interface SearchProps {
   placeholder: string;
 }
 export const Search = styled.input`
   width: 90%;
   height: 4vh;
-  placeholder: ${props => props.placeholder};
+  placeholder: ${(props) => props.placeholder};
   background-image: url(./images/SearchIcon.png);
   background-repeat: no-repeat;
   background-size: 13px;
@@ -120,8 +122,7 @@ export const Search = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  
-`
+`;
 
 export const Post = styled.li`
   display: flex;
@@ -162,7 +163,6 @@ export const Menu = styled.li`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
   &:hover {
     box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
     transform: translateY(-2px);
@@ -171,8 +171,11 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  transition: all 1s ease-in-out;
-  padding: 20px 50px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  opacity: 0;
+  transition: opacity 0.5s ease;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -300,10 +303,12 @@ export const GenderCheckBtn = styled.button`
     color: white;
   }
 `;
+
 export const FormBox = styled.div`
   margin: 0 auto;
   width: 80%;
 `;
+
 export const RegisterButton = styled.button`
   background-color: gray;
   color: white;
@@ -337,6 +342,21 @@ export const InputBox = styled.div`
   }
 `;
 
+export const BlogInfo = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 7vh;
+  width: 100%;
+  margin: 10px auto;
+`;
+
+export const ProfilePic = styled.div`
+  height: 6vh;
+  width: 6vh;
+  background: blue;
+  margin-right: 10px;
+`;
 export const Blog = styled.li`
   a {
     background-color: white;
@@ -360,20 +380,16 @@ export const BlogTitle = styled.h3`
   font-weight: bold;
   font-size: 18px;
 `;
-export const BlogInfo = styled.span`
-  font-size: 10px;
-  font-weight: lighter;
-`;
 
 export interface UserProps {
   height: string;
-};
+}
 
 export const User = styled.div<UserProps>`
   display: flex;
   justify-content: start;
   align-items: center;
-  height: ${props => props.height};
+  height: ${(props) => props.height};
   width: 100%;
 `;
 
@@ -390,6 +406,18 @@ export const Writer = styled.h3`
 export const Details = styled.p`
   font-size: 10px;
   color: #aaa;
+`;
+
+export const MainContents = styled.div`
+  min-height: 30vh;
+  padding: 5%;
+  width: 100%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #aaa;
 `;
 
 export const Title = styled.h3`
@@ -411,6 +439,7 @@ export const ContentInfo = styled.p`
   color: #aaa;
 `;
 
+export const ContentButtons = styled.div``;
 export const ContentBtns = styled.div`
   margin-top: 10px;
   height: 5vh;
@@ -418,6 +447,10 @@ export const ContentBtns = styled.div`
   justify-content: start;
 `;
 
+export const LikeBtn = styled.div`
+  width: 6vh;
+  background: green;
+`;
 export const ContentBtn = styled.div`
   display: flex;
   width: 15%;
@@ -470,22 +503,38 @@ export const CommentContent = styled.div`
   }
 `;
 
+export const CommentForm = styled.form`
+  position: relative;
+  button {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+  }
+`;
+
+export const CommentInput = styled.input`
+  display: block;
+
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  resize: none;
+  width: 100%;
+  height: 50px;
+`;
 export const CommentInputBox = styled.div`
   padding: 20px 10px;
 `;
 
-export const CommentInput = styled.textarea`
-  display: block;
-  border: 1px solid black;
-  padding: 5px;
-  resize: none;
-  width: 100%;
-  margin: 10px auto;
-  &:focus {
-    outline: none;
-  }
+export const CommentButton = styled.button`
+  height: 100%;
+  width: 10%;
+  font-size: 30px;
+  color: ${(props) => props.theme.accentColor};
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
-
 export const BlogMain = styled.div`
   height: 90vh;
   overflow: scroll;
@@ -502,10 +551,10 @@ export const BoardsList = styled.ul`
 `;
 
 export const BlogsContainer = styled.ul`
-  list-style:none;
+  list-style: none;
   height: 85vh;
   overflow: scroll;
-`
+`;
 
 export const WriteSelectorContainer = styled.div`
   display: flex;
@@ -513,7 +562,7 @@ export const WriteSelectorContainer = styled.div`
   align-items: center;
   height: 10%;
   width: 100%;
-`
+`;
 export const WriteSelector = styled.select`
   display: block;
   width: 60%;
@@ -555,7 +604,7 @@ export const WriteSubmitContainer = styled.div`
   height: 20%;
   display: flex;
   justify-content: center;
-`
+`;
 export const Submit = styled.button`
   background: ${(props) => props.theme.accentColor};
   color: white;
