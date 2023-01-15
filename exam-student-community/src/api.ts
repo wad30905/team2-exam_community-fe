@@ -1,14 +1,15 @@
 import axios from "axios";
 
-export const SERVER_URL = "http://localhost:8080";
+// export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
+export const SERVER_URL = "";
 
 export async function authCheck() {
   const response = await axios({
     method: "get",
-    url: `/auth`,
     withCredentials: true,
+    url: `${SERVER_URL}/login`,
   });
-  if (response.data.isAuthenticated) {
+  if ((response.data.message = "중복입니다")) {
     console.log("authCheck / 유저 맞음");
     console.log("response :", response);
   } else {
@@ -28,7 +29,7 @@ export async function loginCheck(dataId: string, dataPw: string) {
   // response 값에 따라 true / false 반환.
   const response = await axios({
     method: "post",
-    url: `/login`,
+    url: `${SERVER_URL}/login`,
     data: {
       user_id: dataId,
       user_pw: dataPw,
@@ -76,3 +77,43 @@ export function writeBlog(
     });
   return false;
 }
+
+// 댓글 관련 api (작성중)
+
+// data 생긴거 이렇다고 가정
+// {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
+
+// export async function getComment() {
+//   try {
+//     const response = await axios({
+//       method: "get",
+//       url: `/detail/:id`,
+//     });
+//     return response.comments; //
+//   } catch (error) {
+//     console.log("서버 에러 :", error);
+//   }
+// }
+
+// export async function writeComment(newComment: {
+//   commenter: string;
+//   commentcontent: string;
+// }) {
+//   try {
+//     const response = await axios({
+//       method: "post",
+//       url: `/detail/:id`,
+//       data: {
+//         // [...previousData, {blogs:number, ~~, comments:[...prevComments, newComment] }];
+//       },
+//     });
+//     if(200){// 잘 들어갔으면
+//       return response.comments // 다시 댓글목록 받아오기
+//     } else{
+//       console.log("에러");
+//     }
+//     }
+//   } catch (error) {
+//     console.log("서버 에러 :", error);
+//   }
+// }

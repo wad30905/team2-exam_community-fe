@@ -6,6 +6,7 @@ import { authCheck } from "../../api";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import Loading from "../molecules/Loading";
+import DropdownMenu from "../molecules/Practice";
 
 function Main() {
   const [isOpen, setIsOpen] = useState(false);

@@ -8,163 +8,53 @@ import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { authCheck } from "../../api";
+import { BlogSampleData } from "../molecules/atoms/sampleData";
+import {
+  BlogInfo,
+  ProfilePic,
+  InfoBox,
+  Writer,
+  Details,
+  MainContents,
+  Title,
+  Content,
+  ContentButtons,
+  ContentInfo,
+  LikeBtn,
+  CommentBtn,
+  CommentsList,
+  Comment,
+  CommenterBox,
+  CommenterPic,
+  CommenterName,
+  CommentContent,
+  CommentInput,
+  CommentForm,
+  CommentButton,
+} from "../molecules/atoms/styled";
+import { useForm } from "react-hook-form";
+import { IconSend } from "../molecules/atoms/icons";
 
-const BlogInfo = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  height: 7vh;
-  width: 100%;
-  margin: 10px auto;
-`;
+interface IForm {
+  comment: string;
+}
 
-const ProfilePic = styled.div`
-  height: 6vh;
-  width: 6vh;
-  background: blue;
-  margin-right: 10px;
-`;
-const InfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+interface IBlogData {
+  blogs: number;
+  writer: string;
+  time: string;
+  title: string;
+  content: string;
+  nRead: number;
+  likes: number;
+  comment: number;
+  comments: { commenter: string; commentcontent: string }[];
+}
 
-const Writer = styled.h3`
-  font-size: 20px;
-`;
-
-const Details = styled.p`
-  font-size: 10px;
-  color: #aaa;
-`;
-
-const MainContents = styled.div`
-  min-height: 30vh;
-  padding: 5%;
-  width: 100%;
-  margin: 10px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 2px solid #aaa;
-`;
-const Title = styled.h3`
-  font-weight: bold;
-  font-size: 20px;
-`;
-
-const Content = styled.div`
-  min-height: 18vh;
-  p {
-    overflow-x: hidden;
-    font-size: 15px;
-    background: white;
-  }
-`;
-const ContentInfo = styled.p`
-  font-weight: lighter;
-  font-size: 10px;
-  color: #aaa;
-`;
-
-const ContentButtons = styled.div`
-  height: 5vh;
-  display: flex;
-  justify-content: start;
-`;
-
-const LikeBtn = styled.div`
-  width: 6vh;
-  background: green;
-`;
-
-const CommentBtn = styled.div`
-  width: 6vh;
-  background: purple;
-`;
-
-const CommentsList = styled.ul`
-  margin: 10px 0;
-  list-style: none;
-`;
-
-const Comment = styled.li`
-  width: 100%;
-  padding: 10px;
-  border-bottom: 1px solid #aaa;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const CommenterBox = styled.div`
-  display: flex;
-  justify-content: start;
-  height: 3vh;
-  align-items: center;
-`;
-
-const CommenterPic = styled.div`
-  height: 3vh;
-  width: 3vh;
-  background: blue;
-`;
-
-const CommenterName = styled.p`
-  font-size: 15px;
-  font-weight: bold;
-`;
-
-const CommentContent = styled.div`
-  p {
-    font-size: 15px;
-  }
-`;
-
-const CommentInputBox = styled.div`
-  padding: 20px 10px;
-`;
-
-const CommentInput = styled.textarea`
-  display: block;
-  border: 1px solid black;
-  padding: 5px;
-  resize: none;
-  width: 100%;
-  margin: 10px auto;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const BlogSampleData = {
-  blogs: 1,
-  writer: "박홍진",
-  time: "2023-01-10 12:12",
-  title: "올해 강의 새로나왔는데 같이 들을 분 계신가요?",
-  content: `제곧내입니다.
-  어쩌구 저쩌구해서 어쩌구 저쩌구 본문 내용을 채우고 있습니다.
-  어쩌구 저쩌구해서 어쩌구 저쩌구 본문 내용을 채우고 있습니다.`,
-  nRead: 82,
-  likes: 80,
-  comment: 3,
-  comments: [
-    {
-      commenter: "김민석",
-      commentcontent: "안사요 안사~",
-    },
-    {
-      commenter: "김은경",
-      commentcontent: "저 들을까요",
-    },
-    {
-      commenter: "박홍진",
-      commentcontent: "ㅋ",
-    },
-  ],
-};
+interface IComment {
+  commenter: string;
+  commentcontent: string;
+}
 
 function Blog() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -172,6 +62,32 @@ function Blog() {
   const toggle = () => setIsOpen(!isOpen);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
+
+  const { register, handleSubmit, reset } = useForm<IForm>();
+  const [blogData, setBlogData] = useState<IBlogData>();
+  const [commentData, setCommentData] = useState<IComment[]>();
+
+  function onSubmit(data: IForm) {
+    console.log("--------------");
+    console.log("submit !!");
+    console.log("useState 샘플데이터: ", commentData);
+    console.log("작성자명 : ", username);
+    console.log("댓글내용 : ", data.comment);
+    console.log("--------------");
+    console.log("commentData :", commentData);
+    console.log("--------------");
+
+    setCommentData((prevComments: any) => {
+      return [
+        ...prevComments,
+        { commenter: username, commentcontent: data.comment },
+      ];
+    });
+    // setBlogData 대신 axios.post (해서 blogData 보내야함.)
+    // 보낸후에 다시 받아오는 코드는 useEffect에 넣을지, 여기에 넣을지.
+
+    reset();
+  }
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -183,6 +99,8 @@ function Blog() {
       setIsLoading(false);
     };
     checkUserAuth();
+    setBlogData(BlogSampleData);
+    setCommentData(BlogSampleData.comments);
   }, []);
 
   return (
@@ -208,7 +126,7 @@ function Blog() {
         </ContentButtons>
       </MainContents>
       <CommentsList>
-        {BlogSampleData.comments.map((comment) => (
+        {commentData?.map((comment) => (
           <Comment>
             <CommenterBox>
               <CommenterPic />
@@ -220,9 +138,19 @@ function Blog() {
           </Comment>
         ))}
       </CommentsList>
-      <CommentInputBox>
-        <CommentInput placeholder="댓글을 입력해주세요."></CommentInput>
-      </CommentInputBox>
+
+      <CommentForm onSubmit={handleSubmit(onSubmit)}>
+        <CommentInput
+          {...register("comment", {
+            required: "댓글을 입력해주세요",
+          })}
+          type="comment"
+          name="comment"
+        />
+        <CommentButton type="submit">
+          <IconSend />
+        </CommentButton>
+      </CommentForm>
     </>
   );
 }

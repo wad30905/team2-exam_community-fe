@@ -54,10 +54,12 @@ export const LoginForm = styled.form`
 
   .signUpBox {
     display: flex;
-    padding: 20px;
+    padding: 20px 10px;
     justify-content: space-around;
+    gap: 10px;
     font-weight: 600;
     color: ${(props) => props.theme.grayColor};
+    font-size: 13px;
   }
 `;
 
@@ -150,7 +152,6 @@ export const Menu = styled.li`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
   &:hover {
     box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
     transform: translateY(-2px);
@@ -159,8 +160,11 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  transition: all 1s ease-in-out;
-  padding: 20px 50px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  opacity: 0;
+  transition: opacity 0.5s ease;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -288,10 +292,12 @@ export const GenderCheckBtn = styled.button`
     color: white;
   }
 `;
+
 export const FormBox = styled.div`
   margin: 0 auto;
   width: 80%;
 `;
+
 export const RegisterButton = styled.button`
   background-color: gray;
   color: white;
@@ -323,4 +329,152 @@ export const InputBox = styled.div`
     color: gray;
     font-weight: 700;
   }
+`;
+
+export const BlogInfo = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 7vh;
+  width: 100%;
+  margin: 10px auto;
+`;
+
+export const ProfilePic = styled.div`
+  height: 6vh;
+  width: 6vh;
+  background: blue;
+  margin-right: 10px;
+`;
+export const InfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const Writer = styled.h3`
+  font-size: 20px;
+`;
+
+export const Details = styled.p`
+  font-size: 10px;
+  color: #aaa;
+`;
+
+export const MainContents = styled.div`
+  min-height: 30vh;
+  padding: 5%;
+  width: 100%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #aaa;
+`;
+export const Title = styled.h3`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+export const Content = styled.div`
+  min-height: 18vh;
+  p {
+    overflow-x: hidden;
+    font-size: 15px;
+    background: white;
+  }
+`;
+export const ContentInfo = styled.p`
+  font-weight: lighter;
+  font-size: 10px;
+  color: #aaa;
+`;
+
+export const ContentButtons = styled.div`
+  height: 5vh;
+  display: flex;
+  justify-content: start;
+`;
+
+export const LikeBtn = styled.div`
+  width: 6vh;
+  background: green;
+`;
+
+export const CommentBtn = styled.div`
+  width: 6vh;
+  background: purple;
+`;
+
+export const CommentsList = styled.ul`
+  margin: 10px 0;
+  list-style: none;
+`;
+
+export const Comment = styled.li`
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #aaa;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+export const CommenterBox = styled.div`
+  display: flex;
+  justify-content: start;
+  height: 3vh;
+  align-items: center;
+`;
+
+export const CommenterPic = styled.div`
+  height: 3vh;
+  width: 3vh;
+  background: blue;
+`;
+
+export const CommenterName = styled.p`
+  font-size: 15px;
+  font-weight: bold;
+`;
+
+export const CommentContent = styled.div`
+  p {
+    font-size: 15px;
+  }
+`;
+
+export const CommentForm = styled.form`
+  position: relative;
+  button {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+  }
+`;
+
+export const CommentInput = styled.input`
+  display: block;
+
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  resize: none;
+  width: 100%;
+  height: 50px;
+  margin: 10px auto;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CommentButton = styled.button`
+  height: 100%;
+  width: 10%;
+  font-size: 30px;
+  color: ${(props) => props.theme.accentColor};
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;

@@ -1,4 +1,3 @@
-
 export const sampleBoards = [
   {
     index: 0,
@@ -261,3 +260,30 @@ export const sampleBlogs = [
     info: "18분전|조회100|좋아요90",
   },
 ];
+
+export const BlogSampleData = {
+  blogs: 1,
+  writer: "박홍진",
+  time: "2023-01-10 12:12",
+  title: "올해 강의 새로나왔는데 같이 들을 분 계신가요?",
+  content: `제곧내입니다.
+  어쩌구 저쩌구해서 어쩌구 저쩌구 본문 내용을 채우고 있습니다.
+  어쩌구 저쩌구해서 어쩌구 저쩌구 본문 내용을 채우고 있습니다.`,
+  nRead: 82,
+  likes: 80,
+  comment: 3,
+  comments: [
+    {
+      commenter: "김민석",
+      commentcontent: "안사요 안사~",
+    },
+    {
+      commenter: "김은경",
+      commentcontent: "저 들을까요",
+    },
+    {
+      commenter: "박홍진",
+      commentcontent: "ㅋ",
+    },
+  ],
+};
