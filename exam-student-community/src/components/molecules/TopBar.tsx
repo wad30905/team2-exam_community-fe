@@ -9,10 +9,11 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
 import SearchBar from "./SearchBar";
+import { authCheck, fetchBoards, SERVER_URL } from "../../api";
 
 interface ITopBarProps {
   mainService: String;
@@ -21,19 +22,26 @@ interface ITopBarProps {
   userName: String;
 }
 
-function TopBar({
-  mainService,
-  needWrite,
-  needSearch,
-  userName,
-}: ITopBarProps) {
+function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
-  const onClickLogOut = () => {
-    setIsLoggedIn(false);
-    Cookies.remove("COOKIE_KEY");
-  };
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = () => setIsOpen((current) => !current);
+  const [isLoading0, setIsLoading] = useState(true);
+  const [userName, setUsername] = useState("");
+  console.log(isOpen);
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["userName"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    checkUserAuth();
+  }, []);
+
+  const onClickLogOut = () => setIsLoggedIn(false);
   return (
     <>
       <TopContainer>
@@ -55,7 +63,7 @@ function TopBar({
         )}
       </TopContainer>
       {needSearch ? <SearchBar placeholder={"asdf"} /> : null}
-      {isOpen && <Dropdown isLoggedIn={isLoggedIn} userName={userName} />}
+      {isOpen ? <Dropdown /> : null}
     </>
   );
 }

@@ -6,13 +6,13 @@ import { sampleBoards } from "./atoms/sampleData";
 import { IBoards } from "../pages/Main";
 
 interface IBoards_ {
-  data : IBoards[]
+  data : IBoards[] | undefined
 }
 
 function Boards({data} :  IBoards_) {
 return (
   <BoardsList>
-    {data?.map((board, index) => {
+    {data && data?.map((board, index) => {
       return (
       <Board key={index}>
         <Link to={`/blogs`} state={{blogsId: index, blogsName: board.name}}>

@@ -11,6 +11,7 @@ export async function authCheck() {
     url: `${SERVER_URL}/login`,
   });
   if (response.data.isAuthenticated) {
+    console.log("authCheck / 유저 맞음");
     console.log("response :", response);
   } else {
     console.log("유저 아님");
@@ -70,10 +71,6 @@ export async function fetchBoards() {
     url: `${SERVER_URL}/blogs/1`,
   });
   console.log("fetchBoards :", response);
-  //  catch (error) {
-  //   console.error(error);
-  //   return false;
-  // }
   return response;
 }
 
@@ -121,6 +118,7 @@ export function writeBlog(
   })
     .then((response) => {
       console.log(response);
+      console.log("작성 성공");
       return true;
     })
     .catch((error) => {
@@ -129,7 +127,20 @@ export function writeBlog(
   return false;
 }
 
-// 댓글 관련 api (작성중)
+export function fetchBoard() {
+  axios({
+    method: "get",
+    url: `${SERVER_URL}/detail/1`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 // data 생긴거 이렇다고 가정
 // {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
@@ -197,3 +208,17 @@ export async function getComment() {
 //       });
 //     return false;
 //   }
+export function deleteBlog() {
+  axios({
+    method: "delete",
+    url: `${SERVER_URL}/detail/1`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("삭제 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

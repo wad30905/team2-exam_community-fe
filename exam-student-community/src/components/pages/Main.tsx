@@ -34,10 +34,10 @@ export interface IBoards {
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [userName, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -61,7 +61,7 @@ function Main() {
         needSearch={true}
         userName={userName}
       />
-      <Boards data={sampleBoards} />
+      {isLoading ? null : <Boards data={sampleBoards} />}
     </>
   );
 }
