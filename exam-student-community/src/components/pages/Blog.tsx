@@ -2,39 +2,23 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Blogs from "./Blogs";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { authCheck } from "../../api";
 import { BlogSampleData } from "../molecules/atoms/sampleData";
-import {
-  BlogInfo,
-  ProfilePic,
-  InfoBox,
-  Writer,
-  Details,
-  MainContents,
-  Title,
-  Content,
-  ContentButtons,
-  ContentInfo,
-  LikeBtn,
-  CommentBtn,
-  CommentsList,
-  Comment,
-  CommenterBox,
-  CommenterPic,
-  CommenterName,
-  CommentContent,
-  CommentInput,
-  CommentForm,
-  CommentButton,
-} from "../molecules/atoms/styled";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
-
+import BlogMainContents from "../molecules/BlogMainContents";
+import Comments from "../molecules/atoms/Comments";
+import { BlogMain } from "../molecules/atoms/styled";
+import { MdStayCurrentLandscape } from "react-icons/md";
+import {
+  CommentForm,
+  CommentInput,
+  CommentButton,
+} from "../molecules/atoms/styled";
 interface IForm {
   comment: string;
 }
@@ -61,7 +45,7 @@ function Blog() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [isLoading, setIsLoading] = useState(true);
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
 
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [blogData, setBlogData] = useState<IBlogData>();
@@ -71,7 +55,7 @@ function Blog() {
     console.log("--------------");
     console.log("submit !!");
     console.log("useState 샘플데이터: ", commentData);
-    console.log("작성자명 : ", username);
+    console.log("작성자명 : ", userName);
     console.log("댓글내용 : ", data.comment);
     console.log("--------------");
     console.log("commentData :", commentData);
@@ -80,7 +64,7 @@ function Blog() {
     setCommentData((prevComments: any) => {
       return [
         ...prevComments,
-        { commenter: username, commentcontent: data.comment },
+        { commenter: userName, commentcontent: data.comment },
       ];
     });
     // setBlogData 대신 axios.post (해서 blogData 보내야함.)
@@ -95,50 +79,25 @@ function Blog() {
       const authStatus = authData["isAuthenticated"];
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
-      setUsername(authName);
+      setUserName(authName);
       setIsLoading(false);
     };
     checkUserAuth();
     setBlogData(BlogSampleData);
     setCommentData(BlogSampleData.comments);
   }, []);
-
   return (
     <>
-      <TopBar toggle={toggle} mainService={"자유게시판"} needWrite={false} />
-      {isOpen && <Dropdown username={username} isLoggedIn={isLoggedIn} />}
-      <MainContents>
-        <BlogInfo>
-          <ProfilePic></ProfilePic>
-          <InfoBox>
-            <Writer>{BlogSampleData.writer}</Writer>
-            <Details>{BlogSampleData.time}</Details>
-          </InfoBox>
-        </BlogInfo>
-        <Title>{BlogSampleData.title}</Title>
-        <Content>
-          <p>{BlogSampleData.content}</p>
-        </Content>
-        <ContentInfo>조회수: {BlogSampleData.nRead}</ContentInfo>
-        <ContentButtons>
-          <LikeBtn></LikeBtn>
-          <CommentBtn></CommentBtn>
-        </ContentButtons>
-      </MainContents>
-      <CommentsList>
-        {commentData?.map((comment) => (
-          <Comment>
-            <CommenterBox>
-              <CommenterPic />
-              <CommenterName>{comment.commenter}</CommenterName>
-            </CommenterBox>
-            <CommentContent>
-              <p>{comment.commentcontent}</p>
-            </CommentContent>
-          </Comment>
-        ))}
-      </CommentsList>
-
+      <TopBar
+        mainService={"자유게시판"}
+        needWrite={false}
+        needSearch={false}
+        userName={userName}
+      />
+      <BlogMain>
+        <BlogMainContents />
+        <Comments />
+      </BlogMain>
       <CommentForm onSubmit={handleSubmit(onSubmit)}>
         <CommentInput
           {...register("comment", {
