@@ -1,12 +1,12 @@
 import axios from "axios";
 import { IBoards } from "./components/pages/Main";
 
-export const SERVER_URL = "http://localhost:8080";
-
+export const SERVER_URL = "";
+// export const SERVER_URL = "http://192.168.0.11:8080";
 export async function authCheck() {
   const response = await axios({
     method: "get",
-    url: `/auth`,
+    url: `${SERVER_URL}/login`,
     withCredentials: true,
   });
   if (response.data.isAuthenticated) {
@@ -46,7 +46,7 @@ export async function loginCheck(dataId: string, dataPw: string) {
 
 export function fetchBlogs(blogsId: string) {
   return (
-    axios({
+    axios<IBoards[]>({
       method: "get",
       url: `'/blogs/:id'`,
       data: {
@@ -65,15 +65,16 @@ export function fetchBlogs(blogsId: string) {
 
 export function fetchBoards() {
   return (
-    axios<IBoards[]>({
+    axios({
       method: "get",
-      url: `/blogs`,
+      url: `${SERVER_URL}/blogs`,
     })
       .then((response) => {
         return response.data;
+        console.log(response.data);
       })
       .catch((error) => {
-        console.log("서버 에러 :", error);
+        console.log("ㅁㅇㄹ :", error);
       })
   )
 }
