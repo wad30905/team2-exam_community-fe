@@ -6,7 +6,7 @@ import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import { authCheck } from "../../api";
+import { authCheck, getComment } from "../../api";
 import { BlogSampleData } from "../molecules/atoms/sampleData";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";

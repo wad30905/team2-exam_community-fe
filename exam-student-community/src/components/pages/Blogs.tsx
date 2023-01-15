@@ -14,10 +14,10 @@ interface BlogsState {
   state: {
     blogsId: number;
     blogsName: String;
-  }
+  };
 }
 function Blogs() {
-  const {state} = useLocation() as BlogsState;
+  const { state } = useLocation() as BlogsState;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -37,8 +37,13 @@ function Blogs() {
   }, []);
   return (
     <>
-      <TopBar mainService={state.blogsName} needWrite={isLoggedIn ? true : false} needSearch={true} userName={userName}/>
-      <BlogsList/>
+      <TopBar
+        mainService={state.blogsName}
+        needWrite={isLoggedIn ? true : false}
+        needSearch={true}
+        userName={userName}
+      />
+      <BlogsList />
     </>
   );
 }

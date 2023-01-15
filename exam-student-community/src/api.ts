@@ -10,12 +10,13 @@ export async function authCheck() {
     withCredentials: true,
     url: `${SERVER_URL}/login`,
   });
-  if ((response.data.message = "중복입니다")) {
-    console.log("authCheck / 유저 맞음");
+  if (response.data.isAuthenticated) {
     console.log("response :", response);
   } else {
-    console.log("authCheck / 유저 아님");
+    console.log("유저 아님");
+    console.log(response);
   }
+
   //  catch (error) {
   //   console.error(error);
   //   return false;
@@ -46,7 +47,7 @@ export async function loginCheck(dataId: string, dataPw: string) {
   }
 }
 
-export function fetchBlogs(blogsId: string) {
+export async function fetchBlogs(blogsId: string) {
   return axios({
     method: "get",
     url: `'/blogs/:id'`,
@@ -62,18 +63,32 @@ export function fetchBlogs(blogsId: string) {
     });
 }
 
-export function fetchBoards() {
-  return axios<IBoards[]>({
+export async function fetchBoards() {
+  const response = await axios({
     method: "get",
-    url: `/blogs`,
-  })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log("서버 에러 :", error);
-    });
+    withCredentials: true,
+    url: `${SERVER_URL}/blogs/1`,
+  });
+  console.log("fetchBoards :", response);
+  //  catch (error) {
+  //   console.error(error);
+  //   return false;
+  // }
+  return response;
 }
+
+// export function fetchBoards() {
+//   return axios<IBoards[]>({
+//     method: "get",
+//     url: `/blogs`,
+//   })
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       console.log("서버 에러 :", error);
+//     });
+// }
 
 export function fetchBlog() {
   return axios({
@@ -119,17 +134,21 @@ export function writeBlog(
 // data 생긴거 이렇다고 가정
 // {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
-// export async function getComment() {
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `/detail/:id`,
-//     });
-//     return response.comments; //
-//   } catch (error) {
-//     console.log("서버 에러 :", error);
-//   }
-// }
+export async function getComment() {
+  const response = await axios({
+    method: "get",
+    withCredentials: true,
+    url: `/detail/1`, // /detail/:id
+  });
+  console.log("response :", response);
+  console.log("response.data :", response.data);
+  console.log("response.data[0] :", response.data[0]);
+  //  catch (error) {
+  //   console.error(error);
+  //   return false;
+  // }
+  return response;
+}
 
 // export async function writeComment(newComment: {
 //   commenter: string;
@@ -152,4 +171,29 @@ export function writeBlog(
 //   } catch (error) {
 //     console.log("서버 에러 :", error);
 //   }
-// }
+
+//   export function writeComment(
+//     user_name: string,
+//     title: string,
+//     num: string,
+//     content: string
+//   ) {
+//     axios({
+//       method: "post",
+//       url: `${SERVER_URL}/detail`,
+//       data: {
+//         user_name,
+//         title,
+//         num,
+//         content,
+//       },
+//     })
+//       .then((response) => {
+//         console.log(response);
+//         return true;
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//     return false;
+//   }

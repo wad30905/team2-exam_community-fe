@@ -114,7 +114,7 @@ export interface SearchProps {
 export const Search = styled.input`
   width: 90%;
   height: 4vh;
-  placeholder: ${(props) => props.placeholder};
+  /* placeholder: ${(props) => props.placeholder}; */
   background-image: url(./images/SearchIcon.png);
   background-repeat: no-repeat;
   background-size: 13px;

@@ -16,12 +16,17 @@ import SearchBar from "./SearchBar";
 
 interface ITopBarProps {
   mainService: String;
-  needWrite: Boolean,
-  needSearch: Boolean,
-  userName: String
+  needWrite: Boolean;
+  needSearch: Boolean;
+  userName: String;
 }
 
-function TopBar({ mainService, needWrite, needSearch, userName}: ITopBarProps) {
+function TopBar({
+  mainService,
+  needWrite,
+  needSearch,
+  userName,
+}: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const onClickLogOut = () => {
@@ -40,7 +45,7 @@ function TopBar({ mainService, needWrite, needSearch, userName}: ITopBarProps) {
         </TopBarMain>
         {isLoggedIn ? (
           <TopBarBtns onClick={onClickLogOut}>
-            {needWrite ? <Link to="/blogs/write" >글쓰기</Link> : null}
+            {needWrite ? <Link to="/blogs/write">글쓰기</Link> : null}
             <Link to="/">로그아웃</Link>
           </TopBarBtns>
         ) : (

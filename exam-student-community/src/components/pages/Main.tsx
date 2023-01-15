@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, fetchBoards, SERVER_URL } from "../../api";
+import { authCheck, fetchBoards, getComment, SERVER_URL } from "../../api";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
@@ -47,25 +47,12 @@ function Main() {
       setIsLoggedIn(authStatus);
       setUsername(authName);
       setIsLoading(false);
+      getComment();
     };
     checkUserAuth();
+    fetchBoards();
   }, []);
 
-  const onClickApi = () => {
-    console.log("api 실행");
-
-    axios({
-      method: "post",
-      url: `${SERVER_URL}/test`,
-      data: {
-        test: 1,
-        data: "data",
-      },
-    }).then((res) => {
-      console.log("res : ", res);
-      console.log("res.data : ", res.data);
-    });
-  };
   return (
     <>
       <TopBar
