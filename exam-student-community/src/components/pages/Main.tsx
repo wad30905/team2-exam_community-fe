@@ -74,7 +74,7 @@ function Main() {
         needSearch={true}
         userName={userName}
       />
-      {isLoading ? null : <Boards data={data}/>}
+      {isLoading ? null : <Boards data={sampleBoards}/>}
     </>
   );
 }

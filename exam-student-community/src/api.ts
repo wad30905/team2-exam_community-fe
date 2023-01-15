@@ -10,7 +10,7 @@ export async function authCheck() {
     withCredentials: true,
     url: `${SERVER_URL}/login`,
   });
-  if ((response.data.message = "중복입니다")) {
+  if ((response.data.isAuthenticated)) {
     console.log("authCheck / 유저 맞음");
     console.log("response :", response);
   } else {
@@ -109,6 +109,7 @@ export function writeBlog(
   })
     .then((response) => {
       console.log(response);
+      console.log("작성 성공");
       return true;
     })
     .catch((error) => {
@@ -117,42 +118,32 @@ export function writeBlog(
   return false;
 }
 
-// 댓글 관련 api (작성중)
+export function fetchBoard() {
+  axios({
+    method: "get",
+    url: `${SERVER_URL}/detail/1`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
-// data 생긴거 이렇다고 가정
-// {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
-
-// export async function getComment() {
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `/detail/:id`,
-//     });
-//     return response.comments; //
-//   } catch (error) {
-//     console.log("서버 에러 :", error);
-//   }
-// }
-
-// export async function writeComment(newComment: {
-//   commenter: string;
-//   commentcontent: string;
-// }) {
-//   try {
-//     const response = await axios({
-//       method: "post",
-//       url: `/detail/:id`,
-//       data: {
-//         // [...previousData, {blogs:number, ~~, comments:[...prevComments, newComment] }];
-//       },
-//     });
-//     if(200){// 잘 들어갔으면
-//       return response.comments // 다시 댓글목록 받아오기
-//     } else{
-//       console.log("에러");
-//     }
-//     }
-//   } catch (error) {
-//     console.log("서버 에러 :", error);
-//   }
-// }
+export function deleteBlog() {
+  axios({
+    method: "delete",
+    url: `${SERVER_URL}/detail/1`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("삭제 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

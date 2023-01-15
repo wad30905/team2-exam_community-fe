@@ -47,7 +47,7 @@ function Write() {
   }, []);
 
   function onSubmit(data: IWriteForm) {
-    writeBlog("hongjin", data.BlogTitle, data.BoardId, data.BlogContent);
+    writeBlog(userName, data.BlogTitle, data.BoardId, data.BlogContent);
     navigate("/blogs");
   }
   return (
