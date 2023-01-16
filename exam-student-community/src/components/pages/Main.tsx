@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { useQuery } from "react-query";
-
+import { useState, useEffect } from "react";
 import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
 import { Loader } from "../molecules/atoms/styled";
 
@@ -30,17 +30,12 @@ function Main() {
       const boardsData = await fetchBoards();
       setBoardsData(boardsData);
     };
-
     checkUserAuth();
     getBoards();
   }, []);
   return (
     <>
-      <TopBar
-        mainService={"서비스명"}
-        needWrite={true}
-        needSearch={true}
-      />
+      <TopBar mainService={"서비스명"} needWrite={true} needSearch={true} />
       {/* {isLoading ? null : <Boards data={sampleBoards}} */}
       <Boards data={boardsData} />
     </>

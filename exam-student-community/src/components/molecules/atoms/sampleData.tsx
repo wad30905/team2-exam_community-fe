@@ -1,4 +1,4 @@
-import { IBoards } from "../../pages/Main";
+
 
 export const sampleBoards = [
   {
