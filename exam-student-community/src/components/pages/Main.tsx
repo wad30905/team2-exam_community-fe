@@ -30,7 +30,6 @@ function Main() {
       const boardsData = await fetchBoards();
       setBoardsData(boardsData);
     };
-
     checkUserAuth();
     getBoards();
   }, []);

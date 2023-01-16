@@ -18,6 +18,7 @@ import {
   IconLiked,
 } from "./atoms/icons";
 import { useState } from "react";
+
 function BlogMainContents() {
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
