@@ -73,7 +73,6 @@ function Blog() {
     // 실제 api 동작
     // writeComment({ commenter: userName, commentcontent: data.comment });
   }
-
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -104,7 +103,6 @@ function Blog() {
         mainService={"자유게시판"}
         needWrite={false}
         needSearch={false}
-        userName={userName}
       />
       <BlogMain>
         <BlogMainContents />

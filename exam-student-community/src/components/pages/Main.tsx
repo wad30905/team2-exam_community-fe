@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
-import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
 import { authCheck, fetchBoards, SERVER_URL } from "../../api";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import SearchBar from "../molecules/SearchBar";
 import { useQuery } from "react-query";
-import { Loader } from "../molecules/atoms/styled";
-import Loading from "../molecules/Loading";
-
-import DropdownMenu from "../molecules/Practice";
 
 import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
+import { Loader } from "../molecules/atoms/styled";
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -40,14 +34,12 @@ function Main() {
     checkUserAuth();
     getBoards();
   }, []);
-
   return (
     <>
       <TopBar
         mainService={"서비스명"}
-        needWrite={isLoggedIn ? true : false}
+        needWrite={true}
         needSearch={true}
-        userName={userName}
       />
       {/* {isLoading ? null : <Boards data={sampleBoards}} */}
       <Boards data={boardsData} />

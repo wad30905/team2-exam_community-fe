@@ -44,7 +44,6 @@ function Login() {
         mainService={"로그인"}
         needWrite={false}
         needSearch={false}
-        userName={userName}
       />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>

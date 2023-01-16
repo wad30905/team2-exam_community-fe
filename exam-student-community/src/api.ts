@@ -1,4 +1,7 @@
-import axios from "axios";
+
+import { IBlog } from "./components/molecules/BlogsList";
+import { IBoards } from "./components/pages/Main";
+import axios, {Axios, AxiosError, AxiosResponse} from "axios";
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
 export const SERVER_URL = "";
@@ -65,19 +68,6 @@ export async function fetchBoards() {
   return response.data;
 }
 
-// export function fetchBoards() {
-//   return axios<IBoards[]>({
-//     method: "get",
-//     url: `/blogs`,
-//   })
-//     .then((response) => {
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       console.log("서버 에러 :", error);
-//     });
-// }
-
 export async function fetchBlog() {
   const response = await axios({
     method: "get",
@@ -115,10 +105,10 @@ export function writeBlog(
   return false;
 }
 
-export function fetchBoard() {
+export function fetchBoard(boardId: number) {
   axios({
     method: "get",
-    url: `${SERVER_URL}/detail/1`,
+    url: `${SERVER_URL}/detail/${boardId}`,
   })
     .then((response) => {
       console.log(response);
@@ -129,7 +119,6 @@ export function fetchBoard() {
       console.log(error);
     });
 }
-
 // data 생긴거 이렇다고 가정
 // {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
@@ -155,35 +144,10 @@ export async function writeComment(newComment: {
   }
 }
 
-//   export function writeComment(
-//     user_name: string,
-//     title: string,
-//     num: string,
-//     content: string
-//   ) {
-//     axios({
-//       method: "post",
-//       url: `${SERVER_URL}/detail`,
-//       data: {
-//         user_name,
-//         title,
-//         num,
-//         content,
-//       },
-//     })
-//       .then((response) => {
-//         console.log(response);
-//         return true;
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//     return false;
-//   }
 export function deleteBlog() {
   axios({
     method: "delete",
-    url: `${SERVER_URL}/detail/1`,
+    url: `${SERVER_URL}/detail/${blogId}`,
   })
     .then((response) => {
       console.log(response);
