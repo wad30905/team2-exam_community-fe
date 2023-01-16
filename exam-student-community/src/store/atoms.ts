@@ -8,3 +8,9 @@ export const loginState = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const user = atom({
+  key: "user",
+  default: {userName: "hongjin"},
+  effects_UNSTABLE: [persistAtom],
+});

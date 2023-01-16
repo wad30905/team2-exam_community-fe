@@ -1,9 +1,6 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
-import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
 import { authCheck, fetchBlog, writeComment } from "../../api";
@@ -13,7 +10,7 @@ import { IconSend } from "../molecules/atoms/icons";
 import BlogMainContents from "../molecules/BlogMainContents";
 import Comments from "../molecules/atoms/Comments";
 import { BlogMain } from "../molecules/atoms/styled";
-import { MdStayCurrentLandscape } from "react-icons/md";
+
 import {
   CommentForm,
   CommentInput,
@@ -40,6 +37,10 @@ export interface IComment {
   commentcontent: string;
 }
 
+interface Params {
+  postId: Readonly<string>;
+}
+
 function Blog() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,8 @@ function Blog() {
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [blogData, setBlogData] = useState<IBlogData>();
   const [commentData, setCommentData] = useState<IComment[]>();
+  const { postId } = useParams() as unknown as Params;
+  const { state } = useLocation();
 
   function onSubmit(data: IForm) {
     reset();
@@ -73,7 +76,8 @@ function Blog() {
     // 실제 api 동작
     // writeComment({ commenter: userName, commentcontent: data.comment });
   }
-
+  console.log("state : ", state);
+  console.log("state.postId : ", state.postId);
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -84,7 +88,7 @@ function Blog() {
       setIsLoading(false);
     };
     const paintBlog = async () => {
-      const BlogData = await fetchBlog("1");
+      const BlogData = await fetchBlog(postId);
       setBlogData(BlogData as any);
       // setCommentData(BlogData.comments as any);
     };
@@ -100,12 +104,7 @@ function Blog() {
   }, []);
   return (
     <>
-      <TopBar
-        mainService={"자유게시판"}
-        needWrite={false}
-        needSearch={false}
-        userName={userName}
-      />
+      <TopBar mainService={"자유게시판"} needWrite={false} needSearch={false} />
       <BlogMain>
         <BlogMainContents />
         <Comments comments={commentData} />

@@ -12,15 +12,15 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <RecoilRoot>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <React.StrictMode>
+  <React.StrictMode>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
           <App />
-        </React.StrictMode>
-      </ThemeProvider>
-    </QueryClientProvider>
-  </RecoilRoot>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
