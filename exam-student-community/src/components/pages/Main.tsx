@@ -1,30 +1,39 @@
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, fetchBoards, getComment, SERVER_URL } from "../../api";
+import { authCheck, fetchBoards, SERVER_URL } from "../../api";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../store/atoms";
 import { useQuery } from "react-query";
 
 import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
 import { Loader } from "../molecules/atoms/styled";
 
-export interface IPost {
-  id: Number;
-  title: String;
-  comment_num: Number;
-  click_num: Number;
-  writer: String;
-  m_date: Number;
-  d_date: Number;
-}
-
-export interface IBoards {
-  index: Number;
-  name: String;
-  total_num: Number;
-  posts: IPost[];
-}
-
 function Main() {
-  const {isLoading, data} = useQuery<IBoards[]>("fetchBoards", fetchBoards);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const [userName, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [boardsData, setBoardsData] = useState();
+
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["userName"];
+      setIsLoggedIn(authStatus);
+      setUsername(authName);
+      setIsLoading(false);
+    };
+    const getBoards = async () => {
+      const boardsData = await fetchBoards();
+      setBoardsData(boardsData);
+    };
+
+    checkUserAuth();
+    getBoards();
+  }, []);
   return (
     <>
       <TopBar
@@ -32,7 +41,8 @@ function Main() {
         needWrite={true}
         needSearch={true}
       />
-      {isLoading ? <Loader>로딩중</Loader> : <Boards data={data} />}
+      {/* {isLoading ? null : <Boards data={sampleBoards}} */}
+      <Boards data={boardsData} />
     </>
   );
 }

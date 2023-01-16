@@ -540,7 +540,7 @@ export const BlogMain = styled.div`
   display: flex;
   padding: 10px;
   flex-direction: column;
-  justify-content: spac-between;
+  justify-content: space-between;
 `;
 
 export const BoardsList = styled.ul`
