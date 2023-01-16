@@ -171,10 +171,8 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease;
-  opacity: 0;
   transition: opacity 0.5s ease;
   ul {
     overflow: hidden;
@@ -541,7 +539,7 @@ export const BlogMain = styled.div`
   display: flex;
   padding: 10px;
   flex-direction: column;
-  justify-content: spac-between;
+  justify-content: space-between;
 `;
 
 export const BoardsList = styled.ul`

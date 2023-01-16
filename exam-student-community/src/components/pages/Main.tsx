@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, fetchBoards, getComment, SERVER_URL } from "../../api";
+import { authCheck, fetchBoards, SERVER_URL } from "../../api";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
@@ -15,29 +15,13 @@ import DropdownMenu from "../molecules/Practice";
 
 import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
 
-export interface IPost {
-  id: Number;
-  title: String;
-  comment_num: Number;
-  click_num: Number;
-  writer: String;
-  m_date: Number;
-  d_date: Number;
-}
-
-export interface IBoards {
-  index: Number;
-  name: String;
-  total_num: Number;
-  posts: IPost[];
-}
-
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [userName, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [boardsData, setBoardsData] = useState();
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -47,10 +31,14 @@ function Main() {
       setIsLoggedIn(authStatus);
       setUsername(authName);
       setIsLoading(false);
-      getComment();
     };
+    const getBoards = async () => {
+      const boardsData = await fetchBoards();
+      setBoardsData(boardsData);
+    };
+
     checkUserAuth();
-    fetchBoards();
+    getBoards();
   }, []);
 
   return (
@@ -61,7 +49,8 @@ function Main() {
         needSearch={true}
         userName={userName}
       />
-      {isLoading ? null : <Boards data={sampleBoards} />}
+      {/* {isLoading ? null : <Boards data={sampleBoards}} */}
+      <Boards data={boardsData} />
     </>
   );
 }

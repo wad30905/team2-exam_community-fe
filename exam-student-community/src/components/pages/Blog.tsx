@@ -6,7 +6,7 @@ import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import { authCheck, getComment } from "../../api";
+import { authCheck, fetchBlog, writeComment } from "../../api";
 import { BlogSampleData } from "../molecules/atoms/sampleData";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
@@ -35,7 +35,7 @@ interface IBlogData {
   comments: { commenter: string; commentcontent: string }[];
 }
 
-interface IComment {
+export interface IComment {
   commenter: string;
   commentcontent: string;
 }
@@ -52,6 +52,7 @@ function Blog() {
   const [commentData, setCommentData] = useState<IComment[]>();
 
   function onSubmit(data: IForm) {
+    reset();
     console.log("--------------");
     console.log("submit !!");
     console.log("useState 샘플데이터: ", commentData);
@@ -61,16 +62,16 @@ function Blog() {
     console.log("commentData :", commentData);
     console.log("--------------");
 
+    // sampleData로
     setCommentData((prevComments: any) => {
       return [
         ...prevComments,
         { commenter: userName, commentcontent: data.comment },
       ];
     });
-    // setBlogData 대신 axios.post (해서 blogData 보내야함.)
-    // 보낸후에 다시 받아오는 코드는 useEffect에 넣을지, 여기에 넣을지.
 
-    reset();
+    // 실제 api 동작
+    // writeComment({ commenter: userName, commentcontent: data.comment });
   }
 
   useEffect(() => {
@@ -82,6 +83,17 @@ function Blog() {
       setUserName(authName);
       setIsLoading(false);
     };
+    const paintBlog = async () => {
+      const BlogData = await fetchBlog();
+      setBlogData(BlogData as any);
+      // setCommentData(BlogData.comments as any);
+    };
+
+    // 실제 api로
+    checkUserAuth();
+    paintBlog();
+
+    // sample 데이터로 확인
     checkUserAuth();
     setBlogData(BlogSampleData);
     setCommentData(BlogSampleData.comments);
@@ -96,20 +108,20 @@ function Blog() {
       />
       <BlogMain>
         <BlogMainContents />
-        <Comments />
+        <Comments comments={commentData} />
+        <CommentForm onSubmit={handleSubmit(onSubmit)}>
+          <CommentInput
+            {...register("comment", {
+              required: "댓글을 입력해주세요",
+            })}
+            type="comment"
+            name="comment"
+          />
+          <CommentButton type="submit">
+            <IconSend />
+          </CommentButton>
+        </CommentForm>
       </BlogMain>
-      <CommentForm onSubmit={handleSubmit(onSubmit)}>
-        <CommentInput
-          {...register("comment", {
-            required: "댓글을 입력해주세요",
-          })}
-          type="comment"
-          name="comment"
-        />
-        <CommentButton type="submit">
-          <IconSend />
-        </CommentButton>
-      </CommentForm>
     </>
   );
 }

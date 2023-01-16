@@ -28,7 +28,8 @@ function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
   const toggle = () => setIsOpen((current) => !current);
   const [isLoading0, setIsLoading] = useState(true);
   const [userName, setUsername] = useState("");
-  console.log(isOpen);
+  // console.log(isOpen);
+
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();

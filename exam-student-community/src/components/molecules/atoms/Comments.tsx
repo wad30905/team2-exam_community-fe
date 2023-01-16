@@ -7,10 +7,16 @@ import {
   CommentContent,
   CommentsList,
 } from "./styled";
-function Comments() {
+import { IComment } from "../../pages/Blog";
+
+interface ICommentsProp {
+  comments: IComment[] | undefined;
+}
+
+function Comments({ comments }: ICommentsProp) {
   return (
     <CommentsList>
-      {BlogSampleData.comments.map((comment, index) => (
+      {comments?.map((comment, index) => (
         <Comment key={index}>
           <CommenterBox>
             <IconUser style={{ width: "2vw", height: "3vh" }} />
