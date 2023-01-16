@@ -1,6 +1,4 @@
 
-import { IBlog } from "./components/molecules/BlogsList";
-import { IBoards } from "./components/pages/Main";
 import axios, {Axios, AxiosError, AxiosResponse} from "axios";
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
@@ -142,19 +140,4 @@ export async function writeComment(newComment: {
   } else {
     console.log("에러");
   }
-}
-
-export function deleteBlog() {
-  axios({
-    method: "delete",
-    url: `${SERVER_URL}/detail/${blogId}`,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log("삭제 성공");
-      return true;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 }
