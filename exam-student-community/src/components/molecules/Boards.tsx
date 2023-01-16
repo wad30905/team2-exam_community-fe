@@ -32,8 +32,8 @@ function Boards({ data }: any) {
         return (
           <Board key={index}>
             <Link
-              to="blogs"
-              state={{ blogsId: index + 1, blogsName: `${index + 1}번 게시판` }}
+              to="posts"
+              state={{ postsId: index + 1, postsName: `${index + 1}번 게시판` }}
             >
               <div className="title_row">
                 <span className="title">

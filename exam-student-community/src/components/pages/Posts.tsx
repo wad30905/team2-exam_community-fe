@@ -8,16 +8,16 @@ import {
   useParams,
 } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
-import BlogsList from "../molecules/BlogsList";
+import PostsList from "../molecules/PostsList";
 
-interface BlogsState {
+interface IPostsState {
   state: {
-    blogsId: number;
-    blogsName: String;
+    postsId: number;
+    postsName: String;
   } | null;
 }
-function Blogs() {
-  const { state } = useLocation() as BlogsState;
+function Posts() {
+  const { state } = useLocation() as IPostsState;
   const navigate = useNavigate();
 
   console.log(state);
@@ -32,12 +32,12 @@ function Blogs() {
   return (
     <>
       <TopBar
-        mainService={state ? state.blogsName : "게시판타고들어와라 ^^"}
+        mainService={state ? state.postsName : "게시판타고들어와라 ^^"}
         needWrite={true}
         needSearch={true}
       />
-      <BlogsList id={state?.blogsId} />
+      <PostsList id={state?.postsId} />
     </>
   );
 }
-export default Blogs;
+export default Posts;

@@ -124,32 +124,32 @@ export const Search = styled.input`
   border: none;
 `;
 
-export const Post = styled.li`
-  display: flex;
-  border-bottom: 1px solid black;
-  align-items: center;
-  padding: 15px 10px;
-  font-weight: 600;
-  .comment_num {
-    padding: 10px;
-    font-size: 25px;
-    color: ${(props) => props.theme.accentColor};
-  }
-  .box__title_meta {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    .title {
-      font-size: 23px;
-    }
-    .meta {
-      font-size: 13px;
-      color: ${(props) => props.theme.grayColor};
-      display: flex;
-      gap: 5px;
-    }
-  }
-`;
+// export const Post = styled.li`
+//   display: flex;
+//   border-bottom: 1px solid black;
+//   align-items: center;
+//   padding: 15px 10px;
+//   font-weight: 600;
+//   .comment_num {
+//     padding: 10px;
+//     font-size: 25px;
+//     color: ${(props) => props.theme.accentColor};
+//   }
+//   .box__title_meta {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 7px;
+//     .title {
+//       font-size: 23px;
+//     }
+//     .meta {
+//       font-size: 13px;
+//       color: ${(props) => props.theme.grayColor};
+//       display: flex;
+//       gap: 5px;
+//     }
+//   }
+// `;
 
 export const Menu = styled.li`
   width: 95%;
@@ -341,7 +341,7 @@ export const InputBox = styled.div`
   }
 `;
 
-export const BlogInfo = styled.div`
+export const PostInfo = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -355,10 +355,10 @@ export const ProfilePic = styled.div`
   background: blue;
   margin-right: 10px;
 `;
-export const Blog = styled.li`
+export const Post = styled.li`
   a {
     padding: 5px 3px;
-    color: ${props => props.theme.blackColor};
+    color: ${(props) => props.theme.blackColor};
     border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
     display: flex;
@@ -373,7 +373,7 @@ export const Blog = styled.li`
     }
   }
 `;
-export const BlogTitle = styled.h3`
+export const PostTitle = styled.h3`
   display: block;
   width: 100%;
   font-weight: bold;
@@ -534,7 +534,7 @@ export const CommentButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-export const BlogMain = styled.div`
+export const PostMain = styled.div`
   height: 90vh;
   overflow: scroll;
   display: flex;
@@ -549,7 +549,7 @@ export const BoardsList = styled.ul`
   padding: 10px;
 `;
 
-export const BlogsContainer = styled.ul`
+export const PostsContainer = styled.ul`
   list-style: none;
   height: 85vh;
   overflow: scroll;

@@ -1,5 +1,4 @@
 import { IconUser } from "./icons";
-import { BlogSampleData } from "./sampleData";
 import {
   Comment,
   CommenterBox,
@@ -7,7 +6,11 @@ import {
   CommentContent,
   CommentsList,
 } from "./styled";
-import { IComment } from "../../pages/Blog";
+
+interface IComment {
+  commenter: string;
+  commentcontent: string;
+}
 
 interface ICommentsProp {
   comments: IComment[] | undefined;
