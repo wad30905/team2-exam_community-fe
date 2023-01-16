@@ -84,7 +84,7 @@ function Blog() {
       setIsLoading(false);
     };
     const paintBlog = async () => {
-      const BlogData = await fetchBlog();
+      const BlogData = await fetchBlog("1");
       setBlogData(BlogData as any);
       // setCommentData(BlogData.comments as any);
     };
@@ -94,9 +94,9 @@ function Blog() {
     paintBlog();
 
     // sample 데이터로 확인
-    checkUserAuth();
-    setBlogData(BlogSampleData);
-    setCommentData(BlogSampleData.comments);
+    // checkUserAuth();
+    // setBlogData(BlogSampleData);
+    // setCommentData(BlogSampleData.comments);
   }, []);
   return (
     <>

@@ -78,11 +78,11 @@ export async function fetchBoards() {
 //     });
 // }
 
-export async function fetchBlog() {
+export async function fetchBlog(id: string) {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/detail/:id`,
+    url: `${SERVER_URL}/detail/${id}`,
   });
   console.log("fetchBoards :", response);
   return response;
