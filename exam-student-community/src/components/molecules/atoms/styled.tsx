@@ -171,11 +171,10 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease;
-  opacity: 0;
+  transition: 0.5s ease;
   transition: opacity 0.5s ease;
+  padding: 20px;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -346,9 +345,8 @@ export const BlogInfo = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 7vh;
   width: 100%;
-  margin: 10px auto;
+  margin-top: 3px;
 `;
 
 export const ProfilePic = styled.div`
@@ -359,15 +357,14 @@ export const ProfilePic = styled.div`
 `;
 export const Blog = styled.li`
   a {
-    background-color: white;
-    color: black;
+    padding: 5px 3px;
+    color: ${props => props.theme.blackColor};
     border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: space-around;
-    padding: 5px;
+    justify-content: center;
     transition: color 0.2s ease-in;
   }
   &:hover {
@@ -377,6 +374,8 @@ export const Blog = styled.li`
   }
 `;
 export const BlogTitle = styled.h3`
+  display: block;
+  width: 100%;
   font-weight: bold;
   font-size: 18px;
 `;
@@ -560,7 +559,7 @@ export const WriteSelectorContainer = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 10%;
+  height: 7%;
   width: 100%;
 `;
 export const WriteSelector = styled.select`
@@ -573,12 +572,15 @@ export const WriteSelector = styled.select`
 
 export const WriteContents = styled.form`
   height: 93vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
 
 export const TitleInput = styled.input`
   padding: 10px 20px;
   display: block;
-  height: 10%;
+  height: 7%;
   width: 100%;
   font-size: 25px;
   border: none;
@@ -593,7 +595,7 @@ export const ContentInput = styled.textarea`
   font-size: 18px;
   display: block;
   width: 100%;
-  height: 60%;
+  height: 50%;
   border: none;
   resize: none;
   &:focus {
@@ -601,7 +603,7 @@ export const ContentInput = styled.textarea`
   }
 `;
 export const WriteSubmitContainer = styled.div`
-  height: 20%;
+  height: 15%;
   display: flex;
   justify-content: center;
 `;

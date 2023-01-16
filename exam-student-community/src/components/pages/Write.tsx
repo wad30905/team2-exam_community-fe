@@ -1,12 +1,9 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
-import { useRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
 import {
   ErrorMessage,
   Search,
@@ -23,7 +20,7 @@ import {
   Submit,
 } from "../molecules/atoms/styled";
 import { BlogsList } from "../molecules/atoms/sampleData";
-import { useQuery } from "react-query";
+import { user } from "../../store/atoms";
 interface IWriteForm {
   BoardId: string;
   BlogTitle: string;
@@ -38,23 +35,7 @@ function Write() {
     setError,
   } = useForm<IWriteForm>();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const [isLoading, setIsLoading] = useState(true);
-  const [userName, setUsername] = useState("");
-
-  useEffect(() => {
-    const checkUserAuth = async () => {
-      const authData = await authCheck();
-      const authStatus = authData["isAuthenticated"];
-      const authName = authData["userName"];
-      setIsLoggedIn(authStatus);
-      setUsername(authName);
-      setIsLoading(false);
-    };
-    checkUserAuth();
-  }, []);
+  const {userName} = useRecoilValue(user);
 
   function onSubmit(data: IWriteForm) {
     writeBlog(userName, data.BlogTitle, data.BoardId, data.BlogContent);
@@ -66,7 +47,6 @@ function Write() {
         mainService={"자유게시판"}
         needWrite={false}
         needSearch={false}
-        userName={userName}
       />
       <WriteContents onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>

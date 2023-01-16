@@ -72,27 +72,12 @@ function Blog() {
 
     reset();
   }
-
-  useEffect(() => {
-    const checkUserAuth = async () => {
-      const authData = await authCheck();
-      const authStatus = authData["isAuthenticated"];
-      const authName = authData["username"];
-      setIsLoggedIn(authStatus);
-      setUserName(authName);
-      setIsLoading(false);
-    };
-    checkUserAuth();
-    setBlogData(BlogSampleData);
-    setCommentData(BlogSampleData.comments);
-  }, []);
   return (
     <>
       <TopBar
         mainService={"자유게시판"}
         needWrite={false}
         needSearch={false}
-        userName={userName}
       />
       <BlogMain>
         <BlogMainContents />
