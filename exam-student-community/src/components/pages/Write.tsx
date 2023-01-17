@@ -33,6 +33,7 @@ interface IWriteState {
 }
 function Write() {
   const isLoggedIn = useRecoilValue(loginState);
+  alert(isLoggedIn)
   const userName = useRecoilValue(user);
   const [isLoading, setIsLoading] = useState(true);
   const [writeState, setWriteState] = useState<{id: number}>();

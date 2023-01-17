@@ -12,7 +12,7 @@ function Main() {
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
-
+  console.log(isLoggedIn);
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();

@@ -24,14 +24,16 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
   function onSubmit(data: IForm) {
-    const checkLogin = async () => {
-      const loginStatus = await loginCheck(data.id, data.password);
-      console.log("loginStatus : ", loginStatus);
-      setIsLoggedIn(loginStatus);
-      console.log("navigate()");
-      navigate("/");
-    };
-    checkLogin();
+    // const checkLogin = async () => {
+    //   const loginStatus = await loginCheck(data.id, data.password);
+    //   console.log("loginStatus : ", loginStatus);
+    //   setIsLoggedIn(loginStatus);
+    //   console.log("navigate()");
+    //   navigate("/");
+    // };
+    // checkLogin();
+    setIsLoggedIn(true);
+    navigate("/")
   }
 
   return (
