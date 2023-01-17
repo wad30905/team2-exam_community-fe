@@ -39,6 +39,7 @@ export interface IPostData {
 interface IPostState {
   state: {
     postId: number;
+    postName: string;
   } | null;
 }
 
@@ -50,6 +51,7 @@ function Post() {
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
   const postId = state?.postId;
+  const postName = state?.postName;
   const navigate = useNavigate();
 
   function onSubmit(data: IForm) {
@@ -86,7 +88,7 @@ function Post() {
 
   return !isLoading ? (
     <>
-      <TopBar id={postId} mainService={"자유게시판"} needWrite={false} needSearch={false} />
+      <TopBar id={postId} mainService={postName} needWrite={false} needSearch={false} />
       <PostMain>
         <PostMainContents post={postData} />
         <Comments comments={postData?.comments} />

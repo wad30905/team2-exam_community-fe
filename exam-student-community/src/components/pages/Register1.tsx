@@ -9,83 +9,131 @@ import {
   RegisterButton,
   InputBox,
 } from "../molecules/atoms/styled";
+import { useForm } from "react-hook-form";
+import { checkId } from "../../api";
+import { useSetRecoilState } from "recoil";
+import {
+  registerName,
+  registerId,
+  registerPd,
+  registerPhone,
+  registerEmail,
+} from "../../store/atoms";
+
+interface IForm {
+  username: string;
+  userId: string;
+  password: string;
+  passwordConfirm: string;
+  email: string;
+  phone: string;
+}
 
 const Register = () => {
-  const [username, setUsername] = useState<string>(""); // 유저 이름
-  const [userId, setUserId] = useState<string>(""); // 아이디
-  const [password, setPassword] = useState<string>(""); // 비번
-  const [passwordConfirm, setPasswordConfirm] = useState<string>(""); // 비번 확인
-  const [email, setEmail] = useState<string>(""); // 이메일
-  const [phone, setPhone] = useState<string>(""); // 번호
-  const [pdCheckText, setPdCheckText] = useState<string>("");
-  const [pdText, setPdText] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<IForm>();
 
-  const navigate = useNavigate();
+  const setName = useSetRecoilState(registerName);
+  const setId = useSetRecoilState(registerId);
+  const setPd = useSetRecoilState(registerPd);
+  const setPhone = useSetRecoilState(registerPhone);
+  const setEmail = useSetRecoilState(registerEmail);
 
-  const onClickNext = () => {
-    if (
-      username !== "" &&
-      userId !== "" &&
-      password !== "" &&
-      passwordConfirm !== "" &&
-      email !== "" &&
-      phone !== ""
-    ) {
-      navigate("/register2");
-    } else {
-      alert("빈칸을 전부 입력해주세요.");
+  const onValid = (data: IForm) => {
+    if (data.password !== data.passwordConfirm) {
+      setError("passwordConfirm", { message: "비밀번호가 다릅니다." });
+      return false;
     }
+
+
+    // recoil에 데이터 저장.
+    setName(data.username);
+    setId(data.userId);
+    setPd(data.password);
+    setPhone(data.phone);
+    setEmail(data.email);
+
+    navigate("/register2"); // 다음 페이지로 이동.
   };
 
+  const navigate = useNavigate();
   const onClickPrev = () => {
     navigate("/login");
   };
 
-  const onHandleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 이름
-    const name = e.target.value;
-    setUsername(name);
-  };
+  // const [username, setUsername] = useState<string>(""); // 유저 이름
+  // const [userId, setUserId] = useState<string>(""); // 아이디
+  // const [password, setPassword] = useState<string>(""); // 비번
+  // const [passwordConfirm, setPasswordConfirm] = useState<string>(""); // 비번 확인
+  // const [email, setEmail] = useState<string>(""); // 이메일
+  // const [phone, setPhone] = useState<string>(""); // 번호
+  // const [pdCheckText, setPdCheckText] = useState<string>("");
+  // const [pdText, setPdText] = useState<string>("");
 
-  const onHandleUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 아이디
-    const id = e.target.value;
-    setUserId(id);
-  };
+  // const onClickNext = () => {
+  //   if (
+  //     username !== "" &&
+  //     userId !== "" &&
+  //     password !== "" &&
+  //     passwordConfirm !== "" &&
+  //     email !== "" &&
+  //     phone !== ""
+  //   ) {
+  //     navigate("/register2");
+  //   } else {
+  //     alert("빈칸을 전부 입력해주세요.");
+  //   }
+  // };
 
-  const onHandlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 비밀번호
-    const pd = e.target.value;
-    setPassword(pd);
-    if (pd.length < 8 || pd.length > 15) {
-      setPdText("8~30 글자로 입력해주세요.");
-    } else {
-      setPdText("");
-    }
-  };
-  const onHandlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 비밀번호 확인
-    const pd = e.target.value;
-    console.log(pd);
-    setPasswordConfirm(pd);
-    if (pd !== password) {
-      setPdCheckText("동일한 비밀번호를 입력하세요");
-    } else if (pd === password) {
-      setPdCheckText("");
-    }
-  };
+  // const onHandleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 이름
+  //   const name = e.target.value;
+  //   setUsername(name);
+  // };
 
-  const onHandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 이메일
-    const email = e.target.value;
-    setEmail(email);
-  };
+  // const onHandleUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 아이디
+  //   const id = e.target.value;
+  //   setUserId(id);
+  // };
 
-  const onHandlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 번호
-    const number = e.target.value;
-    setPhone(number);
-  };
+  // const onHandlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 비밀번호
+  //   const pd = e.target.value;
+  //   setPassword(pd);
+  //   if (pd.length < 8 || pd.length > 15) {
+  //     setPdText("8~30 글자로 입력해주세요.");
+  //   } else {
+  //     setPdText("");
+  //   }
+  // };
+  // const onHandlePasswordConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 비밀번호 확인
+  //   const pd = e.target.value;
+  //   console.log(pd);
+  //   setPasswordConfirm(pd);
+  //   if (pd !== password) {
+  //     setPdCheckText("동일한 비밀번호를 입력하세요");
+  //   } else if (pd === password) {
+  //     setPdCheckText("");
+  //   }
+  // };
+
+  // const onHandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 이메일
+  //   const email = e.target.value;
+  //   setEmail(email);
+  // };
+
+  // const onHandlePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   // 번호
+  //   const number = e.target.value;
+  //   setPhone(number);
+  // };
   return (
     <>
       <Header>
@@ -98,29 +146,41 @@ const Register = () => {
         </button>
       </Header>
       <FormBox>
-        <form>
+        <form onSubmit={handleSubmit(onValid)}>
           <InputBox>
             <label>이름</label>
             <br />
             <input
-              value={username}
+              {...register("username", {
+                required: "이름을 입력은 필수입니다.",
+              })}
               type="text"
               name="username"
               placeholder="이름을 입력해주세요"
-              onChange={onHandleUserName}
             />
+            <span style={{ color: "red" }}>{errors?.username?.message}</span>
           </InputBox>
           <InputBox>
             <label>아이디</label>
             <br />
             <input
-              value={userId}
+              {...register("userId", {
+                required: "아이디 입력은 필수입니다.",
+                validate: (value) => {
+                  // 아이디 중복 검사 API 호출
+                  const res: any = checkId(value);
+                  //  const res = "중복입니다";
+                  if (res == "중복입니다") {
+                    return "이미 사용중인 아이디입니다. ";
+                  } else {
+                    return true;
+                  }
+                },
+              })}
               type="text"
-              name="id"
               placeholder="아이디를 입력해주세요"
-              onChange={onHandleUserId}
             />
-            <button
+            {/* <button
               style={{
                 marginTop: "5px",
                 color: "white",
@@ -128,57 +188,75 @@ const Register = () => {
               }}
             >
               중복검사
-            </button>
+            </button> */}
+            <span style={{ color: "red" }}>{errors?.userId?.message}</span>
           </InputBox>
           <InputBox>
             <label>비밀번호</label>
             <br />
             <input
-              value={password}
+              {...register("password", {
+                required: "비밀번호 입력은 필수입니다.",
+                minLength: {
+                  value: 5,
+                  message: "5~8 자리로 입력해주세요.",
+                },
+                maxLength: {
+                  value: 8,
+                  message: "5~8 자리로 입력해주세요.",
+                },
+              })}
               type="password"
               name="password"
-              placeholder="8~15자리 사이로 입력해주세요"
-              onChange={onHandlePassword}
+              placeholder="비밀번호를 입력해 주세요.(5~8자리)"
             />
-            <p style={{ color: "red" }}>{pdText}</p>
+            <span style={{ color: "red" }}>{errors?.password?.message}</span>
           </InputBox>
           <InputBox>
             <label>비밀번호 확인 </label>
             <br />
             <input
-              value={passwordConfirm}
+              {...register("passwordConfirm", {
+                required: "빈칸을 입력해주세요.",
+              })}
               type="password"
-              name="password-confirm"
               placeholder="비밀번호를 다시한번 입력해주세요"
-              onChange={onHandlePasswordConfirm}
             />
-            <p style={{ color: "red" }}>{pdCheckText}</p>
+            <span style={{ color: "red" }}>
+              {errors?.passwordConfirm?.message}
+            </span>
           </InputBox>
           <InputBox>
-            <label>휴대전화 번호</label>
+            <label>핸드폰 번호</label>
             <br />
             <input
-              value={phone}
+              {...register("phone", {
+                required: "번호를 입력은 필수입니다.",
+              })}
               type="text"
-              name="number"
-              placeholder="휴대전화 번호를 입력해주세요"
-              onChange={onHandlePhoneNumber}
+              placeholder="번호를 입력해주세요"
             />
+            <span style={{ color: "red" }}>{errors?.phone?.message}</span>
           </InputBox>
           <InputBox>
             <label>이메일</label>
             <br />
             <input
-              value={email}
+              {...register("email", {
+                required: "이메일 입력은 필수입니다.",
+                pattern: {
+                  value:
+                    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+                  message: "이메일 형식을 지켜주세요.",
+                },
+              })}
               type="text"
-              name="email"
               placeholder="이메일을 입력해주세요."
-              onChange={onHandleEmail}
             />
+            <span style={{ color: "red" }}>{errors?.email?.message}</span>
           </InputBox>
+          <RegisterButton type="submit">다음</RegisterButton>
         </form>
-
-        <RegisterButton onClick={onClickNext}>다음</RegisterButton>
       </FormBox>
     </>
   );
