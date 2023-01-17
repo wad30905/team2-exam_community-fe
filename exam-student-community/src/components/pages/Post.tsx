@@ -15,6 +15,7 @@ import {
   CommentButton,
 } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
+import { samplePost } from "../molecules/atoms/sampleData";
 
 interface IForm {
   comment: string;
@@ -39,7 +40,7 @@ export interface IPostData {
 interface IPostState {
   state: {
     postId: number;
-    postName: string;
+    boardName: string;
   } | null;
 }
 
@@ -50,8 +51,9 @@ function Post() {
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
+  console.log(state);
   const postId = state?.postId;
-  const postName = state?.postName;
+  const boardName = state?.boardName;
   const navigate = useNavigate();
 
   function onSubmit(data: IForm) {
@@ -86,12 +88,12 @@ function Post() {
     }
   }, []);
 
-  return !isLoading ? (
+  return true ? (
     <>
-      <TopBar id={postId} mainService={postName} needWrite={false} needSearch={false} />
+      <TopBar id={postId} mainService={boardName} needWrite={false} needSearch={false} />
       <PostMain>
-        <PostMainContents post={postData} />
-        <Comments comments={postData?.comments} />
+        <PostMainContents post={samplePost} />
+        <Comments comments={samplePost?.comments} />
         <CommentForm onSubmit={handleSubmit(onSubmit)}>
           <CommentInput
             {...register("comment", {

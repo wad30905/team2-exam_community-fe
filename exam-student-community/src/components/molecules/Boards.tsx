@@ -4,36 +4,15 @@ import { Board, BoardPost, BoardsList } from "./atoms/styled";
 import { IconComment, IconRarr } from "./atoms/icons";
 import { sampleBoards } from "./atoms/sampleData";
 
-export interface IPost {
-  id: Number;
-  title: String;
-  comment_num: Number;
-  click_num: Number;
-  writer: String;
-  m_date: Number;
-  d_date: Number;
-}
-
-export interface IBoard {
-  index: Number;
-  name: String;
-  total_num: Number;
-  posts: IPost[];
-}
-
-interface IBoards {
-  data: IBoard[] | undefined;
-}
-
 function Boards({ data }: any) {
   return (
-    <BoardsList>
+    <BoardsList style={{position: "absolute", top: "15vh", zIndex: "10"}}>
       {data?.map((board: any, index: number) => {
         return (
           <Board key={index}>
             <Link
               to="posts"
-              state={{ postsId: index + 1, postsName: `${index + 1}번 게시판` }}
+              state={{ boardId: index + 1, boardName: `${index + 1}번 게시판` }}
             >
               <div className="title_row">
                 <span className="title">

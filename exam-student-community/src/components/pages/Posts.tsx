@@ -12,8 +12,8 @@ import PostsList from "../molecules/PostsList";
 
 interface IPostsState {
   state: {
-    postsId: number;
-    postsName: string;
+    boardId: number;
+    boardName: string;
   } | null;
 }
 function Posts() {
@@ -31,12 +31,13 @@ function Posts() {
 
   return (
     <>
-      <TopBar id={state?.postsId}
-        mainService={state ? state.postsName : "게시판타고들어와라 ^^"}
+      <TopBar id={state?.boardId}
+        mainService={state ? state.boardName : "게시판타고들어와라 ^^"}
         needWrite={true}
         needSearch={true}
       />
-      <PostsList id={state?.postsId} postsName={state?.postsName}/>
+      {console.log("test state", state?.boardName)}
+      <PostsList id={state?.boardId} name={state?.boardName}/>
     </>
   );
 }

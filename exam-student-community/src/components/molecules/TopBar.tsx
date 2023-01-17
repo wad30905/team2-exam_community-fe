@@ -3,6 +3,7 @@ import {
   TopContainer,
   TopBarMenu,
   TopBarMain,
+  TopBarContainer,
 } from "./atoms/styled";
 import { IconBar } from "./atoms/icons";
 import { Link } from "react-router-dom";
@@ -25,7 +26,7 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const toggle = () => setIsOpen((current) => !current);
   const onClickLogOut = () => setIsLoggedIn(false);
   return (
-    <>
+    <TopBarContainer>
       <TopContainer>
         <TopBarMenu onClick={toggle}>
           <IconBar />
@@ -46,7 +47,7 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
       </TopContainer>
       {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
       {isOpen ? <Dropdown /> : null }
-    </>
+    </TopBarContainer>
   );
 }
 

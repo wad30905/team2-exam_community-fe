@@ -171,10 +171,7 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  overflow: hidden;
-  transition: 0.5s ease;
-  transition: opacity 0.5s ease;
-  padding: 20px;
+  padding: 30px;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -535,8 +532,10 @@ export const CommentButton = styled.button`
   cursor: pointer;
 `;
 export const PostMain = styled.div`
+  position: absolute;
+  top: 7vh;
   height: 90vh;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   padding: 10px;
   flex-direction: column;
@@ -544,15 +543,19 @@ export const PostMain = styled.div`
 `;
 
 export const BoardsList = styled.ul`
+  width: 100%;
   height: 85vh;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 10px;
 `;
 
 export const PostsContainer = styled.ul`
+  position: absolute;
+  top: 15vh;
+  width: 100%;
   list-style: none;
   height: 85vh;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const WriteSelectorContainer = styled.div`
@@ -620,3 +623,11 @@ export const Loader = styled.span`
   text-align: center;
   display: block;
 `;
+
+export const TopBarContainer = styled.div`
+  position: absolute;
+  top: 0vh;
+  width: 100%;
+  z-index: 100;
+  background: ${props => props.theme.whiteColor}
+`

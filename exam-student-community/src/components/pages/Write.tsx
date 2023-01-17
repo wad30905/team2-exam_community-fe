@@ -32,16 +32,17 @@ interface IWriteState {
   state: {id: number;}
 }
 function Write() {
+  const isLoggedIn = useRecoilValue(loginState);
   const userName = useRecoilValue(user);
   const [isLoading, setIsLoading] = useState(true);
   const [writeState, setWriteState] = useState<{id: number}>();
   const {state} = useLocation() as IWriteState;
   const navigate = useNavigate();
-  console.log(state);
   useEffect(() => {
-    if (state === null) {
+    if (isLoggedIn === false) {
       navigate("/");
     }
+    alert("로그인하셔야 글쓰기를 할 수 있습니다.");
     setWriteState(state);
     setIsLoading(false);
   }, [])

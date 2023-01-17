@@ -23,7 +23,7 @@ import Loading from "./Loading";
 import { 게시물시간구하기 } from "../../api";
 
 interface IPostProp {
-  post?: IPostData | null;
+  post?: any | null;
 }
 
 function PostMainContents({ post }: IPostProp) {

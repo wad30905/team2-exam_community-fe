@@ -49,12 +49,12 @@ export async function getBoards() {
   return response.data;
 }
 
-export async function getPosts(postsId: number) {
+export async function getPosts(boardId: number) {
   return axios({
     method: "get",
     url: `${SERVER_URL}/posts/:id`,
     data: {
-      postsId: postsId,
+      boardId,
     },
   })
     .then((response) => {

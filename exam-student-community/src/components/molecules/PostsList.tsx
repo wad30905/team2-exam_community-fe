@@ -5,41 +5,27 @@ import { SERVER_URL } from "../../api";
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
-export interface IPost {
-  c_date: string;
-  click_num: number;
-  comment_num: number;
-  content: string;
-  d_date: null;
-  id: number;
-  like: number;
-  m_date: string;
-  num: number;
-  title: string;
-  user_name: string;
-}
+import { samplePosts } from "./atoms/sampleData";
 
 interface IPostsListProp {
   id?: number;
-  postsName?: String;
+  name?: string;
 }
 
-function PostsList({id} : IPostsListProp, {postsName} : IPostsListProp) {
-  const postsId = id;
-  const [postsData, setPostsData] = useState<IPost[] | null>();
-
+function PostsList({id, name} : IPostsListProp) {
+  const [postsData, setPostsData] = useState<any | null>();
   useEffect(() => {
-    const url = `${SERVER_URL}/posts/${postsId}`;
-    axios({ method: "get", url, data: { postsId } }).then((response) =>
+    const url = `${SERVER_URL}/posts/${id}`;
+    axios({ method: "get", url, data: { id } }).then((response) =>
       setPostsData(response.data[0])
     );
   }, []);
-  if (postsData) {
+  if (samplePosts) {
     return (
       <PostsContainer>
-        {postsData.map((post: IPost, index: number) => (
+        {samplePosts.map((post: any, index: number) => (
           <Post key={index}>
-            <Link to={`./${post.id}`} state={{ postId: post.id, postsName}}>
+            <Link to={`./${post.id}`} state={{ postId: post.id, boardName: name}}>
               <PostTitle>{post.title}</PostTitle>
               <PostInfo>
                 <span>{`1분전|`}</span>

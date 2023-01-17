@@ -5,11 +5,10 @@ import { authCheck, getBoards, SERVER_URL } from "../../api";
 import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { useState, useEffect } from "react";
+import { sampleBoards } from "../molecules/atoms/sampleData";
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
@@ -31,13 +30,11 @@ function Main() {
     paintBoards();
   }, []);
 
-  return !isLoading ? (
-    <>
-      <TopBar id={undefined} mainService={"서비스명"} needWrite={true} needSearch={true} />
-      {/* {isLoading ? null : <Boards data={sampleBoards}} */}
-      <Boards data={boardsData} />
-      <button>클릭</button>
-    </>
+  return true ? (
+    <div style={{position: "relative"}}>
+      <TopBar id={undefined} mainService={"서비스명"} needWrite={true} needSearch={true}/>
+      <Boards data={sampleBoards} />
+    </div>
   ) : (
     <Loading />
   );
