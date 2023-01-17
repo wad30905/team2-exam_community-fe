@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import { useRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
+import { loginState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
@@ -45,7 +45,7 @@ interface IPostState {
 function Post() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoading, setIsLoading] = useState(true);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useRecoilState(user);
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
@@ -86,7 +86,7 @@ function Post() {
 
   return !isLoading ? (
     <>
-      <TopBar mainService={"자유게시판"} needWrite={false} needSearch={false} />
+      <TopBar id={postId} mainService={"자유게시판"} needWrite={false} needSearch={false} />
       <PostMain>
         <PostMainContents post={postData} />
         <Comments comments={postData?.comments} />

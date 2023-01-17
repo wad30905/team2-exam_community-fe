@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-
-import axios, {Axios, AxiosError, AxiosResponse} from "axios";
-=======
 import axios, { Axios, AxiosError, AxiosResponse } from "axios";
->>>>>>> 5c9e3c6984dc4cb524ef13d526a2118c94e176e0
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
 export const SERVER_URL = "";
@@ -48,7 +43,7 @@ export async function getBoards() {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/blogs`,
+    url: `${SERVER_URL}/posts`,
   });
   console.log("getBoards :", response);
   return response.data;
@@ -57,9 +52,9 @@ export async function getBoards() {
 export async function getPosts(postsId: number) {
   return axios({
     method: "get",
-    url: `${SERVER_URL}/blogs/:id`,
+    url: `${SERVER_URL}/posts/:id`,
     data: {
-      blogsId: postsId,
+      postsId: postsId,
     },
   })
     .then((response) => {
@@ -82,8 +77,8 @@ export async function getPost(id: number) {
 
 export function writePost(
   user_name: string,
-  title: string,
   num: string,
+  title: string,
   content: string
 ) {
   axios({
@@ -108,7 +103,7 @@ export function writePost(
 }
 
 // data 생긴거 이렇다고 가정
-// {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
+// {posts:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
 export async function writeComment(newComment: {
   commenter: string;
@@ -131,10 +126,8 @@ export async function writeComment(newComment: {
     console.log("에러");
   }
 }
-<<<<<<< HEAD
-=======
 
-export function deleteBlog() {
+export function deletePost() {
   axios({
     method: "delete",
     url: `${SERVER_URL}/detail/${1}`,
@@ -178,4 +171,3 @@ export function 게시물시간구하기(date: string | null) {
     return "방금 전";
   }
 }
->>>>>>> 5c9e3c6984dc4cb524ef13d526a2118c94e176e0

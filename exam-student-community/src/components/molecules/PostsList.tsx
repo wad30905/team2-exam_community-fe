@@ -21,9 +21,10 @@ export interface IPost {
 
 interface IPostsListProp {
   id?: number;
+  postsName?: String;
 }
 
-function PostsList({ id }: IPostsListProp) {
+function PostsList({id} : IPostsListProp, {postsName} : IPostsListProp) {
   const postsId = id;
   const [postsData, setPostsData] = useState<IPost[] | null>();
 
@@ -38,7 +39,7 @@ function PostsList({ id }: IPostsListProp) {
       <PostsContainer>
         {postsData.map((post: IPost, index: number) => (
           <Post key={index}>
-            <Link to={`./${post.id}`} state={{ postId: post.id }}>
+            <Link to={`./${post.id}`} state={{ postId: post.id, postsName}}>
               <PostTitle>{post.title}</PostTitle>
               <PostInfo>
                 <span>{`1분전|`}</span>

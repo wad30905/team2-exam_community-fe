@@ -13,7 +13,7 @@ import PostsList from "../molecules/PostsList";
 interface IPostsState {
   state: {
     postsId: number;
-    postsName: String;
+    postsName: string;
   } | null;
 }
 function Posts() {
@@ -31,12 +31,12 @@ function Posts() {
 
   return (
     <>
-      <TopBar
+      <TopBar id={state?.postsId}
         mainService={state ? state.postsName : "게시판타고들어와라 ^^"}
         needWrite={true}
         needSearch={true}
       />
-      <PostsList id={state?.postsId} />
+      <PostsList id={state?.postsId} postsName={state?.postsName}/>
     </>
   );
 }

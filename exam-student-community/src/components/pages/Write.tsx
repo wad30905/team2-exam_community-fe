@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import TopBar from "../molecules/TopBar";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   ErrorMessage,
@@ -10,7 +10,7 @@ import {
   WriteSelectorContainer,
   WriteSubmitContainer,
 } from "../molecules/atoms/styled";
-import { writePost } from "../../api";
+import { getBoards, writePost } from "../../api";
 import { authCheck } from "../../api";
 import {
   WriteContents,
@@ -20,30 +20,44 @@ import {
   Submit,
 } from "../molecules/atoms/styled";
 import { PostsList } from "../molecules/atoms/sampleData";
-import { user } from "../../store/atoms";
+import { loginState, user } from "../../store/atoms";
+import Loading from "../molecules/Loading";
 interface IWriteForm {
   BoardId: string;
   PostTitle: string;
   PostContent: string;
 }
 
+interface IWriteState {
+  state: {id: number;}
+}
 function Write() {
+  const userName = useRecoilValue(user);
+  const [isLoading, setIsLoading] = useState(true);
+  const [writeState, setWriteState] = useState<{id: number}>();
+  const {state} = useLocation() as IWriteState;
+  const navigate = useNavigate();
+  console.log(state);
+  useEffect(() => {
+    if (state === null) {
+      navigate("/");
+    }
+    setWriteState(state);
+    setIsLoading(false);
+  }, [])
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
   } = useForm<IWriteForm>();
-  const navigate = useNavigate();
-  const { userName } = useRecoilValue(user);
-
   function onSubmit(data: IWriteForm) {
-    writePost(userName, data.PostTitle, data.BoardId, data.PostContent);
-    navigate("/posts");
+    writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
+    navigate(`/posts/${data.BoardId}`);
   }
-  return (
+  return ( isLoading ? <Loading /> :
     <>
-      <TopBar mainService={"자유게시판"} needWrite={false} needSearch={false} />
+      <TopBar id={writeState?.id} mainService={"자유게시판"} needWrite={false} needSearch={false} />
       <WriteContents onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")}>
@@ -56,10 +70,12 @@ function Write() {
           placeholder="제목"
           {...register("PostTitle", { required: "제목을 입력하세요" })}
         />
+        {errors ? <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage> : null}
         <ContentInput
           placeholder="내용을 입력하세요."
           {...register("PostContent", { required: "내용을 입력하세요" })}
         />
+        {errors ? <ErrorMessage>{errors?.PostContent?.message}</ErrorMessage> : null}
         <WriteSubmitContainer>
           <Submit>작성 완료</Submit>
         </WriteSubmitContainer>

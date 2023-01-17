@@ -36,7 +36,7 @@ function Login() {
 
   return (
     <>
-      <TopBar mainService={"로그인"} needWrite={false} needSearch={false} />
+      <TopBar id={undefined} mainService={"로그인"} needWrite={false} needSearch={false} />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input

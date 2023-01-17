@@ -13,12 +13,13 @@ import Dropdown from "./Dropdown";
 import SearchBar from "./SearchBar";
 
 interface ITopBarProps {
-  mainService: String;
-  needWrite: Boolean;
-  needSearch: Boolean;
+  mainService: string | undefined;
+  needWrite: boolean;
+  needSearch: boolean;
+  id: number | undefined;
 }
 
-function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
+function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((current) => !current);
@@ -34,7 +35,7 @@ function TopBar({ mainService, needWrite, needSearch }: ITopBarProps) {
         </TopBarMain>
         {isLoggedIn ? (
           <TopBarBtns onClick={onClickLogOut}>
-            {needWrite ? <Link to="/blogs/write">글쓰기</Link> : null}
+            {needWrite ? <Link to="/posts/write" state={{id}}>글쓰기</Link> : null}
             <Link to="/">로그아웃</Link>
           </TopBarBtns>
         ) : (

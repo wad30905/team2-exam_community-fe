@@ -6,7 +6,7 @@ import { loginState, user } from "../../store/atoms";
 const options = ["기능1", "기능2", "기능3"];
 function Dropdown() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const {userName} = useRecoilValue(user);
+  const userName = useRecoilValue(user);
   console.log(userName);
   if (!isLoggedIn) {
     return (
