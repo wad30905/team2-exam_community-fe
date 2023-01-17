@@ -222,3 +222,54 @@ export function deleteBlog() {
       console.log(error);
     });
 }
+
+// kuk329 : 회원가입 처리 API
+// 얘는 form 데이터 post 해줘서 사용자 인증
+export async function registerUser(
+  name: string,
+  id: string,
+  pd: string,
+  phone: string,
+  email: string,
+  gender: string,
+  age: number
+) {
+  // 유저 객체로 받음.
+  // response 값에 따라 true / false 반환.
+  const response = await axios({
+    method: "post",
+    url: `${SERVER_URL}/register`,
+    data: {
+      name: name, // 이름
+      user_id: id, // 아이디
+      user_pw: pd, // 비번
+      phone: phone,
+      email: email,
+      gender: gender,
+      age: age,
+    },
+    withCredentials: true,
+  });
+  if (response.data) {
+    //로그인 성공
+    console.log("회원가입 성공");
+  } else {
+    //로그인 실패
+    console.log("회원가입 실패");
+  }
+}
+
+// 아이디 중복 확인 API
+export async function checkId(userId: string) {
+  // response 값에 따라 true / false 반환.
+  axios({
+    method: "get",
+    url: `${SERVER_URL}/id_compare`,
+    data: {
+      user_id: userId, // 아이디
+    },
+  }).then((response) => {
+    console.log(response.data);
+    return response.data;
+  });
+}
