@@ -19,6 +19,7 @@ import {
   registerPhone,
   registerEmail,
 } from "../../store/atoms";
+import { theme } from "../../lib/StyledComponents/theme";
 
 interface IForm {
   username: string;
@@ -68,7 +69,7 @@ const Register = () => {
     <>
       <Header>
         <button onClick={onClickPrev}>
-          <IconBackBtn />
+          <IconBackBtn/>
         </button>
         <h1>회원가입(1/2)</h1>
         <button>

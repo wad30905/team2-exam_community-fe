@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const LoginForm = styled.form`
-  width: 80%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  position: absolute;
+  top: 7vh;
+  width: 100%;
+  padding: 50px;
 
   label {
     display: inline-block;
@@ -281,6 +281,9 @@ export const Header = styled.div`
     border: none;
     cursor: pointer;
     font-size: 15px;
+    &:hover {
+      color: ${props => props.theme.accentColor}
+    }
   }
 `;
 
@@ -574,6 +577,8 @@ export const WriteSelector = styled.select`
 `;
 
 export const WriteContents = styled.form`
+  position: absolute;
+  top: 7vh;
   height: 93vh;
   display: flex;
   flex-direction: column;
