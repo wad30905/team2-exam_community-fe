@@ -31,10 +31,13 @@ function Boards({ data }: any) {
       {data?.map((board: any, index: number) => {
         return (
           <Board key={index}>
-            <Link to="blogs" state={{ blogsId: index, blogsName: board.name }}>
+            <Link
+              to="posts"
+              state={{ postsId: index + 1, postsName: `${index + 1}번 게시판` }}
+            >
               <div className="title_row">
                 <span className="title">
-                  {index}번 게시판 <IconRarr />
+                  {index + 1}번 게시판 <IconRarr />
                 </span>
                 <span className="total_num">{board[1]}개의 이야기</span>
               </div>

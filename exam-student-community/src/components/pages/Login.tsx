@@ -19,13 +19,9 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const userName = "로그인 안함";
 
   function onSubmit(data: IForm) {
     const checkLogin = async () => {
@@ -40,11 +36,7 @@ function Login() {
 
   return (
     <>
-      <TopBar
-        mainService={"로그인"}
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBar mainService={"로그인"} needWrite={false} needSearch={false} />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input

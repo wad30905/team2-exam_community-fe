@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 import axios, {Axios, AxiosError, AxiosResponse} from "axios";
+=======
+import axios, { Axios, AxiosError, AxiosResponse } from "axios";
+>>>>>>> 5c9e3c6984dc4cb524ef13d526a2118c94e176e0
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
 export const SERVER_URL = "";
@@ -40,12 +44,22 @@ export async function loginCheck(dataId: string, dataPw: string) {
   }
 }
 
-export async function fetchBlogs(blogsId: string) {
+export async function getBoards() {
+  const response = await axios({
+    method: "get",
+    withCredentials: true,
+    url: `${SERVER_URL}/blogs`,
+  });
+  console.log("getBoards :", response);
+  return response.data;
+}
+
+export async function getPosts(postsId: number) {
   return axios({
     method: "get",
     url: `${SERVER_URL}/blogs/:id`,
     data: {
-      blogsId,
+      blogsId: postsId,
     },
   })
     .then((response) => {
@@ -56,27 +70,17 @@ export async function fetchBlogs(blogsId: string) {
     });
 }
 
-export async function fetchBoards() {
+export async function getPost(id: number) {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/blogs`,
+    url: `${SERVER_URL}/detail/${id}`,
   });
-  console.log("fetchBoards :", response);
-  return response.data;
-}
-
-export async function fetchBlog() {
-  const response = await axios({
-    method: "get",
-    withCredentials: true,
-    url: `${SERVER_URL}/detail/:id`,
-  });
-  console.log("fetchBoards :", response);
+  console.log("getPost :", response);
   return response;
 }
 
-export function writeBlog(
+export function writePost(
   user_name: string,
   title: string,
   num: string,
@@ -103,20 +107,6 @@ export function writeBlog(
   return false;
 }
 
-export function fetchBoard(boardId: number) {
-  axios({
-    method: "get",
-    url: `${SERVER_URL}/detail/${boardId}`,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log("성공");
-      return true;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
 // data 생긴거 이렇다고 가정
 // {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
@@ -141,3 +131,51 @@ export async function writeComment(newComment: {
     console.log("에러");
   }
 }
+<<<<<<< HEAD
+=======
+
+export function deleteBlog() {
+  axios({
+    method: "delete",
+    url: `${SERVER_URL}/detail/${1}`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("삭제 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+export function 게시물시간구하기(date: string | null) {
+  if (date) {
+    let startDate = date.replace("T", "-");
+    startDate = startDate.slice(0, 15);
+    const start = new Date(startDate);
+    const end = new Date();
+
+    const diff = ((end as any) - (start as any)) / 1000;
+
+    const times = [
+      { name: "년", milliSeconds: 60 * 60 * 24 * 365 },
+      { name: "개월", milliSeconds: 60 * 60 * 24 * 30 },
+      { name: "일", milliSeconds: 60 * 60 * 24 },
+      { name: "시간", milliSeconds: 60 * 60 },
+      { name: "분", milliSeconds: 60 },
+    ];
+
+    for (const value of times) {
+      const betweenTime = Math.floor(
+        ((diff as any) / value.milliSeconds) as any
+      );
+
+      if (betweenTime > 0) {
+        return `${betweenTime}${value.name} 전`;
+      }
+    }
+    return "방금 전";
+  }
+}
+>>>>>>> 5c9e3c6984dc4cb524ef13d526a2118c94e176e0

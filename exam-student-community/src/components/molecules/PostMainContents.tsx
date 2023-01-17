@@ -9,7 +9,7 @@ import {
   ContentBtn,
   ContentBtns,
 } from "./atoms/styled";
-import { BlogSampleData } from "./atoms/sampleData";
+import { samplePost } from "./atoms/sampleData";
 import {
   IconLike,
   IconUser,
@@ -18,7 +18,15 @@ import {
   IconLiked,
 } from "./atoms/icons";
 import { useState } from "react";
-function BlogMainContents() {
+import { IPostData } from "../pages/Post";
+import Loading from "./Loading";
+import { 게시물시간구하기 } from "../../api";
+
+interface IPostProp {
+  post?: IPostData | null;
+}
+
+function PostMainContents({ post }: IPostProp) {
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
   const onLike = () => {
@@ -27,18 +35,19 @@ function BlogMainContents() {
   const onCopy = () => {
     setCopied((current) => !current);
   };
-  return (
+
+  return post ? (
     <>
       <User height="5vh">
         <IconUser style={{ width: "10%", height: "95%", margin: "0" }} />
         <UserInfo>
-          <Writer>{BlogSampleData.writer}</Writer>
-          <Details>{BlogSampleData.time}</Details>
+          <Writer>{post.user_name}</Writer>
+          <Details>{게시물시간구하기(post.c_date)}</Details>
         </UserInfo>
       </User>
       <Content>
-        <Title>{BlogSampleData.title}</Title>
-        <p>{BlogSampleData.content}</p>
+        <Title>{post.title}</Title>
+        <p>{post.content}</p>
       </Content>
       <ContentInfo>
         <ContentBtns>
@@ -69,7 +78,9 @@ function BlogMainContents() {
         </ContentBtns>
       </ContentInfo>
     </>
+  ) : (
+    <Loading />
   );
 }
 
-export default BlogMainContents;
+export default PostMainContents;
