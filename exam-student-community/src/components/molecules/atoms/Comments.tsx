@@ -1,5 +1,4 @@
 import { IconUser } from "./icons";
-import { BlogSampleData } from "./sampleData";
 import {
   Comment,
   CommenterBox,
@@ -7,10 +6,20 @@ import {
   CommentContent,
   CommentsList,
 } from "./styled";
-function Comments() {
+
+interface IComment {
+  commenter: string;
+  commentcontent: string;
+}
+
+interface ICommentsProp {
+  comments: IComment[] | undefined;
+}
+
+function Comments({ comments }: ICommentsProp) {
   return (
     <CommentsList>
-      {BlogSampleData.comments.map((comment, index) => (
+      {comments?.map((comment, index) => (
         <Comment key={index}>
           <CommenterBox>
             <IconUser style={{ width: "2vw", height: "3vh" }} />

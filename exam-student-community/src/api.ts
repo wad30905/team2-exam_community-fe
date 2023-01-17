@@ -1,5 +1,4 @@
-import axios from "axios";
-import { IBoards } from "./components/pages/Main";
+import axios, { Axios, AxiosError, AxiosResponse } from "axios";
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
 export const SERVER_URL = "";
@@ -18,18 +17,12 @@ export async function authCheck() {
     console.log(response);
   }
 
-  //  catch (error) {
-  //   console.error(error);
-  //   return false;
-  // }
   return response.data;
 }
 
 // 첫 로그인 처리 api
 // 얘는 form 데이터 post 해줘서 사용자 인증
 export async function loginCheck(dataId: string, dataPw: string) {
-  // 서버에 입력데이터 보내주는 코드 (서버에서 유효성 체크)
-  // response 값에 따라 true / false 반환.
   const response = await axios({
     method: "post",
     url: `${SERVER_URL}/login`,
@@ -40,20 +33,28 @@ export async function loginCheck(dataId: string, dataPw: string) {
     withCredentials: true,
   });
   if (response.data) {
-    //로그인 성공
     console.log("loginCheck / 유저 맞음");
   } else {
-    //로그인 실패
     console.log("loginCheck / 유저 아님");
   }
 }
 
-export async function fetchBlogs(blogsId: string) {
+export async function getBoards() {
+  const response = await axios({
+    method: "get",
+    withCredentials: true,
+    url: `${SERVER_URL}/blogs`,
+  });
+  console.log("getBoards :", response);
+  return response.data;
+}
+
+export async function getPosts(postsId: number) {
   return axios({
     method: "get",
-    url: `'/blogs/:id'`,
+    url: `${SERVER_URL}/blogs/:id`,
     data: {
-      blogsId,
+      blogsId: postsId,
     },
   })
     .then((response) => {
@@ -64,43 +65,17 @@ export async function fetchBlogs(blogsId: string) {
     });
 }
 
-export async function fetchBoards() {
+export async function getPost(id: number) {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/blogs/1`,
+    url: `${SERVER_URL}/detail/${id}`,
   });
-  console.log("fetchBoards :", response);
+  console.log("getPost :", response);
   return response;
 }
 
-// export function fetchBoards() {
-//   return axios<IBoards[]>({
-//     method: "get",
-//     url: `/blogs`,
-//   })
-//     .then((response) => {
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       console.log("서버 에러 :", error);
-//     });
-// }
-
-export function fetchBlog() {
-  return axios({
-    method: "get",
-    url: `/detail/:id'`,
-  })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log("서버 에러 :", error);
-    });
-}
-
-export function writeBlog(
+export function writePost(
   user_name: string,
   title: string,
   num: string,
@@ -127,91 +102,35 @@ export function writeBlog(
   return false;
 }
 
-export function fetchBoard() {
-  axios({
-    method: "get",
-    url: `${SERVER_URL}/detail/1`,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log("성공");
-      return true;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
 // data 생긴거 이렇다고 가정
 // {blogs:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
-export async function getComment() {
+export async function writeComment(newComment: {
+  commenter: string;
+  commentcontent: string;
+}) {
   const response = await axios({
-    method: "get",
-    withCredentials: true,
-    url: `/detail/1`, // /detail/:id
+    method: "post",
+    url: `/comment`,
+    data: {
+      // post_key: 게시물id,
+      content: newComment.commentcontent,
+    },
   });
-  console.log("response :", response);
-  console.log("response.data :", response.data);
-  console.log("response.data[0] :", response.data[0]);
-  //  catch (error) {
-  //   console.error(error);
-  //   return false;
-  // }
-  return response;
+  if (200) {
+    // 잘 들어갔으면
+    console.log("response : ", response);
+    return response; // 다시 댓글목록 받아오기
+    // response.data 형식 어떤지는 다시 봐야함
+  } else {
+    console.log("에러");
+  }
 }
 
-// export async function writeComment(newComment: {
-//   commenter: string;
-//   commentcontent: string;
-// }) {
-//   try {
-//     const response = await axios({
-//       method: "post",
-//       url: `/detail/:id`,
-//       data: {
-//         // [...previousData, {blogs:number, ~~, comments:[...prevComments, newComment] }];
-//       },
-//     });
-//     if(200){// 잘 들어갔으면
-//       return response.comments // 다시 댓글목록 받아오기
-//     } else{
-//       console.log("에러");
-//     }
-//     }
-//   } catch (error) {
-//     console.log("서버 에러 :", error);
-//   }
-
-//   export function writeComment(
-//     user_name: string,
-//     title: string,
-//     num: string,
-//     content: string
-//   ) {
-//     axios({
-//       method: "post",
-//       url: `${SERVER_URL}/detail`,
-//       data: {
-//         user_name,
-//         title,
-//         num,
-//         content,
-//       },
-//     })
-//       .then((response) => {
-//         console.log(response);
-//         return true;
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//     return false;
-//   }
 export function deleteBlog() {
   axios({
     method: "delete",
-    url: `${SERVER_URL}/detail/1`,
+    url: `${SERVER_URL}/detail/${1}`,
   })
     .then((response) => {
       console.log(response);
@@ -223,8 +142,37 @@ export function deleteBlog() {
     });
 }
 
+export function 게시물시간구하기(date: string | null) {
+  if (date) {
+    let startDate = date.replace("T", "-");
+    startDate = startDate.slice(0, 15);
+    const start = new Date(startDate);
+    const end = new Date();
+
+    const diff = ((end as any) - (start as any)) / 1000;
+
+    const times = [
+      { name: "년", milliSeconds: 60 * 60 * 24 * 365 },
+      { name: "개월", milliSeconds: 60 * 60 * 24 * 30 },
+      { name: "일", milliSeconds: 60 * 60 * 24 },
+      { name: "시간", milliSeconds: 60 * 60 },
+      { name: "분", milliSeconds: 60 },
+    ];
+
+    for (const value of times) {
+      const betweenTime = Math.floor(
+        ((diff as any) / value.milliSeconds) as any
+      );
+
+      if (betweenTime > 0) {
+        return `${betweenTime}${value.name} 전`;
+      }
+    }
+    return "방금 전";
+  }
+}
+
 // kuk329 : 회원가입 처리 API
-// 얘는 form 데이터 post 해줘서 사용자 인증
 export async function registerUser(
   name: string,
   id: string,

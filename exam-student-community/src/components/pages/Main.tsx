@@ -1,43 +1,18 @@
-import { useEffect, useState } from "react";
-import Dropdown from "../molecules/Dropdown";
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
-import { authCheck, fetchBoards, getComment, SERVER_URL } from "../../api";
-import axios from "axios";
+import Loading from "../molecules/Loading";
+import { authCheck, getBoards, SERVER_URL } from "../../api";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../store/atoms";
-import SearchBar from "../molecules/SearchBar";
-import { useQuery } from "react-query";
-import { Loader } from "../molecules/atoms/styled";
-import Loading from "../molecules/Loading";
-
-import DropdownMenu from "../molecules/Practice";
-
-import { sampleBlogs, sampleBoards } from "../molecules/atoms/sampleData";
-
-export interface IPost {
-  id: Number;
-  title: String;
-  comment_num: Number;
-  click_num: Number;
-  writer: String;
-  m_date: Number;
-  d_date: Number;
-}
-
-export interface IBoards {
-  index: Number;
-  name: String;
-  total_num: Number;
-  posts: IPost[];
-}
+import { useState, useEffect } from "react";
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const [userName, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [boardsData, setBoardsData] = useState();
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -45,24 +20,26 @@ function Main() {
       const authStatus = authData["isAuthenticated"];
       const authName = authData["userName"];
       setIsLoggedIn(authStatus);
-      setUsername(authName);
+      setUserName(authName);
       setIsLoading(false);
-      getComment();
+    };
+    const paintBoards = async () => {
+      const boardsData = await getBoards();
+      setBoardsData(boardsData);
     };
     checkUserAuth();
-    fetchBoards();
+    paintBoards();
   }, []);
 
-  return (
+  return !isLoading ? (
     <>
-      <TopBar
-        mainService={"서비스명"}
-        needWrite={isLoggedIn ? true : false}
-        needSearch={true}
-        userName={userName}
-      />
-      {isLoading ? null : <Boards data={sampleBoards} />}
+      <TopBar mainService={"서비스명"} needWrite={true} needSearch={true} />
+      {/* {isLoading ? null : <Boards data={sampleBoards}} */}
+      <Boards data={boardsData} />
+      <button>클릭</button>
     </>
+  ) : (
+    <Loading />
   );
 }
 

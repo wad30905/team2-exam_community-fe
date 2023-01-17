@@ -1,30 +1,13 @@
 import { useState } from "react";
 import { DropdownBox, Menu } from "./atoms/styled";
 import { IconRarr, IconLock, IconPower } from "./atoms/icons";
-import { useRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
-import { useEffect } from "react";
-import { authCheck } from "../../api";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { loginState, user } from "../../store/atoms";
 const options = ["기능1", "기능2", "기능3"];
-
 function Dropdown() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const [isLoading0, setIsLoading] = useState(true);
-  const [userName, setUsername] = useState("");
-  useEffect(() => {
-    const checkUserAuth = async () => {
-      const authData = await authCheck();
-      const authStatus = authData["isAuthenticated"];
-      const authName = authData["userName"];
-      setIsLoggedIn(authStatus);
-      setUsername(authName);
-      setIsLoading(false);
-    };
-    checkUserAuth();
-  }, []);
-  console.log(isLoggedIn);
+  const {userName} = useRecoilValue(user);
+  console.log(userName);
   if (!isLoggedIn) {
     return (
       <DropdownBox>
