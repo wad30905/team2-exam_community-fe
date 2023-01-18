@@ -38,6 +38,7 @@ function Posts() {
         needWrite={true}
         needSearch={true}
       />
+
       <PostsList
         id={state?.boardId}
         name={state?.boardName}

@@ -18,7 +18,7 @@ function Search() {
     const getSearchResult = async () => {
       const searchResult = await searchPosts(keyword, mode);
       console.log("searchResult :", searchResult);
-      console.log("-------------------");
+      console.log("r--------------------------");
       setPostsData(searchResult);
       setMode("1");
     };

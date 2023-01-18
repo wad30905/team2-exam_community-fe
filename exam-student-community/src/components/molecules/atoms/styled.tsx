@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { isPropertySignature } from "typescript";
 
 export const LoginForm = styled.form`
   position: absolute;
@@ -216,9 +217,12 @@ export const Menu = styled.li`
 `;
 
 export const DropdownBox = styled.div`
-  padding: 30px;
+  width: 98%;
   z-index: 100;
-  background-color: white;
+  background: #f7f7f7;
+  margin: auto;
+  padding: 30px;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -236,12 +240,15 @@ export const DropdownBox = styled.div`
 `;
 
 export const LoadingBox = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 7vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  min-height: 100vh;
   transform: translateY(-50px);
   span {
     font-size: 30px;
@@ -296,6 +303,7 @@ export const TopBarBtns = styled.div`
   justify-content: center;
   align-items: center;
   width: 20%;
+  cursor: pointer;
   a {
     cursor: pointer;
     padding: 5px;
@@ -479,7 +487,7 @@ export const Content = styled.div`
     background: white;
   }
 `;
-export const ContentInfo = styled.div`
+export const ContentInfo = styled.p`
   font-weight: lighter;
   font-size: 10px;
   color: #aaa;
@@ -601,9 +609,11 @@ export const BoardsList = styled.ul`
 `;
 
 export const PostsContainer = styled.ul`
+  position: absolute;
+  top: 15vh;
   width: 100%;
+  height: 85vh;
   list-style: none;
-
   overflow-y: scroll;
 `;
 
@@ -626,6 +636,7 @@ export const WriteContents = styled.form`
   position: absolute;
   top: 7vh;
   height: 93vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -670,13 +681,48 @@ export const Submit = styled.button`
   font-size: 30px;
 `;
 
-export const Loader = styled.span`
-  text-align: center;
-  display: block;
-`;
-
 export const TopBarContainer = styled.div`
+  position: absolute;
+  top: 0;
   width: 100%;
   z-index: 100;
   background: ${(props) => props.theme.whiteColor};
+`;
+
+export interface IPostMenuBar {
+  top: string;
+}
+
+export const PostMenuBar = styled.ul<IPostMenuBar>`
+  z-index: 120;
+  position: absolute;
+  top: ${(props) => props.top};
+  width: 98%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+`;
+
+export const PostMenuBtn = styled.li`
+  width: 80%;
+  height: 6vh;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
+    transform: translateY(-2px);
+    color: ${(props) => props.theme.accentColor};
+  }
 `;

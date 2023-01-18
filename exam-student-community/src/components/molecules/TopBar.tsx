@@ -12,7 +12,6 @@ import { loginState, user } from "../../store/atoms";
 import { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import SearchBar from "./SearchBar";
-import { logout } from "../../api";
 
 interface ITopBarProps {
   mainService: string | undefined;
@@ -25,10 +24,7 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((current) => !current);
-  const onClickLogOut = () => {
-    setIsLoggedIn(false);
-  };
-
+  const onClickLogOut = () => setIsLoggedIn(false);
   return (
     <TopBarContainer>
       <TopContainer>
