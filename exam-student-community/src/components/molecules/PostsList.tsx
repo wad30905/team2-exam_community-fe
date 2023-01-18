@@ -6,26 +6,25 @@ import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { samplePosts } from "./atoms/sampleData";
+import { IPostData } from "../pages/Post";
 
 interface IPostsListProp {
   id?: number;
   name?: string;
+  postsData?: IPostData[] | undefined;
 }
 
-function PostsList({id, name} : IPostsListProp) {
-  const [postsData, setPostsData] = useState<any | null>();
-  useEffect(() => {
-    const url = `${SERVER_URL}/posts/${id}`;
-    axios({ method: "get", url, data: { id } }).then((response) =>
-      setPostsData(response.data[0])
-    );
-  }, []);
-  if (samplePosts) {
+function PostsList({ id, name, postsData }: IPostsListProp) {
+  // 서버 연결됐을때는, samplePosts를 postsData로 수정
+  if (postsData) {
     return (
       <PostsContainer>
-        {samplePosts.map((post: any, index: number) => (
+        {postsData.map((post: any, index: number) => (
           <Post key={index}>
-            <Link to={`./${post.id}`} state={{ postId: post.id, boardName: name}}>
+            <Link
+              to={`/posts/${post.id}`}
+              state={{ postId: post.id, boardName: name }}
+            >
               <PostTitle>{post.title}</PostTitle>
               <PostInfo>
                 <span>{`1분전|`}</span>

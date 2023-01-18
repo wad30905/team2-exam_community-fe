@@ -221,3 +221,49 @@ export async function checkId(userId: string) {
     return response.data;
   });
 }
+
+// 검색하면, 해당 게시물 띄워주기
+export async function searchPosts(keyword: string | undefined, mode: number) {
+  let datakey = "";
+  if (mode === 1) {
+    datakey = "title";
+  } else {
+    datakey = "user_id";
+  }
+
+  const response = await axios({
+    method: "post",
+    url: `${SERVER_URL}/findpost/${mode}`,
+    data: {
+      [datakey]: keyword,
+    },
+  });
+  if (response.data) {
+    const posts = response.data.posts;
+    return posts;
+  } else {
+    const posts = null;
+    return posts;
+  }
+  return;
+}
+
+// 카카오로그인
+// 아직 미완성
+// 가져오는 토큰 값 출력하는 코드
+export function kakaoLogin() {
+  window.Kakao.init("c78646d9d9a9785d4a01481087e7d506");
+  function login() {
+    window.Kakao.Auth.authorize({
+      scope: "profile_nickname",
+      redirectUri: "http://localhost:3000/",
+    });
+    window.Kakao.init("c78646d9d9a9785d4a01481087e7d506");
+    const accessToken = window.Kakao.Auth.getAccessToken();
+    console.log(accessToken);
+    // authorization code 가 url에 박힘
+    // redirection url에 전달된다고 함.
+    // 근데 어디있지.
+  }
+  login();
+}

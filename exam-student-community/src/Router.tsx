@@ -7,6 +7,7 @@ import Register1 from "./components/pages/Register1";
 import Register2 from "./components/pages/Register2";
 import Write from "./components/pages/Write";
 import Practice from "./components/pages/Practice";
+import Search from "./components/pages/Search";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/posts/write" element={<Write />} />
         <Route path="/register1" element={<Register1 />} />
         <Route path="/register2" element={<Register2 />} />
+        <Route path="/search/:keyword" element={<Search />} />
         <Route path="/practice" element={<Practice />} />
       </Routes>
     </BrowserRouter>

@@ -6,13 +6,17 @@ import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { useState, useEffect } from "react";
 import { sampleBoards } from "../molecules/atoms/sampleData";
+import { Link } from "react-router-dom";
+import SearchBar from "../molecules/SearchBar";
 
 function Main() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
-  console.log(isLoggedIn);
+  console.log("메인페이지");
+  console.log("isLoggedIn : ", isLoggedIn);
+
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -31,9 +35,14 @@ function Main() {
   }, []);
 
   return true ? (
-    <div style={{position: "relative"}}>
-      <TopBar id={undefined} mainService={"서비스명"} needWrite={true} needSearch={true}/>
-      <Boards data={sampleBoards} />
+    <div style={{ position: "relative" }}>
+      <TopBar
+        id={undefined}
+        mainService={"서비스명"}
+        needWrite={true}
+        needSearch={true}
+      />
+      <Boards data={boardsData} />
     </div>
   ) : (
     <Loading />

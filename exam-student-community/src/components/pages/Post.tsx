@@ -16,6 +16,7 @@ import {
 } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
 import { samplePost } from "../molecules/atoms/sampleData";
+import SearchBar from "../molecules/SearchBar";
 
 interface IForm {
   comment: string;
@@ -90,10 +91,15 @@ function Post() {
 
   return true ? (
     <>
-      <TopBar id={postId} mainService={boardName} needWrite={false} needSearch={false} />
+      <TopBar
+        id={postId}
+        mainService={boardName}
+        needWrite={false}
+        needSearch={false}
+      />
       <PostMain>
-        <PostMainContents post={samplePost} />
-        <Comments comments={samplePost?.comments} />
+        <PostMainContents post={postData} />
+        <Comments comments={postData?.comments} />
         <CommentForm onSubmit={handleSubmit(onSubmit)}>
           <CommentInput
             {...register("comment", {

@@ -100,28 +100,73 @@ export const BoardPost = styled.li`
   font-weight: 600;
 `;
 
-export const SearchContainer = styled.div`
-  background-color: ${(props) => props.theme.accentColor};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 8vh;
-`;
 export interface SearchProps {
   placeholder: string;
 }
-export const Search = styled.input`
-  width: 90%;
-  height: 4vh;
-  /* placeholder: ${(props) => props.placeholder}; */
-  background-image: url(./images/SearchIcon.png);
-  background-repeat: no-repeat;
-  background-size: 13px;
-  background-position: 98%;
-  padding: 10px;
+
+export const SearchForm = styled.form`
+  position: relative;
+  background-color: ${(props) => props.theme.accentColor};
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SearchBox = styled.div`
+  background-color: white;
+  height: 60%;
+  width: 88%;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SearchSelection = styled.select`
+  height: 100%;
+  padding: 3px;
+  border-radius: 5px 0px 0px 5px;
+  font-size: 12px;
   border: none;
+  color: ${(props) => props.theme.accentColor};
+  :focus {
+    border: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  :active {
+    border: none;
+  }
+`;
+
+export interface SearchProps {
+  placeholder: string;
+}
+
+export const SearchInput = styled.input`
+  width: 100%;
+  height: 100%;
+  /* placeholder: ${(props) => props.placeholder}; */
+  padding: 10px;
+  border-radius: 0px 5px 5px 0px;
+  border: none;
+`;
+
+export const Searchbutton = styled.button`
+  position: absolute;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+  color: ${(props) => props.theme.grayColor};
+  right: 7%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  :hover {
+    color: ${(props) => props.theme.accentColor};
+  }
 `;
 
 // export const Post = styled.li`
@@ -172,6 +217,7 @@ export const Menu = styled.li`
 
 export const DropdownBox = styled.div`
   padding: 30px;
+  z-index: 100;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -282,7 +328,7 @@ export const Header = styled.div`
     cursor: pointer;
     font-size: 15px;
     &:hover {
-      color: ${props => props.theme.accentColor}
+      color: ${(props) => props.theme.accentColor};
     }
   }
 `;
@@ -553,11 +599,9 @@ export const BoardsList = styled.ul`
 `;
 
 export const PostsContainer = styled.ul`
-  position: absolute;
-  top: 15vh;
   width: 100%;
   list-style: none;
-  height: 85vh;
+
   overflow-y: scroll;
 `;
 
@@ -630,9 +674,7 @@ export const Loader = styled.span`
 `;
 
 export const TopBarContainer = styled.div`
-  position: absolute;
-  top: 0vh;
   width: 100%;
   z-index: 100;
-  background: ${props => props.theme.whiteColor}
-`
+  background: ${(props) => props.theme.whiteColor};
+`;

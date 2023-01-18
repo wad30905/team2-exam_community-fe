@@ -1,66 +1,66 @@
 export const sampleBoards = [
   [
     [
-      {title: "첫글", comment_num: 100},
-      {title: "첫글", comment_num: 100},
-      {title: "첫글", comment_num: 100}
+      { title: "글1", comment_num: 100 },
+      { title: "글2", comment_num: 100 },
+      { title: "글3", comment_num: 100 },
     ],
-    3
+    3,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글1", comment_num: 100 },
+      { title: "글2", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글1", comment_num: 100 },
+      { title: "글2", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글1", comment_num: 100 },
+      { title: "글2", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글1", comment_num: 100 },
+      { title: "글2", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글4", comment_num: 100 },
+      { title: "글5", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글5", comment_num: 100 },
+      { title: "글6", comment_num: 100 },
     ],
-    2
+    2,
   ],
   [
     [
-      {title: "첫글", comment_num: 100}, 
-      {title: "첫글", comment_num: 100}
+      { title: "글5", comment_num: 100 },
+      { title: "글6", comment_num: 100 },
     ],
-    2
+    2,
   ],
 ];
 
 export const samplePosts = [
   {
-    id: "1e123123123",
+    id: "1",
     title: "게시물1",
     c_min: 18,
     n_view: 100,
@@ -68,29 +68,29 @@ export const samplePosts = [
   },
 
   {
-    id: "1e123123123",
-    title: "게시물1",
+    id: "2",
+    title: "게시물2",
     c_min: 18,
     n_view: 100,
     n_like: 90,
   },
   {
-    id: "1e123123123",
-    title: "게시물1",
+    id: "3",
+    title: "게시물3",
     c_min: 18,
     n_view: 100,
     n_like: 90,
   },
   {
-    id: "1e123123123",
-    title: "게시물1",
+    id: "4",
+    title: "게시물4",
     c_min: 18,
     n_view: 100,
     n_like: 90,
   },
   {
-    id: "1e123123123",
-    title: "게시물1",
+    id: "5",
+    title: "게시물5",
     c_min: 18,
     n_view: 100,
     n_like: 90,

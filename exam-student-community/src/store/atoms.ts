@@ -53,3 +53,14 @@ export const registerTime = atom({
   key: "time",
   default: "",
 });
+
+export const postsState = atom({
+  key: "posts",
+  default: [],
+});
+
+export const searchModeState = atom({
+  key: "mode",
+  default: 1,
+  effects_UNSTABLE: [persistAtom],
+});

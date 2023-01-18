@@ -25,6 +25,8 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((current) => !current);
   const onClickLogOut = () => setIsLoggedIn(false);
+  console.log("topbar");
+  console.log("isLoggedIn:", isLoggedIn);
   return (
     <TopBarContainer>
       <TopContainer>
@@ -36,7 +38,11 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
         </TopBarMain>
         {isLoggedIn ? (
           <TopBarBtns onClick={onClickLogOut}>
-            {needWrite ? <Link to="/posts/write" state={{id}}>글쓰기</Link> : null}
+            {needWrite ? (
+              <Link to="/posts/write" state={{ id }}>
+                글쓰기
+              </Link>
+            ) : null}
             <Link to="/">로그아웃</Link>
           </TopBarBtns>
         ) : (
@@ -46,7 +52,7 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
         )}
       </TopContainer>
       {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
-      {isOpen ? <Dropdown /> : null }
+      {isOpen ? <Dropdown /> : null}
     </TopBarContainer>
   );
 }

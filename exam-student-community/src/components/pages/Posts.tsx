@@ -9,8 +9,12 @@ import {
 } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
+import SearchBar from "../molecules/SearchBar";
+import axios from "axios";
+import { SERVER_URL } from "../../api";
+import { useRecoilState } from "recoil";
 
-interface IPostsState {
+export interface IPostsState {
   state: {
     boardId: number;
     boardName: string;
@@ -19,25 +23,32 @@ interface IPostsState {
 function Posts() {
   const { state } = useLocation() as IPostsState;
   const navigate = useNavigate();
-
-  console.log(state);
+  const [postsData, setPostsData] = useState();
 
   useEffect(() => {
     if (state === null) {
       navigate("/");
       console.log("navigate");
     }
+    const url = `${SERVER_URL}/posts/${state?.boardId}`;
+    axios({ method: "get", url, data: state?.boardId }).then((response) =>
+      setPostsData(response.data[0])
+    );
   }, []);
 
   return (
     <>
-      <TopBar id={state?.boardId}
+      <TopBar
+        id={state?.boardId}
         mainService={state ? state.boardName : "게시판타고들어와라 ^^"}
         needWrite={true}
         needSearch={true}
       />
-      {console.log("test state", state?.boardName)}
-      <PostsList id={state?.boardId} name={state?.boardName}/>
+      <PostsList
+        id={state?.boardId}
+        name={state?.boardName}
+        postsData={postsData}
+      />
     </>
   );
 }

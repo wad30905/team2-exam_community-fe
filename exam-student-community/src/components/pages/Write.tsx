@@ -6,7 +6,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   ErrorMessage,
-  Search,
   WriteSelectorContainer,
   WriteSubmitContainer,
 } from "../molecules/atoms/styled";
@@ -29,24 +28,28 @@ interface IWriteForm {
 }
 
 interface IWriteState {
-  state: {id: number;}
+  state: { id: number };
 }
 function Write() {
   const isLoggedIn = useRecoilValue(loginState);
-  alert(isLoggedIn)
+
   const userName = useRecoilValue(user);
   const [isLoading, setIsLoading] = useState(true);
-  const [writeState, setWriteState] = useState<{id: number}>();
-  const {state} = useLocation() as IWriteState;
+  const [writeState, setWriteState] = useState<{ id: number }>();
+  const { state } = useLocation() as IWriteState;
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/");
     }
+    console.log("글쓰기페이지");
+    console.log("isLoggedIn : ", isLoggedIn);
+    console.log("loginState : ", loginState);
     alert("로그인하셔야 글쓰기를 할 수 있습니다.");
     setWriteState(state);
     setIsLoading(false);
-  }, [])
+  }, []);
   const {
     register,
     handleSubmit,
@@ -57,9 +60,16 @@ function Write() {
     writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
     navigate(`/posts/${data.BoardId}`);
   }
-  return ( isLoading ? <Loading /> :
+  return !isLoading ? (
+    <Loading />
+  ) : (
     <>
-      <TopBar id={writeState?.id} mainService={"자유게시판"} needWrite={false} needSearch={false} />
+      <TopBar
+        id={writeState?.id}
+        mainService={"자유게시판"}
+        needWrite={false}
+        needSearch={false}
+      />
       <WriteContents onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")}>
@@ -72,12 +82,16 @@ function Write() {
           placeholder="제목"
           {...register("PostTitle", { required: "제목을 입력하세요" })}
         />
-        {errors ? <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage> : null}
+        {errors ? (
+          <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage>
+        ) : null}
         <ContentInput
           placeholder="내용을 입력하세요."
           {...register("PostContent", { required: "내용을 입력하세요" })}
         />
-        {errors ? <ErrorMessage>{errors?.PostContent?.message}</ErrorMessage> : null}
+        {errors ? (
+          <ErrorMessage>{errors?.PostContent?.message}</ErrorMessage>
+        ) : null}
         <WriteSubmitContainer>
           <Submit>작성 완료</Submit>
         </WriteSubmitContainer>
