@@ -31,24 +31,31 @@ interface IWriteState {
   state: { id: number };
 }
 function Write() {
-  const isLoggedIn = useRecoilValue(loginState);
-
-  const userName = useRecoilValue(user);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [writeState, setWriteState] = useState<{ id: number }>();
   const { state } = useLocation() as IWriteState;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoggedIn === false) {
-      navigate("/");
-    }
-    console.log("글쓰기페이지");
-    console.log("isLoggedIn : ", isLoggedIn);
-    console.log("loginState : ", loginState);
-    alert("로그인하셔야 글쓰기를 할 수 있습니다.");
-    setWriteState(state);
-    setIsLoading(false);
+    const checkUserAuth = async () => {
+      const authData = await authCheck();
+      const authStatus = authData["isAuthenticated"];
+      const authName = authData["username"];
+      setIsLoggedIn(authStatus);
+      setUserName(authName);
+      setIsLoading(false);
+      if (authStatus) {
+        setWriteState(state);
+        console.log("!!");
+      } else {
+        alert("로그인하셔야 글쓰기를 할 수 있습니다.");
+        navigate("/");
+      }
+    };
+
+    checkUserAuth();
   }, []);
   const {
     register,
@@ -60,7 +67,7 @@ function Write() {
     writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
     navigate(`/posts/${data.BoardId}`);
   }
-  return !isLoading ? (
+  return isLoading ? (
     <Loading />
   ) : (
     <>

@@ -218,6 +218,7 @@ export const Menu = styled.li`
 export const DropdownBox = styled.div`
   padding: 30px;
   z-index: 100;
+  background-color: white;
   ul {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -478,7 +479,7 @@ export const Content = styled.div`
     background: white;
   }
 `;
-export const ContentInfo = styled.p`
+export const ContentInfo = styled.div`
   font-weight: lighter;
   font-size: 10px;
   color: #aaa;
@@ -584,6 +585,7 @@ export const PostMain = styled.div`
   position: absolute;
   top: 7vh;
   height: 90vh;
+  width: 100%;
   overflow-y: scroll;
   display: flex;
   padding: 10px;

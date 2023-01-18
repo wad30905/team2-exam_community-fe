@@ -7,7 +7,7 @@ import { authCheck, writeComment, getPost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
 import PostMainContents from "../molecules/PostMainContents";
-import Comments from "../molecules/atoms/Comments";
+import Comments from "../molecules/Comments";
 import { PostMain } from "../molecules/atoms/styled";
 import {
   CommentForm,
@@ -23,21 +23,31 @@ interface IForm {
 }
 
 export interface IPostData {
+  post_detail: IPost;
+  post_comments: IComment[];
+  // comments 가 안오는거같은데 확인 필요.
+}
+
+export interface IPost {
   c_date: string | null;
   d_date: string | null;
   m_date: string | null;
   click_num: number;
   comment_num: number;
   content: string;
+  hide_user: boolean;
   id: number;
   like: number;
   num: number;
   title: string;
-  user_name: string;
-  comments: { commenter: string; commentcontent: string }[];
-  // comments 가 안오는거같은데 확인 필요.
+  user_id: string;
 }
 
+export interface IComment {
+  user_id: string;
+  content: string;
+  c_date: string;
+}
 interface IPostState {
   state: {
     postId: number;
@@ -52,14 +62,15 @@ function Post() {
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
-  console.log(state);
+  console.log("state :", state);
   const postId = state?.postId;
   const boardName = state?.boardName;
   const navigate = useNavigate();
 
   function onSubmit(data: IForm) {
     reset();
-    writeComment({ commenter: userName, commentcontent: data.comment });
+
+    writeComment(data.comment, `${postData?.post_detail.id}`);
     window.location.reload();
   }
 
@@ -87,6 +98,7 @@ function Post() {
       checkUserAuth();
       paintPost();
     }
+    console.log("postData :", postData);
   }, []);
 
   return true ? (
@@ -98,8 +110,8 @@ function Post() {
         needSearch={false}
       />
       <PostMain>
-        <PostMainContents post={postData} />
-        <Comments comments={postData?.comments} />
+        <PostMainContents post={postData?.post_detail} />
+        <Comments comments={postData?.post_comments} />
         <CommentForm onSubmit={handleSubmit(onSubmit)}>
           <CommentInput
             {...register("comment", {

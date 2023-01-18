@@ -13,13 +13,17 @@ function Search() {
   const [mode, setMode] = useRecoilState(searchModeState);
 
   useEffect(() => {
+    console.log("-------search page------------");
     console.log("mode :", mode);
     const getSearchResult = async () => {
       const searchResult = await searchPosts(keyword, mode);
+      console.log("searchResult :", searchResult);
+      console.log("-------------------");
       setPostsData(searchResult);
+      setMode("1");
     };
     getSearchResult();
-  }, [keyword]);
+  }, []);
 
   return (
     <>

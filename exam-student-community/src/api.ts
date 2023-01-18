@@ -10,11 +10,9 @@ export async function authCheck() {
     url: `${SERVER_URL}/login`,
   });
   if (response.data.isAuthenticated) {
-    console.log("authCheck / 유저 맞음");
-    console.log("response :", response);
+    console.log("유저 맞을 때 response :", response);
   } else {
-    console.log("유저 아님");
-    console.log(response);
+    console.log("유저 아닐 때 response:", response);
   }
 
   return response.data;
@@ -43,7 +41,7 @@ export async function getBoards() {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/posts`,
+    url: `${SERVER_URL}/blogs`,
   });
   console.log("getBoards :", response);
   return response.data;
@@ -52,7 +50,7 @@ export async function getBoards() {
 export async function getPosts(boardId: number) {
   return axios({
     method: "get",
-    url: `${SERVER_URL}/posts/:id`,
+    url: `${SERVER_URL}/blogs/${boardId}`,
     data: {
       boardId,
     },
@@ -71,8 +69,8 @@ export async function getPost(id: number) {
     withCredentials: true,
     url: `${SERVER_URL}/detail/${id}`,
   });
-  console.log("getPost :", response);
-  return response;
+
+  return response.data;
 }
 
 export function writePost(
@@ -85,10 +83,10 @@ export function writePost(
     method: "post",
     url: `${SERVER_URL}/detail`,
     data: {
-      user_name,
       title,
       num,
       content,
+      hide_user: false,
     },
   })
     .then((response) => {
@@ -105,16 +103,14 @@ export function writePost(
 // data 생긴거 이렇다고 가정
 // {posts:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
 
-export async function writeComment(newComment: {
-  commenter: string;
-  commentcontent: string;
-}) {
+export async function writeComment(newComment: string, post_key: string) {
   const response = await axios({
     method: "post",
     url: `/comment`,
     data: {
       // post_key: 게시물id,
-      content: newComment.commentcontent,
+      content: newComment,
+      post_key: post_key,
     },
   });
   if (200) {
@@ -223,14 +219,13 @@ export async function checkId(userId: string) {
 }
 
 // 검색하면, 해당 게시물 띄워주기
-export async function searchPosts(keyword: string | undefined, mode: number) {
+export async function searchPosts(keyword: string | undefined, mode: any) {
   let datakey = "";
-  if (mode === 1) {
+  if (mode === "1") {
     datakey = "title";
   } else {
     datakey = "user_id";
   }
-
   const response = await axios({
     method: "post",
     url: `${SERVER_URL}/findpost/${mode}`,
@@ -239,13 +234,14 @@ export async function searchPosts(keyword: string | undefined, mode: number) {
     },
   });
   if (response.data) {
-    const posts = response.data.posts;
+    console.log("response :", response);
+    const posts = response.data;
     return posts;
   } else {
+    console.log("response :", response);
     const posts = null;
     return posts;
   }
-  return;
 }
 
 // 카카오로그인
@@ -266,4 +262,12 @@ export function kakaoLogin() {
     // 근데 어디있지.
   }
   login();
+}
+
+// 로그아웃
+export function logout() {
+  axios({
+    method: "post",
+    url: `${SERVER_URL}/logout`,
+  });
 }

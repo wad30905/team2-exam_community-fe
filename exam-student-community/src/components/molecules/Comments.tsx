@@ -1,16 +1,12 @@
-import { IconUser } from "./icons";
+import { IconUser } from "./atoms/icons";
 import {
   Comment,
   CommenterBox,
   CommenterName,
   CommentContent,
   CommentsList,
-} from "./styled";
-
-interface IComment {
-  commenter: string;
-  commentcontent: string;
-}
+} from "./atoms/styled";
+import { IComment } from "../pages/Post";
 
 interface ICommentsProp {
   comments: IComment[] | undefined;
@@ -23,10 +19,10 @@ function Comments({ comments }: ICommentsProp) {
         <Comment key={index}>
           <CommenterBox>
             <IconUser style={{ width: "2vw", height: "3vh" }} />
-            <CommenterName>{comment.commenter}</CommenterName>
+            <CommenterName>{comment.user_id}</CommenterName>
           </CommenterBox>
           <CommentContent>
-            <p>{comment.commentcontent}</p>
+            <p>{comment.content}</p>
           </CommentContent>
         </Comment>
       ))}

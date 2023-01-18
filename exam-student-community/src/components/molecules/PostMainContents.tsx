@@ -41,7 +41,7 @@ function PostMainContents({ post }: IPostProp) {
       <User height="5vh">
         <IconUser style={{ width: "10%", height: "95%", margin: "0" }} />
         <UserInfo>
-          <Writer>{post.user_name}</Writer>
+          <Writer>{post.user_id}</Writer>
           <Details>{게시물시간구하기(post.c_date)}</Details>
         </UserInfo>
       </User>

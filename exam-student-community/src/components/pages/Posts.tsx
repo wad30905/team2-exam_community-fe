@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQueries, useQuery } from "react-query";
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
 import SearchBar from "../molecules/SearchBar";
@@ -30,7 +24,7 @@ function Posts() {
       navigate("/");
       console.log("navigate");
     }
-    const url = `${SERVER_URL}/posts/${state?.boardId}`;
+    const url = `${SERVER_URL}/blogs/${state?.boardId}`;
     axios({ method: "get", url, data: state?.boardId }).then((response) =>
       setPostsData(response.data[0])
     );

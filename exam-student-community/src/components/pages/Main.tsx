@@ -14,14 +14,12 @@ function Main() {
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
-  console.log("메인페이지");
-  console.log("isLoggedIn : ", isLoggedIn);
 
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
       const authStatus = authData["isAuthenticated"];
-      const authName = authData["userName"];
+      const authName = authData["username"];
       setIsLoggedIn(authStatus);
       setUserName(authName);
       setIsLoading(false);
