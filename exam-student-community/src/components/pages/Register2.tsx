@@ -47,7 +47,7 @@ const Register2 = () => {
     const time_num = Number(time);
 
     // 회원가입 API 호출
-    registerUser(name, id, password, phone, email, gender, time_num);
+    registerUser(name, id, password, phone, email, gender, time);
     //console.log(name, id, password, phone, email, gender, time_num);
 
     alert("회원가입을 완료했습니다.");

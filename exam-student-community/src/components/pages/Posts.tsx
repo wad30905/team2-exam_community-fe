@@ -14,6 +14,7 @@ export interface IPostsState {
     boardName: string;
   } | null;
 }
+
 function Posts() {
   const { state } = useLocation() as IPostsState;
   const navigate = useNavigate();

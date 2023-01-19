@@ -14,6 +14,7 @@ import SearchBar from "../molecules/SearchBar";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Dropdown from "../molecules/Dropdown";
 
 function MycommentPosts() {
   const [isMore, setIsMore] = useState(false);
@@ -24,13 +25,14 @@ function MycommentPosts() {
   };
   const onMore = () => {
     setIsMore((current) => !current);
+    console.log("onMore");
   };
   useEffect(() => {
     axios({ method: "get" }).then((response) => {
       setPostsData(response.data);
     });
   }, []);
-
+  console.log("ismore", isMore);
   return (
     <>
       <TopBarContainer>
@@ -42,12 +44,13 @@ function MycommentPosts() {
             <Link to="/">{"댓글단 글"}</Link>
           </TopBarMain>
           <TopBarBtns>
-            <IconBar />
+            <IconBar onClick={onMore} />
           </TopBarBtns>
         </TopContainer>
         <SearchBar placeholder={"검색하시오."} />
+        {isMore ? <Dropdown /> : null}
       </TopBarContainer>
-      <PostsList id={undefined} name={undefined} postsData={postsData} />
+      <PostsList id={undefined} name={"댓글단 글"} postsData={postsData} />
     </>
   );
 }

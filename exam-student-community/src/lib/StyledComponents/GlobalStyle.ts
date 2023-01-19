@@ -61,7 +61,7 @@ body{
   color:black;
   width: 33.3vw;
   min-width:375px;
-  height: 100vh;
+  min-height: 100vh;
   position: fixed;
   margin: 0 auto;
   left: 0;

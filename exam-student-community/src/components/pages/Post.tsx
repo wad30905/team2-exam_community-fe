@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
@@ -17,6 +17,16 @@ import {
 import Loading from "../molecules/Loading";
 import { samplePost } from "../molecules/atoms/sampleData";
 import SearchBar from "../molecules/SearchBar";
+import {
+  TopBarContainer,
+  TopContainer,
+  TopBarMenu,
+  TopBarMain,
+  TopBarBtns,
+  PostMenuBar,
+  PostMenuBtn,
+} from "../molecules/atoms/styled";
+import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 
 interface IForm {
   comment: string;
@@ -59,6 +69,7 @@ function Post() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useRecoilState(user);
+  const [isOptions, setIsOptions] = useState(false);
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
@@ -101,14 +112,30 @@ function Post() {
     console.log("postData :", postData);
   }, []);
 
-  return true ? (
+  const onBack = () => {
+    navigate("/");
+  };
+  const onOptions = () => {
+    setIsOptions((current) => !current);
+  };
+
+  return postData ? (
     <>
-      <TopBar
-        id={postId}
-        mainService={boardName}
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBarContainer>
+        <TopContainer>
+          <TopBarMenu onClick={onBack}>
+            <IconBackBtn className="backButton" />
+          </TopBarMenu>
+          <TopBarMain>
+            <Link to="/">{boardName}</Link>
+          </TopBarMain>
+          <TopBarBtns>
+            <IconMoreBtn onClick={onOptions} />
+          </TopBarBtns>
+        </TopContainer>
+        <SearchBar placeholder={"검색하시오."} />
+      </TopBarContainer>
+      {/* ----------Top Bar---------- */}
       <PostMain>
         <PostMainContents post={postData?.post_detail} />
         <Comments comments={postData?.post_comments} />
@@ -125,6 +152,21 @@ function Post() {
           </CommentButton>
         </CommentForm>
       </PostMain>
+      {/* ----------Post Main---------- */}
+      {isOptions ? (
+        isLoggedIn ? (
+          <PostMenuBar>
+            <PostMenuBtn>수정</PostMenuBtn>
+            <PostMenuBtn>삭제</PostMenuBtn>
+            <PostMenuBtn>URL 복사</PostMenuBtn>
+          </PostMenuBar>
+        ) : (
+          <PostMenuBar>
+            <PostMenuBtn>신고</PostMenuBtn>
+            <PostMenuBtn>URL 복사</PostMenuBtn>
+          </PostMenuBar>
+        )
+      ) : null}
     </>
   ) : (
     <Loading />

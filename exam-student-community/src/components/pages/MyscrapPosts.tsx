@@ -13,6 +13,7 @@ import SearchBar from "../molecules/SearchBar";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Dropdown from "../molecules/Dropdown";
 
 function MyscrapPosts() {
   const [isMore, setIsMore] = useState(false);
@@ -48,6 +49,7 @@ function MyscrapPosts() {
           </TopBarBtns>
         </TopContainer>
         <SearchBar placeholder={"검색하시오."} />
+        {isMore ? <Dropdown /> : null}
       </TopBarContainer>
       <PostsList id={undefined} name={undefined} postsData={postsData} />
     </>

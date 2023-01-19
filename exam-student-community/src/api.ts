@@ -138,10 +138,10 @@ export function deletePost() {
     });
 }
 
-export function 게시물시간구하기(date: string | null) {
+export function timeCalculator(date: string | null) {
   if (date) {
-    let startDate = date.replace("T", "-");
-    startDate = startDate.slice(0, 15);
+    let startDate = date.replace("T", " ");
+    startDate = startDate.slice(0, 16);
     const start = new Date(startDate);
     const end = new Date();
 
@@ -176,7 +176,7 @@ export async function registerUser(
   phone: string,
   email: string,
   gender: string,
-  age: number
+  age: string
 ) {
   // 유저 객체로 받음.
   // response 값에 따라 true / false 반환.

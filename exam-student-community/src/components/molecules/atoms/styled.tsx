@@ -170,33 +170,6 @@ export const Searchbutton = styled.button`
   }
 `;
 
-// export const Post = styled.li`
-//   display: flex;
-//   border-bottom: 1px solid black;
-//   align-items: center;
-//   padding: 15px 10px;
-//   font-weight: 600;
-//   .comment_num {
-//     padding: 10px;
-//     font-size: 25px;
-//     color: ${(props) => props.theme.accentColor};
-//   }
-//   .box__title_meta {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 7px;
-//     .title {
-//       font-size: 23px;
-//     }
-//     .meta {
-//       font-size: 13px;
-//       color: ${(props) => props.theme.grayColor};
-//       display: flex;
-//       gap: 5px;
-//     }
-//   }
-// `;
-
 export const Menu = styled.li`
   width: 95%;
   box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
@@ -272,15 +245,33 @@ export const ErrorMessage = styled.span`
   padding: 20px;
 `;
 
+export const TopBarContainer = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: ${(props) => props.theme.whiteColor};
+`;
+
 export const TopBarMenu = styled.div`
   background-color: ${(props) => props.theme.accentColor};
   color: ${(props) => props.theme.whiteColor};
   font-weight: 600;
   display: flex;
-  justify-content: center;
+  justify-content: baseline;
   align-items: center;
-  cursor: pointer;
-  width: 20%;
+  width: 33%;
+  padding-left: 5%;
+  .iconBar {
+    font-size: 27px;
+    padding: 5px 5px;
+    cursor: pointer;
+  }
+  .backButton {
+    font-size: 27px;
+    padding: 5px 5px;
+    cursor: pointer;
+  }
 `;
 
 export const TopBarMain = styled.div`
@@ -292,7 +283,7 @@ export const TopBarMain = styled.div`
   align-items: center;
   font-size: 1.1em;
   cursor: pointer;
-  width: 60%;
+  width: 33%;
 `;
 
 export const TopBarBtns = styled.div`
@@ -300,9 +291,9 @@ export const TopBarBtns = styled.div`
   color: ${(props) => props.theme.whiteColor};
   font-weight: 600;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  width: 20%;
+  width: 33%;
   cursor: pointer;
   a {
     cursor: pointer;
@@ -399,9 +390,13 @@ export const InputBox = styled.div`
 export const PostInfo = styled.div`
   display: flex;
   justify-content: start;
+  gap: 10px;
   align-items: center;
   width: 100%;
-  margin-top: 3px;
+  padding: 3px 0px;
+  font-size: 13px;
+  font-weight: 600;
+  color: ${(props) => props.theme.grayColor};
 `;
 
 export const ProfilePic = styled.div`
@@ -429,10 +424,20 @@ export const Post = styled.li`
   }
 `;
 export const PostTitle = styled.h3`
+  padding: 3px 0px;
   display: block;
   width: 100%;
   font-weight: bold;
   font-size: 18px;
+`;
+
+export const PostMain = styled.div`
+  position: absolute;
+  top: 15vh;
+  min-height: 90vh;
+  width: 100%;
+  overflow-y: scroll;
+  padding: 10px;
 `;
 
 export interface UserProps {
@@ -462,18 +467,6 @@ export const Details = styled.p`
   color: #aaa;
 `;
 
-export const MainContents = styled.div`
-  min-height: 30vh;
-  padding: 5%;
-  width: 100%;
-  margin: 10px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 2px solid #aaa;
-`;
-
 export const Title = styled.h3`
   margin-bottom: 20px;
   font-weight: bold;
@@ -481,6 +474,7 @@ export const Title = styled.h3`
 `;
 
 export const Content = styled.div`
+  min-height: 25vh;
   padding: 20px 10px;
   p {
     font-size: 15px;
@@ -495,10 +489,23 @@ export const ContentInfo = styled.p`
 
 export const ContentButtons = styled.div``;
 export const ContentBtns = styled.div`
-  margin-top: 10px;
+  margin: 10px 0px;
   height: 5vh;
   display: flex;
   justify-content: start;
+  gap: 1vw;
+`;
+
+export const MainContents = styled.div`
+  min-height: 30vh;
+  padding: 5%;
+  width: 100%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid #aaa;
 `;
 
 export const LikeBtn = styled.div`
@@ -507,10 +514,10 @@ export const LikeBtn = styled.div`
 `;
 export const ContentBtn = styled.div`
   display: flex;
-  width: 15%;
   height: 100%;
   color: black;
   align-items: center;
+  cursor: pointer;
   span {
     width: 50%;
     font-size: 12px;
@@ -542,6 +549,10 @@ export const CommenterBox = styled.div`
   justify-content: start;
   height: 3vh;
   align-items: center;
+  gap: 5px;
+  .iconUser {
+    font-size: 20px;
+  }
 `;
 
 export const CommenterName = styled.p`
@@ -549,12 +560,26 @@ export const CommenterName = styled.p`
   font-weight: bold;
 `;
 
+export const CommentTime = styled.p`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${(props) => props.theme.grayColor};
+  text-align: center;
+  margin-left: 5px; ;
+`;
+
 export const CommentContent = styled.div`
-  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
   p {
-    margin-left: 10px;
     font-size: 15px;
   }
+`;
+
+export const CommentButtons = styled.div`
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 export const CommentForm = styled.form`
@@ -568,7 +593,6 @@ export const CommentForm = styled.form`
 
 export const CommentInput = styled.input`
   display: block;
-
   border: 1px solid black;
   border-radius: 20px;
   padding: 20px;
@@ -589,17 +613,6 @@ export const CommentButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-export const PostMain = styled.div`
-  position: absolute;
-  top: 7vh;
-  height: 90vh;
-  width: 100%;
-  overflow-y: scroll;
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
 export const BoardsList = styled.ul`
   width: 100%;
@@ -612,7 +625,7 @@ export const PostsContainer = styled.ul`
   position: absolute;
   top: 15vh;
   width: 100%;
-  height: 85vh;
+  min-height: 85vh;
   list-style: none;
   overflow-y: scroll;
 `;
@@ -679,24 +692,13 @@ export const Submit = styled.button`
   width: 80%;
   border: none;
   font-size: 30px;
+  cursor: pointer;
 `;
 
-export const TopBarContainer = styled.div`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  background: ${(props) => props.theme.whiteColor};
-`;
-
-export interface IPostMenuBar {
-  top: string;
-}
-
-export const PostMenuBar = styled.ul<IPostMenuBar>`
+export const PostMenuBar = styled.ul`
   z-index: 120;
   position: absolute;
-  top: ${(props) => props.top};
+  top: 70vh;
   width: 98%;
   height: 30vh;
   display: flex;

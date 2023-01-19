@@ -28,8 +28,8 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   return (
     <TopBarContainer>
       <TopContainer>
-        <TopBarMenu onClick={toggle}>
-          <IconBar />
+        <TopBarMenu>
+          <IconBar onClick={toggle} className="iconBar" />
         </TopBarMenu>
         <TopBarMain>
           <Link to="/">{mainService}</Link>

@@ -17,42 +17,52 @@ import {
   IconCopied,
   IconLiked,
 } from "./atoms/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
-import { 게시물시간구하기 } from "../../api";
+import { timeCalculator } from "../../api";
 
 interface IPostProp {
   post?: any | null;
 }
 
 function PostMainContents({ post }: IPostProp) {
-  const [liked, setLiked] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [likeClicked, setLikeClicked] = useState(false);
+  const [scrapClicked, setScrapClicked] = useState(false);
+  const [likeNum, setLikeNum] = useState();
+  const [scrapNum, setScrapNum] = useState();
+
   const onLike = () => {
-    setLiked((current) => !current);
+    setLikeClicked((current) => !current);
   };
   const onCopy = () => {
-    setCopied((current) => !current);
+    setScrapClicked((current) => !current);
   };
 
-  return post ? (
+  useEffect(() => {
+    console.log("post :", post);
+    if (post) {
+      setLikeNum(post.like_num);
+    }
+  }, []);
+
+  return (
     <>
       <User height="5vh">
         <IconUser style={{ width: "10%", height: "95%", margin: "0" }} />
         <UserInfo>
-          <Writer>{post.user_id}</Writer>
-          <Details>{게시물시간구하기(post.c_date)}</Details>
+          <Writer>{post?.user_id}</Writer>
+          <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
       </User>
       <Content>
-        <Title>{post.title}</Title>
-        <p>{post.content}</p>
+        <Title>{post?.title}</Title>
+        <p>{post?.content}</p>
       </Content>
       <ContentInfo>
         <ContentBtns>
           <ContentBtn onClick={onLike}>
-            {liked ? (
+            {likeClicked ? (
               <IconLiked
                 style={{ width: "50%", height: "100%", cursor: "pointer" }}
               />
@@ -61,10 +71,10 @@ function PostMainContents({ post }: IPostProp) {
                 style={{ width: "50%", height: "100%", cursor: "pointer" }}
               />
             )}
-            <span>좋아요</span>
+            <span>좋아요 {likeNum}</span>
           </ContentBtn>
           <ContentBtn onClick={onCopy}>
-            {copied ? (
+            {scrapClicked ? (
               <IconCopied
                 style={{ width: "50%", height: "100%", cursor: "pointer" }}
               />
@@ -78,8 +88,6 @@ function PostMainContents({ post }: IPostProp) {
         </ContentBtns>
       </ContentInfo>
     </>
-  ) : (
-    <Loading />
   );
 }
 
