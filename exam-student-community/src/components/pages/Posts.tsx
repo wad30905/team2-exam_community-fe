@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { useQueries, useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
-import SearchBar from "../molecules/SearchBar";
 import axios from "axios";
 import { SERVER_URL } from "../../api";
-import { useRecoilState } from "recoil";
 
 export interface IPostsState {
   state: {
@@ -14,6 +11,7 @@ export interface IPostsState {
     boardName: string;
   } | null;
 }
+
 function Posts() {
   const { state } = useLocation() as IPostsState;
   const navigate = useNavigate();

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import TopBar from "../molecules/TopBar";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost } from "../../api";
@@ -15,17 +14,20 @@ import {
   CommentButton,
 } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
-import { samplePost } from "../molecules/atoms/sampleData";
 import SearchBar from "../molecules/SearchBar";
+import {
+  TopBarContainer,
+  TopContainer,
+  TopBarMenu,
+  TopBarMain,
+  TopBarBtns,
+  PostMenuBar,
+  PostMenuBtn,
+} from "../molecules/atoms/styled";
+import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 
 interface IForm {
   comment: string;
-}
-
-export interface IPostData {
-  post_detail: IPost;
-  post_comments: IComment[];
-  // comments 가 안오는거같은데 확인 필요.
 }
 
 export interface IPost {
@@ -55,14 +57,19 @@ interface IPostState {
   } | null;
 }
 
+export interface IPostData {
+  post_detail: IPost;
+  post_comments: IComment[];
+}
+
 function Post() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useRecoilState(user);
+  const [isOptions, setIsOptions] = useState(false);
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
-  console.log("state :", state);
   const postId = state?.postId;
   const boardName = state?.boardName;
   const navigate = useNavigate();
@@ -73,6 +80,8 @@ function Post() {
     writeComment(data.comment, `${postData?.post_detail.id}`);
     window.location.reload();
   }
+
+  console.log("postData :", postData);
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -90,10 +99,9 @@ function Post() {
       }
     };
 
-    // 실제 api로
     if (state === null) {
       navigate("/");
-      console.log("navigate");
+      console.log("navigate to mainpage (state===null)");
     } else {
       checkUserAuth();
       paintPost();
@@ -101,14 +109,30 @@ function Post() {
     console.log("postData :", postData);
   }, []);
 
-  return true ? (
+  const onBack = () => {
+    navigate("/");
+  };
+  const onOptions = () => {
+    setIsOptions((current) => !current);
+  };
+
+  return postData ? (
     <>
-      <TopBar
-        id={postId}
-        mainService={boardName}
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBarContainer>
+        <TopContainer>
+          <TopBarMenu onClick={onBack}>
+            <IconBackBtn className="backButton" />
+          </TopBarMenu>
+          <TopBarMain>
+            <Link to="/">{boardName}</Link>
+          </TopBarMain>
+          <TopBarBtns>
+            <IconMoreBtn onClick={onOptions} />
+          </TopBarBtns>
+        </TopContainer>
+        <SearchBar placeholder={"검색하시오."} />
+      </TopBarContainer>
+      {/* ----------Top Bar---------- */}
       <PostMain>
         <PostMainContents post={postData?.post_detail} />
         <Comments comments={postData?.post_comments} />
@@ -125,6 +149,25 @@ function Post() {
           </CommentButton>
         </CommentForm>
       </PostMain>
+      {/* ----------Post Main---------- */}
+      {isOptions ? (
+        isLoggedIn ? (
+          <PostMenuBar>
+            <PostMenuBtn>
+              <Link to={`/posts/${postId}/fix`} state={{ data: postData }}>
+                수정
+              </Link>
+            </PostMenuBtn>
+            <PostMenuBtn>삭제</PostMenuBtn>
+            <PostMenuBtn>URL 복사</PostMenuBtn>
+          </PostMenuBar>
+        ) : (
+          <PostMenuBar>
+            <PostMenuBtn>신고</PostMenuBtn>
+            <PostMenuBtn>URL 복사</PostMenuBtn>
+          </PostMenuBar>
+        )
+      ) : null}
     </>
   ) : (
     <Loading />

@@ -100,8 +100,46 @@ export function writePost(
   return false;
 }
 
-// data 생긴거 이렇다고 가정
-// {posts:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
+export function fixPost(
+  id: number,
+  title: string,
+  content: string,
+  hide_user: boolean
+) {
+  axios({
+    method: "put",
+    url: `${SERVER_URL}/detail/${id}`,
+    data: {
+      title,
+      content,
+      hide_user,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("수정 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return false;
+}
+
+export function deletePost() {
+  axios({
+    method: "delete",
+    url: `${SERVER_URL}/detail/${1}`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("삭제 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 export async function writeComment(newComment: string, post_key: string) {
   const response = await axios({
@@ -123,25 +161,10 @@ export async function writeComment(newComment: string, post_key: string) {
   }
 }
 
-export function deletePost() {
-  axios({
-    method: "delete",
-    url: `${SERVER_URL}/detail/${1}`,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log("삭제 성공");
-      return true;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-export function 게시물시간구하기(date: string | null) {
+export function timeCalculator(date: string | null) {
   if (date) {
-    let startDate = date.replace("T", "-");
-    startDate = startDate.slice(0, 15);
+    let startDate = date.replace("T", " ");
+    startDate = startDate.slice(0, 16);
     const start = new Date(startDate);
     const end = new Date();
 
@@ -176,7 +199,7 @@ export async function registerUser(
   phone: string,
   email: string,
   gender: string,
-  age: number
+  age: string
 ) {
   // 유저 객체로 받음.
   // response 값에 따라 true / false 반환.

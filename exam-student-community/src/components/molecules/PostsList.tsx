@@ -1,21 +1,20 @@
 import { Post, PostTitle, PostInfo, PostsContainer } from "./atoms/styled";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import { SERVER_URL } from "../../api";
-import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { timeCalculator } from "../../api";
 import Loading from "./Loading";
-import { samplePosts } from "./atoms/sampleData";
-import { IPostData } from "../pages/Post";
+import { IPost } from "../pages/Post";
 
 interface IPostsListProp {
   id?: number;
   name?: string;
-  postsData?: IPostData[] | undefined;
+  postsData?: IPost[] | undefined;
 }
 
 function PostsList({ id, name, postsData }: IPostsListProp) {
   // 서버 연결됐을때는, samplePosts를 postsData로 수정
+  console.log("PostsList");
+  console.log("postsData:", postsData);
+
   if (postsData) {
     return (
       <PostsContainer>
@@ -27,9 +26,9 @@ function PostsList({ id, name, postsData }: IPostsListProp) {
             >
               <PostTitle>{post.title}</PostTitle>
               <PostInfo>
-                <span>{`1분전|`}</span>
-                <span>{`조회100|`}</span>
-                <span>{`좋아요100`}</span>
+                <span>{timeCalculator(post.c_date)}</span>
+                <span>조회수{post.click_num}</span>
+                <span>좋아요{post.like}</span>
               </PostInfo>
             </Link>
           </Post>

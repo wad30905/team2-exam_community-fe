@@ -27,12 +27,13 @@ function Main() {
     const paintBoards = async () => {
       const boardsData = await getBoards();
       setBoardsData(boardsData);
+      console.log("boardsData:", boardsData);
     };
     checkUserAuth();
     paintBoards();
   }, []);
 
-  return true ? (
+  return !isLoading ? (
     <div style={{ position: "relative" }}>
       <TopBar
         id={undefined}
