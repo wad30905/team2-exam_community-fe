@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import TopBar from "../molecules/TopBar";
 import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost } from "../../api";
@@ -15,7 +14,6 @@ import {
   CommentButton,
 } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
-import { samplePost } from "../molecules/atoms/sampleData";
 import SearchBar from "../molecules/SearchBar";
 import {
   TopBarContainer,
@@ -30,12 +28,6 @@ import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 
 interface IForm {
   comment: string;
-}
-
-export interface IPostData {
-  post_detail: IPost;
-  post_comments: IComment[];
-  // comments 가 안오는거같은데 확인 필요.
 }
 
 export interface IPost {
@@ -65,6 +57,11 @@ interface IPostState {
   } | null;
 }
 
+export interface IPostData {
+  post_detail: IPost;
+  post_comments: IComment[];
+}
+
 function Post() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,7 +70,6 @@ function Post() {
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
-  console.log("state :", state);
   const postId = state?.postId;
   const boardName = state?.boardName;
   const navigate = useNavigate();
@@ -84,6 +80,8 @@ function Post() {
     writeComment(data.comment, `${postData?.post_detail.id}`);
     window.location.reload();
   }
+
+  console.log("postData :", postData);
 
   useEffect(() => {
     const checkUserAuth = async () => {
@@ -101,10 +99,9 @@ function Post() {
       }
     };
 
-    // 실제 api로
     if (state === null) {
       navigate("/");
-      console.log("navigate");
+      console.log("navigate to mainpage (state===null)");
     } else {
       checkUserAuth();
       paintPost();
@@ -156,7 +153,11 @@ function Post() {
       {isOptions ? (
         isLoggedIn ? (
           <PostMenuBar>
-            <PostMenuBtn>수정</PostMenuBtn>
+            <PostMenuBtn>
+              <Link to={`/posts/${postId}/fix`} state={{ data: postData }}>
+                수정
+              </Link>
+            </PostMenuBtn>
             <PostMenuBtn>삭제</PostMenuBtn>
             <PostMenuBtn>URL 복사</PostMenuBtn>
           </PostMenuBar>

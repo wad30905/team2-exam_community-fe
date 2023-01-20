@@ -11,6 +11,7 @@ import MyscrapPosts from "./components/pages/MyscrapPosts";
 import Search from "./components/pages/Search";
 import MyPosts from "./components/pages/MyPosts";
 import MycommentPosts from "./components/pages/MycommentPosts";
+import Fix from "./components/pages/Fix";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
         <Route path="/myposts" element={<MyPosts />} />
         <Route path="/mycommentposts" element={<MycommentPosts />} />
         <Route path="/myscrapposts" element={<MyscrapPosts />} />
+        <Route path="/posts/:id/fix" element={<Fix />} />
         <Route path="/posts/:id" element={<Post />} />
         <Route path="/posts/write" element={<Write />} />
         <Route path="/register1" element={<Register1 />} />

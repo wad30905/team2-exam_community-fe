@@ -100,8 +100,46 @@ export function writePost(
   return false;
 }
 
-// data 생긴거 이렇다고 가정
-// {posts:number, ~~~ , comments:[{commenter:"string", commentcontent:"string"},{}]}
+export function fixPost(
+  id: number,
+  title: string,
+  content: string,
+  hide_user: boolean
+) {
+  axios({
+    method: "put",
+    url: `${SERVER_URL}/detail/${id}`,
+    data: {
+      title,
+      content,
+      hide_user,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("수정 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return false;
+}
+
+export function deletePost() {
+  axios({
+    method: "delete",
+    url: `${SERVER_URL}/detail/${1}`,
+  })
+    .then((response) => {
+      console.log(response);
+      console.log("삭제 성공");
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 export async function writeComment(newComment: string, post_key: string) {
   const response = await axios({
@@ -121,21 +159,6 @@ export async function writeComment(newComment: string, post_key: string) {
   } else {
     console.log("에러");
   }
-}
-
-export function deletePost() {
-  axios({
-    method: "delete",
-    url: `${SERVER_URL}/detail/${1}`,
-  })
-    .then((response) => {
-      console.log(response);
-      console.log("삭제 성공");
-      return true;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 }
 
 export function timeCalculator(date: string | null) {

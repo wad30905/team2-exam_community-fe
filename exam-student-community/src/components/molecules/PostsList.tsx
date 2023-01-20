@@ -1,22 +1,17 @@
 import { Post, PostTitle, PostInfo, PostsContainer } from "./atoms/styled";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
 import { timeCalculator } from "../../api";
-import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
 import Loading from "./Loading";
-import { samplePosts } from "./atoms/sampleData";
-import { IPostData } from "../pages/Post";
+import { IPost } from "../pages/Post";
 
 interface IPostsListProp {
   id?: number;
   name?: string;
-  postsData?: IPostData[] | undefined;
+  postsData?: IPost[] | undefined;
 }
 
 function PostsList({ id, name, postsData }: IPostsListProp) {
   // 서버 연결됐을때는, samplePosts를 postsData로 수정
-
   console.log("PostsList");
   console.log("postsData:", postsData);
 
