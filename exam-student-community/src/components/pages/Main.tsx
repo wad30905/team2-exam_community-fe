@@ -22,12 +22,12 @@ function Main() {
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
       setUserName(authName);
-      setIsLoading(false);
     };
     const paintBoards = async () => {
       const boardsData = await getBoards();
       setBoardsData(boardsData);
       console.log("boardsData:", boardsData);
+      setIsLoading(false);
     };
     checkUserAuth();
     paintBoards();
