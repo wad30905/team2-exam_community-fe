@@ -85,7 +85,9 @@ function Fix() {
   function onSubmit(data: IWriteForm) {
     //hideuser false 로 해놓았는데 이 옵션 추가 해야 함.
     fixPost(id, data.PostTitle, data.PostContent, false);
-    navigate(`/posts/${data.BoardId}`);
+    alert("수정을 완료했습니다.");
+    //  navigate(`/posts/${data.BoardId}`);
+    navigate(-1);
   }
   return isLoading ? (
     <Loading />

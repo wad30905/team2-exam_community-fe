@@ -21,16 +21,21 @@ import { useState, useEffect } from "react";
 import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
+import { useRecoilValue } from "recoil";
+import { userId } from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
+  handleDelete: any;
+  handleEdit: any;
 }
 
-function PostMainContents({ post }: IPostProp) {
+function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   const [likeClicked, setLikeClicked] = useState(false);
   const [scrapClicked, setScrapClicked] = useState(false);
   const [likeNum, setLikeNum] = useState();
   const [scrapNum, setScrapNum] = useState();
+  const loginUserId = useRecoilValue(userId);
 
   const onLike = () => {
     setLikeClicked((current) => !current);
@@ -54,6 +59,12 @@ function PostMainContents({ post }: IPostProp) {
           <Writer>{post?.user_id}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
+        {post.user_id == loginUserId && (
+          <div style={{ position: "absolute", right: 0 }}>
+            <button onClick={handleEdit}>수정</button>
+            <button onClick={handleDelete}>삭제</button>
+          </div>
+        )}
       </User>
       <Content>
         <Title>{post?.title}</Title>
