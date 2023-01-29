@@ -129,7 +129,6 @@ export const TopBarMain = styled.div`
 `;
 
 export const TopBarBtns = styled.div`
-  background-color: ${(props) => props.theme.accentColor};
   color: ${(props) => props.theme.whiteColor};
   font-weight: 600;
   display: flex;
@@ -511,6 +510,26 @@ export const PostMain = styled.div`
     margin-top: 10vh;
     display: flex;
     flex-direction: column;
+  }
+`;
+
+export const PostMoreBtn = styled.div`
+  color: ${(props) => props.theme.accentColor};
+  font-weight: 600;
+  display: flex;
+  cursor: pointer;
+  a {
+    cursor: pointer;
+    padding: 5px;
+    font-size: 0.0001em;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    justify-content: flex-end;
+    align-items: center;
   }
 `;
 

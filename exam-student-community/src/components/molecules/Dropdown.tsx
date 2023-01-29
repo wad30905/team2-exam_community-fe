@@ -39,21 +39,6 @@ function Dropdown() {
         <span>{userName}님 환영합니다</span>
       </div>
       <ul>
-        {/* <Link to="/">
-          <Menu
-            onClick={() => {
-              logout();
-              window.location.href = "/";
-            }}
-          >
-            <span>{`로그아웃`}</span>
-          </Menu>
-        </Link>
-        <Link to="/posts/write">
-          <Menu>
-            <span>{`글쓰기`}</span>
-          </Menu>
-        </Link> */}
         <Link to="/myposts">
           <Menu>
             <span>{`내가 쓴 글`}</span>
@@ -67,6 +52,11 @@ function Dropdown() {
         <Link to="/myscrapposts">
           <Menu>
             <span>{`스크랩한 글`}</span>
+          </Menu>
+        </Link>
+        <Link to="/mypage">
+          <Menu>
+            <span>{`내 정보 수정`}</span>
           </Menu>
         </Link>
       </ul>

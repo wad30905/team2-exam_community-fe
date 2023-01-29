@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
 import PostMainContents from "../molecules/PostMainContents";
 import Comments from "../molecules/Comments";
-import { PostMain } from "../molecules/atoms/styled";
+import { PostMain, PostMoreBtn } from "../molecules/atoms/styled";
 import {
   CommentForm,
   CommentInput,
@@ -26,6 +26,7 @@ import {
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 import TopBarBack from "../molecules/TopBarBack";
+import TopBar from "../molecules/TopBar";
 
 interface IForm {
   comment: string;
@@ -140,22 +141,17 @@ function Post() {
 
   return postData ? (
     <>
-      <TopBarContainer>
-        <TopContainer>
-          <TopBarMenu onClick={onBack}>
-            <IconBackBtn className="backButton" />
-          </TopBarMenu>
-          <TopBarMain>
-            <Link to="/">코코볼</Link>
-          </TopBarMain>
-          <TopBarBtns>
-            <IconMoreBtn onClick={onOptions} />
-          </TopBarBtns>
-        </TopContainer>
-        <SearchBar placeholder={"검색하시오."} />
-      </TopBarContainer>
+      <TopBar
+        id={undefined}
+        mainService={"코코볼"}
+        needWrite={true}
+        needSearch={true}
+      />
       {/* ----------Top Bar---------- */}
       <PostMain>
+        <PostMoreBtn>
+          <IconMoreBtn onClick={onOptions} />
+        </PostMoreBtn>
         <PostMainContents
           post={postData?.post_detail}
           handleDelete={handleDelete}
@@ -179,12 +175,12 @@ function Post() {
       {isOptions ? (
         isLoggedIn ? (
           <PostMenuBar>
-            <PostMenuBtn>
+            {/* <PostMenuBtn>
               <Link to={`/posts/${postId}/fix`} state={{ data: postData }}>
                 수정
               </Link>
             </PostMenuBtn>
-            <PostMenuBtn>삭제</PostMenuBtn>
+            <PostMenuBtn>삭제</PostMenuBtn> */}
             <PostMenuBtn>URL 복사</PostMenuBtn>
           </PostMenuBar>
         ) : (
