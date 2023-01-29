@@ -15,6 +15,12 @@ export const user = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const userId = atom({
+  key: "userId",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
 // kuk329 : 회원가입 관련
 export const registerName = atom({
   // username
@@ -23,8 +29,8 @@ export const registerName = atom({
 });
 
 export const registerId = atom({
-  // userId
-  key: "userId",
+  // registerId
+  key: "registerId",
   default: "",
 });
 export const registerPd = atom({

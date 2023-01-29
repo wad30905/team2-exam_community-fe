@@ -126,10 +126,10 @@ export function fixPost(
   return false;
 }
 
-export function deletePost() {
+export function deletePost(postId: number | undefined) {
   axios({
     method: "delete",
-    url: `${SERVER_URL}/detail/${1}`,
+    url: `${SERVER_URL}/detail/${postId}`,
   })
     .then((response) => {
       console.log(response);
