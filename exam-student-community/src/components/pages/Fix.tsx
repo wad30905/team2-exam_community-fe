@@ -12,7 +12,7 @@ import {
 import { fixPost, getBoards, writePost } from "../../api";
 import { authCheck } from "../../api";
 import {
-  WriteContents,
+  WriteForm,
   WriteSelector,
   TitleInput,
   ContentInput,
@@ -97,7 +97,7 @@ function Fix() {
         needWrite={false}
         needSearch={false}
       />
-      <WriteContents onSubmit={handleSubmit(onSubmit)}>
+      <WriteForm onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")} disabled={true}>
             {PostsList.map((Posts) => (
@@ -122,7 +122,7 @@ function Fix() {
         <WriteSubmitContainer>
           <Submit>수정 완료</Submit>
         </WriteSubmitContainer>
-      </WriteContents>
+      </WriteForm>
     </>
   );
 }

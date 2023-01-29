@@ -12,6 +12,7 @@ import Search from "./components/pages/Search";
 import MyPosts from "./components/pages/MyPosts";
 import MycommentPosts from "./components/pages/MycommentPosts";
 import Fix from "./components/pages/Fix";
+import MyPage from "./components/pages/MyPage";
 
 function Router() {
   return (
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/register2" element={<Register2 />} />
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="/practice" element={<Practice />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -5,7 +5,7 @@ import {
   TopBarMain,
   TopBarContainer,
 } from "./atoms/styled";
-import { IconBackBtn, IconBar } from "./atoms/icons";
+import { IconBackBtn, IconBar, IconMoreBtn } from "./atoms/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState, user } from "../../store/atoms";
@@ -21,50 +21,42 @@ interface ITopBarProps {
   id: number | undefined;
 }
 
-function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
+function TopBarBack() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOptions, setIsOptions] = useState(false);
   const navigate = useNavigate();
 
   const toggle = () => setIsOpen((current) => !current);
+
   const onClickLogOut = () => {
     setIsLoggedIn(false);
     logout();
   };
+
   const onBack = () => {
     navigate(-1);
+  };
+  const onOptions = () => {
+    setIsOptions((current) => !current);
   };
 
   return (
     <TopBarContainer>
       <TopContainer>
-        <TopBarMenu>
-          <IconBar onClick={toggle} className="iconBar" />
+        <TopBarMenu onClick={onBack}>
+          <IconBackBtn className="backButton" />
         </TopBarMenu>
         <TopBarMain>
           <Link to="/">코코볼</Link>
         </TopBarMain>
-        {isLoggedIn ? (
-          <TopBarBtns>
-            {needWrite ? (
-              <Link to="/posts/write" state={{ id }}>
-                글쓰기
-              </Link>
-            ) : null}
-            <Link to="/" onClick={onClickLogOut}>
-              로그아웃
-            </Link>
-          </TopBarBtns>
-        ) : (
-          <TopBarBtns>
-            <Link to="/login">로그인</Link>
-          </TopBarBtns>
-        )}
+        <TopBarBtns>
+          <IconMoreBtn onClick={onOptions} />
+        </TopBarBtns>
       </TopContainer>
-      {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
-      {isOpen ? <Dropdown /> : null}
+      <SearchBar placeholder={"검색하시오."} />
     </TopBarContainer>
   );
 }
 
-export default TopBar;
+export default TopBarBack;

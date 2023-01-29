@@ -4,6 +4,8 @@ import { IconRarr, IconLock, IconPower } from "./atoms/icons";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { Link } from "react-router-dom";
+import { logout } from "../../api";
+
 const options = ["기능1", "기능2", "기능3"];
 function Dropdown() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
@@ -33,10 +35,25 @@ function Dropdown() {
   }
   return (
     <DropdownBox>
-      <h1 className="title">
+      <div className="title">
         <span>{userName}님 환영합니다</span>
-      </h1>
+      </div>
       <ul>
+        {/* <Link to="/">
+          <Menu
+            onClick={() => {
+              logout();
+              window.location.href = "/";
+            }}
+          >
+            <span>{`로그아웃`}</span>
+          </Menu>
+        </Link>
+        <Link to="/posts/write">
+          <Menu>
+            <span>{`글쓰기`}</span>
+          </Menu>
+        </Link> */}
         <Link to="/myposts">
           <Menu>
             <span>{`내가 쓴 글`}</span>

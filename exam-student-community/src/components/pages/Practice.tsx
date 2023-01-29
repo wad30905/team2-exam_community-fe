@@ -1,11 +1,22 @@
-import { loginState } from "../../store/atoms";
-import { useRecoilState } from "recoil";
+import styled from "styled-components";
+
+const Box1 = styled.div`
+  @media ${({ theme }) => theme.device.desktop} {
+    background-color: red;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    background-color: blue;
+  }
+`;
+
+const Box2 = styled.div``;
 
 function Practice() {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  console.log("isLoggedIn : ", isLoggedIn);
-
-  return <>연습페이지</>;
+  return (
+    <Box1>
+      <Box2>hi</Box2>
+    </Box1>
+  );
 }
 
 export default Practice;
