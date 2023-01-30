@@ -7,7 +7,7 @@ import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { loginCheck, kakaoLogin } from "../../api";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { loginState } from "../../store/atoms";
+import { loginState, userId } from "../../store/atoms";
 import Kakao from "kakao-js-sdk";
 
 interface IForm {
@@ -23,27 +23,25 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [userLoginId, setUserId] = useRecoilState(userId);
 
   function onSubmit(data: IForm) {
     const checkLogin = async () => {
       const loginStatus = await loginCheck(data.id, data.password);
       console.log("loginStatus : ", loginStatus);
       setIsLoggedIn(loginStatus);
+      setUserId(data.id); // 유저 아이디 저장
       console.log("navigate()");
       navigate("/");
     };
     checkLogin();
-    // console.log("로그인페이지");
-    // console.log("isLoggedIn : ", isLoggedIn);
-    // setIsLoggedIn(true);
-    // navigate("/");
   }
 
   return (
     <>
       <TopBar
         id={undefined}
-        mainService={"로그인"}
+        mainService={"코코볼"}
         needWrite={false}
         needSearch={false}
       />
@@ -79,7 +77,7 @@ function Login() {
         <img
           onClick={kakaoLogin}
           style={{
-            height: "auto",
+            height: "80px",
             width: "100%",
             cursor: "pointer",
             margin: "0 auto",

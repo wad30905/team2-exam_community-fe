@@ -6,13 +6,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   ErrorMessage,
+  WriteForm,
   WriteSelectorContainer,
   WriteSubmitContainer,
 } from "../molecules/atoms/styled";
 import { getBoards, writePost } from "../../api";
 import { authCheck } from "../../api";
 import {
-  WriteContents,
   WriteSelector,
   TitleInput,
   ContentInput,
@@ -51,7 +51,7 @@ function Write() {
         console.log("!!");
       } else {
         alert("로그인하셔야 글쓰기를 할 수 있습니다.");
-        navigate("/");
+        navigate("/login");
       }
     };
 
@@ -77,7 +77,7 @@ function Write() {
         needWrite={false}
         needSearch={false}
       />
-      <WriteContents onSubmit={handleSubmit(onSubmit)}>
+      <WriteForm onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")}>
             {PostsList.map((Posts) => (
@@ -102,7 +102,7 @@ function Write() {
         <WriteSubmitContainer>
           <Submit>작성 완료</Submit>
         </WriteSubmitContainer>
-      </WriteContents>
+      </WriteForm>
     </>
   );
 }

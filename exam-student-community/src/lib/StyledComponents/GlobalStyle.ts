@@ -59,9 +59,7 @@ body{
     /* background-image: radial-gradient(circle at 10% 10%, rgb(255, 156, 156) 0%, rgb(179, 201, 241) 80%); */
   background-color:${(props) => props.theme.whiteColor};
   color:black;
-  width: 33.3vw;
   min-width:375px;
-  min-height: 100vh;
   position: fixed;
   margin: 0 auto;
   left: 0;
@@ -72,6 +70,9 @@ a{
   text-decoration:none;
   color:inherit;
 }
+
+
+
 `;
 
 export default GlobalStyle;
