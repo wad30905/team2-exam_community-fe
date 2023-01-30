@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { loginState, user } from "../../store/atoms";
+import { loginState, postOptionState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost, deletePost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
 import PostMainContents from "../molecules/PostMainContents";
 import Comments from "../molecules/Comments";
-import { PostMain } from "../molecules/atoms/styled";
+import { PostMain, PostMoreBtn } from "../molecules/atoms/styled";
 import {
   CommentForm,
   CommentInput,
@@ -25,7 +25,7 @@ import {
   PostMenuBtn,
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
-import TopBarBack from "../molecules/TopBarBack";
+import TopBar from "../molecules/TopBar";
 
 interface IForm {
   comment: string;
@@ -67,7 +67,6 @@ function Post() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isLoading, setIsLoading] = useState(true);
   const [userName, setUserName] = useRecoilState(user);
-  const [isOptions, setIsOptions] = useState(false);
   const { register, handleSubmit, reset } = useForm<IForm>();
   const [postData, setPostData] = useState<IPostData | null>();
   const { state } = useLocation() as IPostState;
@@ -75,6 +74,7 @@ function Post() {
   const boardName = state?.boardName;
   const navigate = useNavigate();
   const params = useParams();
+  const [isOptions, setIsOptions] = useRecoilState(postOptionState);
 
   const handleDelete = () => {
     if (window.confirm("글을 삭제하시겠습니까?")) {
@@ -134,26 +134,15 @@ function Post() {
   const onBack = () => {
     navigate(-1);
   };
-  const onOptions = () => {
-    setIsOptions((current) => !current);
-  };
 
   return postData ? (
     <>
-      <TopBarContainer>
-        <TopContainer>
-          <TopBarMenu onClick={onBack}>
-            <IconBackBtn className="backButton" />
-          </TopBarMenu>
-          <TopBarMain>
-            <Link to="/">코코볼</Link>
-          </TopBarMain>
-          <TopBarBtns>
-            <IconMoreBtn onClick={onOptions} />
-          </TopBarBtns>
-        </TopContainer>
-        <SearchBar placeholder={"검색하시오."} />
-      </TopBarContainer>
+      <TopBar
+        id={undefined}
+        mainService={"코코볼"}
+        needWrite={true}
+        needSearch={true}
+      />
       {/* ----------Top Bar---------- */}
       <PostMain>
         <PostMainContents
@@ -161,6 +150,7 @@ function Post() {
           handleDelete={handleDelete}
           handleEdit={handleEdit}
         />
+
         <Comments comments={postData?.post_comments} />
         <CommentForm onSubmit={handleSubmit(onSubmit)}>
           <CommentInput
@@ -169,22 +159,39 @@ function Post() {
             })}
             type="comment"
             name="comment"
+            placeholder={
+              isLoggedIn
+                ? "댓글을 입력해주세요"
+                : " 댓글을 쓰시려면 로그인해주세요"
+            }
           />
-          <CommentButton type="submit">
-            <IconSend />
-          </CommentButton>
+          {isLoggedIn ? (
+            <CommentButton type="submit">
+              <IconSend />
+            </CommentButton>
+          ) : (
+            <CommentButton
+              type="button"
+              onClick={() => {
+                alert("댓글을 작성하기 위해서는 로그인해주세요");
+                window.location.href = "/login";
+              }}
+            >
+              <IconSend />
+            </CommentButton>
+          )}
         </CommentForm>
       </PostMain>
       {/* ----------Post Main---------- */}
       {isOptions ? (
         isLoggedIn ? (
           <PostMenuBar>
-            <PostMenuBtn>
+            {/* <PostMenuBtn>
               <Link to={`/posts/${postId}/fix`} state={{ data: postData }}>
                 수정
               </Link>
             </PostMenuBtn>
-            <PostMenuBtn>삭제</PostMenuBtn>
+            <PostMenuBtn>삭제</PostMenuBtn> */}
             <PostMenuBtn>URL 복사</PostMenuBtn>
           </PostMenuBar>
         ) : (

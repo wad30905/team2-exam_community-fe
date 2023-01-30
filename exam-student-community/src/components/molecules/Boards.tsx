@@ -6,7 +6,7 @@ import { sampleBoards } from "./atoms/sampleData";
 
 function Boards({ data }: any) {
   return (
-    <BoardsList style={{ position: "absolute", top: "15vh", zIndex: "10" }}>
+    <BoardsList>
       {data?.map((board: any, index: number) => {
         return (
           <Board key={index}>
