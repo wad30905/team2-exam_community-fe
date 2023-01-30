@@ -14,6 +14,7 @@ function PostsList({ id, name, postsData }: IPostsListProp) {
   // 서버 연결됐을때는, samplePosts를 postsData로 수정
   console.log("PostsList");
   console.log("postsData:", postsData);
+  console.log("name :", name);
 
   if (postsData) {
     return (
@@ -26,9 +27,10 @@ function PostsList({ id, name, postsData }: IPostsListProp) {
             >
               <PostTitle>{post.title}</PostTitle>
               <PostInfo>
-                <span>{timeCalculator(post.c_date)}</span>
                 <span>조회수{post.click_num}</span>
+                <span>댓글수{post.comment_num}</span>
                 <span>좋아요{post.like}</span>
+                <span>{timeCalculator(post.c_date)}</span>
               </PostInfo>
             </Link>
           </Post>

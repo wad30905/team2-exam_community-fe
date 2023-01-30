@@ -35,15 +35,15 @@ function Main() {
   }, []);
 
   return !isLoading ? (
-    <div style={{ position: "relative" }}>
+    <>
       <TopBar
         id={undefined}
-        mainService={"서비스명"}
+        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />
       <Boards data={boardsData} />
-    </div>
+    </>
   ) : (
     <Loading />
   );

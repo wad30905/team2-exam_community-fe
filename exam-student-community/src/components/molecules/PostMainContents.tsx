@@ -1,13 +1,14 @@
 import {
   Writer,
   Details,
-  Title,
   Content,
   ContentInfo,
   User,
   UserInfo,
   ContentBtn,
   ContentBtns,
+  Content_Title,
+  Content_Content,
 } from "./atoms/styled";
 import { samplePost } from "./atoms/sampleData";
 import {
@@ -54,7 +55,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   return (
     <>
       <User height="5vh">
-        <IconUser style={{ width: "10%", height: "95%", margin: "0" }} />
+        <IconUser className="userIcon" />
         <UserInfo>
           <Writer>{post?.user_id}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
@@ -67,32 +68,24 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
         )}
       </User>
       <Content>
-        <Title>{post?.title}</Title>
-        <p>{post?.content}</p>
+        <Content_Title>{post?.title}</Content_Title>
+        <Content_Content>{post?.content}</Content_Content>
       </Content>
       <ContentInfo>
         <ContentBtns>
           <ContentBtn onClick={onLike}>
             {likeClicked ? (
-              <IconLiked
-                style={{ width: "50%", height: "100%", cursor: "pointer" }}
-              />
+              <IconLiked className="icon" />
             ) : (
-              <IconLike
-                style={{ width: "50%", height: "100%", cursor: "pointer" }}
-              />
+              <IconLike className="icon" />
             )}
-            <span>좋아요 {likeNum}</span>
+            <span>좋아요</span>
           </ContentBtn>
           <ContentBtn onClick={onCopy}>
             {scrapClicked ? (
-              <IconCopied
-                style={{ width: "50%", height: "100%", cursor: "pointer" }}
-              />
+              <IconCopied className="icon" />
             ) : (
-              <IconCopy
-                style={{ width: "50%", height: "100%", cursor: "pointer" }}
-              />
+              <IconCopy className="icon" />
             )}
             <span>스크랩</span>
           </ContentBtn>

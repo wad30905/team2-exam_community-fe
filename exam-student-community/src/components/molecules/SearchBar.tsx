@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { IconSearch } from "./atoms/icons";
 import {
   SearchInput,

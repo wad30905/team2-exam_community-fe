@@ -30,11 +30,19 @@ export async function loginCheck(dataId: string, dataPw: string) {
     },
     withCredentials: true,
   });
-  if (response.data) {
-    console.log("loginCheck / 유저 맞음");
+  if (response.status) {
+    console.log("로그인 성공");
+  } else if (response.status === 401) {
+    console.log("401 로그인 실패");
   } else {
-    console.log("loginCheck / 유저 아님");
+    console.log("로그인 실패");
   }
+  console.log("post 로그인 response : ", response);
+  // if (response.data) {
+  //   console.log("loginCheck / 유저 맞음");
+  // } else {
+  //   console.log("loginCheck / 유저 아님");
+  // }
 }
 
 export async function getBoards() {
@@ -294,3 +302,41 @@ export function logout() {
     url: `${SERVER_URL}/logout`,
   });
 }
+
+export const getProfile = async () => {
+  const response = await axios({
+    method: "get",
+    url: `/register`,
+  });
+  if (200) {
+    // 잘 들어갔으면
+    console.log("getProfile response :", response);
+    return response.data; // 다시 댓글목록 받아오기
+    // response.data 형식 어떤지는 다시 봐야함
+  } else {
+    console.log("에러");
+  }
+};
+
+export const updateProfile = async (data: any) => {
+  const { age, name, email, phone, gender } = data;
+  console.log("server에 들어온 data :", data);
+  const response = await axios({
+    method: "post",
+    url: `/mypage`,
+    data: {
+      name,
+      age,
+      email,
+      phone,
+      gender,
+    },
+  });
+  if (200) {
+    // 잘 들어갔으면
+    console.log("mypage response : ", response);
+    return response;
+  } else {
+    console.log("에러");
+  }
+};

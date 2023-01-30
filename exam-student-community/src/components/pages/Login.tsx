@@ -35,17 +35,13 @@ function Login() {
       navigate("/");
     };
     checkLogin();
-    // console.log("로그인페이지");
-    // console.log("isLoggedIn : ", isLoggedIn);
-    // setIsLoggedIn(true);
-    // navigate("/");
   }
 
   return (
     <>
       <TopBar
         id={undefined}
-        mainService={"로그인"}
+        mainService={"코코볼"}
         needWrite={false}
         needSearch={false}
       />
@@ -81,7 +77,7 @@ function Login() {
         <img
           onClick={kakaoLogin}
           style={{
-            height: "auto",
+            height: "80px",
             width: "100%",
             cursor: "pointer",
             margin: "0 auto",

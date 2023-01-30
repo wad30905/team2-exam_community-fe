@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {
   Header,
   GenderCheckBtn,
-  FormBox,
   RegisterButton,
+  RegisterForm,
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -86,7 +86,7 @@ const Register2 = () => {
         </button>
       </Header>
 
-      <FormBox>
+      <RegisterForm>
         <p style={{ color: "gray", fontWeight: "700" }}>성별</p>
         <div
           style={{
@@ -97,6 +97,7 @@ const Register2 = () => {
           }}
         >
           <GenderCheckBtn
+            type="button"
             name="m"
             onClick={onClickMaleBtn}
             className={maleCheck ? "on" : ""}
@@ -104,6 +105,7 @@ const Register2 = () => {
             남성
           </GenderCheckBtn>
           <GenderCheckBtn
+            type="button"
             name="f"
             onClick={onClickFemaleBtn}
             className={femaleCheck ? "on" : ""}
@@ -123,7 +125,7 @@ const Register2 = () => {
           </select>
         </div>
         <RegisterButton onClick={onClickRegisterBtn}>가입완료</RegisterButton>
-      </FormBox>
+      </RegisterForm>
     </>
   );
 };

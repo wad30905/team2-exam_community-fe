@@ -25,6 +25,7 @@ import {
   PostMenuBtn,
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
+import TopBarBack from "../molecules/TopBarBack";
 
 interface IForm {
   comment: string;
@@ -113,6 +114,7 @@ function Post() {
       if (postId) {
         const post = await getPost(postId);
         setPostData(post as unknown as IPostData | null);
+        console.log("post :", post);
       }
     };
 
@@ -130,7 +132,7 @@ function Post() {
   }, []);
 
   const onBack = () => {
-    navigate("/");
+    navigate(-1);
   };
   const onOptions = () => {
     setIsOptions((current) => !current);
@@ -144,7 +146,7 @@ function Post() {
             <IconBackBtn className="backButton" />
           </TopBarMenu>
           <TopBarMain>
-            <Link to="/">{boardName}</Link>
+            <Link to="/">코코볼</Link>
           </TopBarMain>
           <TopBarBtns>
             <IconMoreBtn onClick={onOptions} />
