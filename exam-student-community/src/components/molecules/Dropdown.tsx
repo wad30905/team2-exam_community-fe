@@ -7,38 +7,47 @@ import { Link } from "react-router-dom";
 import { logout } from "../../api";
 
 const options = ["기능1", "기능2", "기능3"];
-function Dropdown() {
+function Dropdown({ isOpen }: any) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const userName = useRecoilValue(user);
-  console.log(userName);
+
   if (!isLoggedIn) {
     return (
       <DropdownBox>
-        <div className="title">
-          <span>
-            <IconPower />
-          </span>
-          <span>로그인해주세요</span>
-        </div>
-        <ul>
-          {options.map((option, index) => (
-            <Menu style={{ color: "gray" }} key={index}>
-              <span>{option}</span>
-              <span>
-                <IconLock />
-              </span>
-            </Menu>
-          ))}
+        <ul
+          className={
+            isOpen ? "slide-fade-in-dropdown" : "slide-fade-out-dropdown"
+          }
+        >
+          <div className="title">
+            <span>
+              <IconPower />
+            </span>
+            <span>로그인해주세요</span>
+          </div>
+          {isOpen &&
+            options.map((option, index) => (
+              <Menu style={{ color: "gray" }} key={index}>
+                <span>{option}</span>
+                <span>
+                  <IconLock />
+                </span>
+              </Menu>
+            ))}
         </ul>
       </DropdownBox>
     );
   }
   return (
     <DropdownBox>
-      <div className="title">
-        <span>{userName}님 환영합니다</span>
-      </div>
-      <ul>
+      <ul
+        className={
+          isOpen ? "slide-fade-in-dropdown" : "slide-fade-out-dropdown"
+        }
+      >
+        <div className="title">
+          <span>{userName}님 환영합니다</span>
+        </div>
         <Link to="/myposts">
           <Menu>
             <span>{`내가 쓴 글`}</span>
