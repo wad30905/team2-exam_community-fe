@@ -4,6 +4,7 @@ import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
 import axios from "axios";
 import { SERVER_URL } from "../../api";
+import { BoardName } from "../molecules/atoms/styled";
 
 export interface IPostsState {
   state: {
@@ -26,6 +27,8 @@ function Posts() {
     axios({ method: "get", url, data: state?.boardId }).then((response) =>
       setPostsData(response.data[0])
     );
+    console.log("state?.boardId :", state?.boardId);
+    console.log("state?.boardName :", state?.boardName);
   }, []);
 
   return (
@@ -36,7 +39,7 @@ function Posts() {
         needWrite={true}
         needSearch={true}
       />
-
+      <BoardName>{state?.boardName}</BoardName>
       <PostsList
         id={state?.boardId}
         name={state?.boardName}

@@ -15,10 +15,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Dropdown from "../molecules/Dropdown";
+// import { getMyComments } from "../../api";
 
 function MycommentPosts() {
   const [isMore, setIsMore] = useState(false);
-  const [postsData, setPostsData] = useState<any | null>();
+  const [commentsData, setCommentsData] = useState<any | null>();
   const navigate = useNavigate();
   const onBack = () => {
     navigate("/");
@@ -28,9 +29,12 @@ function MycommentPosts() {
     console.log("onMore");
   };
   useEffect(() => {
-    axios({ method: "get" }).then((response) => {
-      setPostsData(response.data);
-    });
+    // const paintMyComments = async () => {
+    //   const myComments = await getMyComments();
+    //   setCommentsData(myComments);
+    //   console.log(myComments);
+    // };
+    // paintMyComments();
   }, []);
   console.log("ismore", isMore);
   return (
@@ -50,7 +54,11 @@ function MycommentPosts() {
         <SearchBar placeholder={"검색하시오."} />
         {isMore ? <Dropdown /> : null}
       </TopBarContainer>
-      <PostsList id={undefined} name={"댓글단 글"} postsData={postsData} />
+      <ul>
+        {commentsData?.map((comment: any, index: any) => (
+          <li key={index}>{comment.content}</li>
+        ))}
+      </ul>
     </>
   );
 }

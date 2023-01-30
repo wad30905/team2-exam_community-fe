@@ -22,27 +22,28 @@ function Main() {
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
       setUserName(authName);
+
+      setIsLoading(false);
     };
     const paintBoards = async () => {
       const boardsData = await getBoards();
       setBoardsData(boardsData);
       console.log("boardsData:", boardsData);
-      setIsLoading(false);
     };
     checkUserAuth();
     paintBoards();
   }, []);
 
   return !isLoading ? (
-    <div style={{ position: "relative" }}>
+    <>
       <TopBar
         id={undefined}
-        mainService={"서비스명"}
+        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />
       <Boards data={boardsData} />
-    </div>
+    </>
   ) : (
     <Loading />
   );

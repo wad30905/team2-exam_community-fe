@@ -12,7 +12,7 @@ import {
 import { fixPost, getBoards, writePost } from "../../api";
 import { authCheck } from "../../api";
 import {
-  WriteContents,
+  WriteForm,
   WriteSelector,
   TitleInput,
   ContentInput,
@@ -85,7 +85,9 @@ function Fix() {
   function onSubmit(data: IWriteForm) {
     //hideuser false 로 해놓았는데 이 옵션 추가 해야 함.
     fixPost(id, data.PostTitle, data.PostContent, false);
-    navigate(`/posts/${data.BoardId}`);
+    alert("수정을 완료했습니다.");
+    //  navigate(`/posts/${data.BoardId}`);
+    navigate(-1);
   }
   return isLoading ? (
     <Loading />
@@ -97,7 +99,7 @@ function Fix() {
         needWrite={false}
         needSearch={false}
       />
-      <WriteContents onSubmit={handleSubmit(onSubmit)}>
+      <WriteForm onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")} disabled={true}>
             {PostsList.map((Posts) => (
@@ -122,7 +124,7 @@ function Fix() {
         <WriteSubmitContainer>
           <Submit>수정 완료</Submit>
         </WriteSubmitContainer>
-      </WriteContents>
+      </WriteForm>
     </>
   );
 }

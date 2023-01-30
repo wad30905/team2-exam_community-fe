@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState, user } from "../../store/atoms";
-import { authCheck, writeComment, getPost } from "../../api";
+import { authCheck, writeComment, getPost, deletePost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
 import PostMainContents from "../molecules/PostMainContents";
@@ -73,7 +73,24 @@ function Post() {
   const postId = state?.postId;
   const boardName = state?.boardName;
   const navigate = useNavigate();
+  const params = useParams();
 
+  const handleDelete = () => {
+    if (window.confirm("글을 삭제하시겠습니까?")) {
+      // 삭제 처리
+      deletePost(postId);
+      alert("해당 글을 삭제합니다."); //
+      // 페이지 이동
+      navigate(-1);
+    } else {
+      // doing nothing
+    }
+  };
+
+  const handleEdit = () => {
+    // 수정 페이지로 이동
+    navigate(`/posts/${postId}/fix`, { state: { data: postData } });
+  };
   function onSubmit(data: IForm) {
     reset();
 
@@ -96,6 +113,7 @@ function Post() {
       if (postId) {
         const post = await getPost(postId);
         setPostData(post as unknown as IPostData | null);
+        console.log("post :", post);
       }
     };
 
@@ -107,10 +125,13 @@ function Post() {
       paintPost();
     }
     console.log("postData :", postData);
+    console.log("로그인한 유저 :", userName);
+
+    console.log("이글을 쓴 사용자 : ", postData?.post_detail.user_id);
   }, []);
 
   const onBack = () => {
-    navigate("/");
+    navigate(-1);
   };
   const onOptions = () => {
     setIsOptions((current) => !current);
@@ -124,7 +145,7 @@ function Post() {
             <IconBackBtn className="backButton" />
           </TopBarMenu>
           <TopBarMain>
-            <Link to="/">{boardName}</Link>
+            <Link to="/">코코볼</Link>
           </TopBarMain>
           <TopBarBtns>
             <IconMoreBtn onClick={onOptions} />
@@ -134,7 +155,11 @@ function Post() {
       </TopBarContainer>
       {/* ----------Top Bar---------- */}
       <PostMain>
-        <PostMainContents post={postData?.post_detail} />
+        <PostMainContents
+          post={postData?.post_detail}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+        />
         <Comments comments={postData?.post_comments} />
         <CommentForm onSubmit={handleSubmit(onSubmit)}>
           <CommentInput

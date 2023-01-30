@@ -8,5 +8,11 @@ declare module "styled-components" {
     grayColor: string;
     whiteColor: string;
     blackColor: string;
+    device: DeviceTheme;
+  }
+
+  interface DeviceTheme {
+    mobile: string;
+    desktop: string;
   }
 }
