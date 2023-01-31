@@ -915,17 +915,18 @@ export const Header = styled.div`
   justify-content: space-between;
   margin: 10px;
   padding: 5px;
+  margin-bottom: 100px;
   h1 {
     font-size: 20px;
   }
-  button {
+  /* button {
     background-color: #fff;
     border: none;
     cursor: pointer;
     font-size: 15px;
     &:hover {
       color: ${(props) => props.theme.accentColor};
-    }
+    } */
   }
   @media ${({ theme }) => theme.device.mobile} {
   }
@@ -947,7 +948,7 @@ export const RegisterButton = styled.button`
   width: 100%;
   font-size: 20px;
   padding: 5px;
-  &:hover {
+  &.active {
     background-color: #5928e5;
     cursor: pointer;
   }
@@ -979,11 +980,11 @@ export const GenderCheckBtn = styled.button`
   }
 `;
 
-export const InputBox = styled.div`
+export const InputBox = styled.div<InputBoxProps>`
   padding: 10px;
   input {
     margin-top: 10px;
-    width: 100%;
+    width: ${(props) => (props.short ? "70%" : "100%")};
     padding: 7px;
 
     &:focus {
@@ -1000,6 +1001,28 @@ export const InputBox = styled.div`
   @media ${({ theme }) => theme.device.desktop} {
   }
 `;
+
+interface InputBoxProps {
+  short?: boolean;
+}
+
+export const RegisterBackBtn = styled.button`
+  background-color: white;
+  color: #5928e5;
+  border: #5928e5 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17px;
+`;
+
+export const RegisterContainer = styled.div`
+  max-width: 800px;
+  height: 100vh;
+  margin: 0 auto;
+  border: 1px #5928e5 solid;
+  padding: 10px;
+`;
+
 
 // ------------Divide------------
 // ------------Divide------------
