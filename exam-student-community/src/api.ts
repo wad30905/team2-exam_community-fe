@@ -275,26 +275,6 @@ export async function searchPosts(keyword: string | undefined, mode: any) {
   }
 }
 
-// 카카오로그인
-// 아직 미완성
-// 가져오는 토큰 값 출력하는 코드
-export function kakaoLogin() {
-  window.Kakao.init("c78646d9d9a9785d4a01481087e7d506");
-  function login() {
-    window.Kakao.Auth.authorize({
-      scope: "profile_nickname",
-      redirectUri: "http://localhost:3000/",
-    });
-    window.Kakao.init("c78646d9d9a9785d4a01481087e7d506");
-    const accessToken = window.Kakao.Auth.getAccessToken();
-    console.log(accessToken);
-    // authorization code 가 url에 박힘
-    // redirection url에 전달된다고 함.
-    // 근데 어디있지.
-  }
-  login();
-}
-
 // 로그아웃
 export function logout() {
   axios({
@@ -338,5 +318,47 @@ export const updateProfile = async (data: any) => {
     return response;
   } else {
     console.log("에러");
+  }
+};
+
+// 카카오 로그인
+
+export interface IKakaoAuthData {
+  grant_type: string;
+  client_id: string;
+  redirect_uri: string;
+  code: string;
+}
+
+export const getKakaoToken = async (data: IKakaoAuthData) => {
+  const response = await axios({
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+    },
+    method: "post",
+    url: "https://kauth.kakao.com/oauth/token",
+    data,
+  });
+  console.log("받아온 토큰(access, refresh 둘다 있음) :", response);
+  return response.data;
+};
+
+export const sendKakaoTokenToServer = async (token: string) => {
+  const response = await axios({
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+    },
+    method: "post",
+    url: "/auth/kakao",
+    data: {
+      token,
+    },
+  });
+  console.log("서버에 전송완료");
+  if (response.status == 201 || response.status == 200) {
+    // 성공하면 할거
+    console.log("로그인 성공");
+  } else {
+    window.alert("로그인에 실패하였습니다.");
   }
 };
