@@ -357,6 +357,7 @@ export const sendKakaoTokenToServer = async (token: string) => {
   console.log("서버에 전송완료");
   if (response.status == 201 || response.status == 200) {
     // 성공하면 할거
+    // 브라우저 로컬스토리지, 쿠키 등에 토큰 박는 코드
     console.log("로그인 성공");
   } else {
     window.alert("로그인에 실패하였습니다.");
