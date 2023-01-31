@@ -1052,7 +1052,6 @@ export const Header = styled.div`
     &:hover {
       color: ${(props) => props.theme.accentColor};
     } */
-  }
   @media ${({ theme }) => theme.device.mobile} {
   }
   @media ${({ theme }) => theme.device.desktop} {
@@ -1147,7 +1146,6 @@ export const RegisterContainer = styled.div`
   border: 1px #5928e5 solid;
   padding: 10px;
 `;
-
 
 // ------------Divide------------
 // ------------Divide------------

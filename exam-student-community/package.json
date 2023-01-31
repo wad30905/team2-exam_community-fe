@@ -1,5 +1,4 @@
 {
-  "proxy": "http://146.56.144.233:8080",
   "name": "exam-student-community",
   "version": "0.1.0",
   "private": true,
@@ -11,6 +10,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
     "axios": "^1.2.2",
+    "env-cmd": "^10.1.0",
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.1",
     "kakao-js-sdk": "^1.2.3",
