@@ -1,5 +1,5 @@
 {
-  "proxy": "http://146.56.144.233:8080",
+  "proxy": "http://localhost:8080",
   "name": "exam-student-community",
   "version": "0.1.0",
   "private": true,
@@ -29,7 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=80 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
