@@ -1,7 +1,7 @@
 import axios, { Axios, AxiosError, AxiosResponse } from "axios";
 
 // export const SERVER_URL = "http://172.20.10.10:8080"; // hotspot
-export const SERVER_URL = "http://146.56.144.233:8080";
+export const SERVER_URL = "";
 
 export async function authCheck() {
   const response = await axios({
