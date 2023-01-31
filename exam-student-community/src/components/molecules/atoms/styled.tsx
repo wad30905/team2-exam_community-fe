@@ -69,10 +69,10 @@ export const LoginForm = styled.form`
 // ------------TopBar------------
 
 export const TopBarContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 999;
 `;
 
 export const TopContainer = styled.div`
@@ -129,7 +129,6 @@ export const TopBarMain = styled.div`
 `;
 
 export const TopBarBtns = styled.div`
-  background-color: ${(props) => props.theme.accentColor};
   color: ${(props) => props.theme.whiteColor};
   font-weight: 600;
   display: flex;
@@ -235,15 +234,47 @@ export const Searchbutton = styled.button`
 // ------------DropBox------------
 
 export const DropdownBox = styled.div`
-  width: 99.5%;
-  z-index: 100;
-  background: #f7f7f7;
-  margin: auto;
-  padding: 30px;
-  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+  position: absolute;
+  top: 90%;
+  width: 100%;
   ul {
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 110%;
+    z-index: 10;
+    background-color: ${({ theme }) => theme.whiteColor};
+    width: 99.5%;
+    margin: auto;
+    padding: 30px;
+  }
+  @keyframes slide-fade-in-dropdown-animation {
+    0% {
+      transform: translateY(0%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(16px);
+    }
+  }
+  @keyframes slide-fade-out-dropdown-animation {
+    0% {
+      transform: translateY(16px);
+    }
+    100% {
+      transform: translateY(13px);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  .slide-fade-in-dropdown {
+    animation: slide-fade-in-dropdown-animation 0.4s ease;
+    animation-fill-mode: forwards;
+    /* box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor}; */
+  }
+  .slide-fade-out-dropdown {
+    animation: slide-fade-out-dropdown-animation 0.4s ease;
+    animation-fill-mode: forwards;
   }
   .title {
     width: 95%;
@@ -306,10 +337,18 @@ export const LoadingBox = styled.div`
 
 export const BoardsList = styled.ul`
   padding: 10px;
+  z-index: 10;
+  margin-top: 15vh;
+  overflow-y: auto;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media ${({ theme }) => theme.device.mobile} {
     width: 100%;
     height: 85vh;
-    overflow-y: scroll;
   }
   @media ${({ theme }) => theme.device.desktop} {
     display: grid;
@@ -323,7 +362,6 @@ export const BoardsList = styled.ul`
 
 export const Board = styled.div`
   width: 100%;
-
   box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
   font-size: 20px;
   padding: 20px 0px;
@@ -395,19 +433,23 @@ export const BoardName = styled.div`
 `;
 
 export const PostsContainer = styled.ul`
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media ${({ theme }) => theme.device.mobile} {
     margin-top: 20px;
     width: 100%;
     height: 85vh;
     list-style: none;
-    overflow-y: scroll;
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin: 20px auto;
     width: 80%;
     height: 85vh;
     list-style: none;
-    overflow-y: scroll;
     border-top: 3px solid ${({ theme }) => theme.accentColor};
   }
 `;
@@ -497,11 +539,15 @@ export const PostInfo = styled.div`
 // PostMainContents
 export const PostMain = styled.div`
   overflow-y: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media ${({ theme }) => theme.device.mobile} {
-    position: absolute;
-    top: 15vh;
-    height: 85vh;
     width: 100%;
+    margin-top: 15vh;
+    height: 85vh;
     padding: 10px;
   }
   @media ${({ theme }) => theme.device.desktop} {
@@ -515,11 +561,54 @@ export const PostMain = styled.div`
 `;
 
 // PostMainContents
+
+export const PostMainContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export interface UserProps {
   height: string;
 }
 
+export const UpdateDeleteBox = styled.div`
+  position: absolute;
+  right: 8%;
+  display: flex;
+  button {
+    font-size: 15px;
+    font-weight: 600;
+    background-color: transparent;
+    color: ${({ theme }) => theme.accentColor};
+    border: none;
+    cursor: pointer;
+  }
+`;
+
+export const PostMoreBtn = styled.div`
+  position: absolute;
+  right: 0;
+  color: ${(props) => props.theme.accentColor};
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  cursor: pointer;
+  a {
+    cursor: pointer;
+    padding: 5px;
+    font-size: 0.0001em;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+  }
+`;
+
 export const User = styled.div<UserProps>`
+  position: relative;
   @media ${({ theme }) => theme.device.mobile} {
     display: flex;
     justify-content: start;
@@ -1080,43 +1169,35 @@ export const CommentBtn = styled.div`
 `;
 
 export const PostMenuBar = styled.ul`
-  @media ${({ theme }) => theme.device.mobile} {
-    z-index: 120;
-    position: absolute;
-    top: 70vh;
-    width: 98%;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #f7f7f7;
-    box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
-  }
-  @media ${({ theme }) => theme.device.desktop} {
-  }
+  z-index: 120;
+  position: absolute;
+  top: 70vh;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
 `;
 
 export const PostMenuBtn = styled.li`
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 80%;
-    height: 6vh;
-    box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
-    margin: 10px;
-    border: none;
-    border-radius: 10px;
-    padding: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
-      transform: translateY(-2px);
-      color: ${(props) => props.theme.accentColor};
-    }
-  }
-  @media ${({ theme }) => theme.device.desktop} {
+  width: 80%;
+  height: 6vh;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
+    transform: translateY(-2px);
+    color: ${(props) => props.theme.accentColor};
   }
 `;

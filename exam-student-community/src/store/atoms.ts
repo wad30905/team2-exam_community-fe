@@ -70,3 +70,8 @@ export const searchModeState = atom({
   default: 1,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const postOptionState = atom({
+  key: "option",
+  default: false,
+});
