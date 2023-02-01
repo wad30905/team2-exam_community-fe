@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { isPropertySignature } from "typescript";
 
-// ------------Login------------
+// ------------Login / Mypage------------
 
 export const LoginForm = styled.form`
   margin: 0 auto;
@@ -12,11 +11,9 @@ export const LoginForm = styled.form`
     margin-bottom: 10px;
     margin-top: 20px;
   }
-  input[type="id"],
-  input[type="password"] {
+  input {
     width: 100%;
     padding: 12px 20px;
-
     box-sizing: border-box;
     border: none;
     border-bottom: 1px solid ${(props) => props.theme.grayColor};
@@ -64,6 +61,12 @@ export const LoginForm = styled.form`
   @media ${({ theme }) => theme.device.desktop} {
     width: 600px;
   }
+`;
+
+export const KakaoLoginButton = styled.img`
+  width: 100%;
+  height: 80px;
+  cursor: pointer;
 `;
 
 // ------------TopBar------------
@@ -560,6 +563,39 @@ export const PostMain = styled.div`
   }
 `;
 
+export const PostMenuBar = styled.ul`
+  z-index: 120;
+  position: absolute;
+  top: 70vh;
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+`;
+
+export const PostMenuBtn = styled.li`
+  width: 80%;
+  height: 6vh;
+  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
+    transform: translateY(-2px);
+    color: ${(props) => props.theme.accentColor};
+  }
+`;
 // PostMainContents
 
 export const PostMainContentsWrapper = styled.div`
@@ -1016,7 +1052,6 @@ export const Header = styled.div`
     &:hover {
       color: ${(props) => props.theme.accentColor};
     } */
-  }
   @media ${({ theme }) => theme.device.mobile} {
   }
   @media ${({ theme }) => theme.device.desktop} {
@@ -1146,57 +1181,5 @@ export const MainContents = styled.div`
     border-bottom: 2px solid #aaa;
   }
   @media ${({ theme }) => theme.device.desktop} {
-  }
-`;
-
-export const LikeBtn = styled.div`
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 6vh;
-    background: green;
-  }
-  @media ${({ theme }) => theme.device.desktop} {
-  }
-`;
-
-export const CommentBtn = styled.div`
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 6vh;
-    background: purple;
-  }
-  @media ${({ theme }) => theme.device.desktop} {
-  }
-`;
-
-export const PostMenuBar = styled.ul`
-  z-index: 120;
-  position: absolute;
-  top: 70vh;
-  width: 100%;
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #f7f7f7;
-  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
-`;
-
-export const PostMenuBtn = styled.li`
-  width: 80%;
-  height: 6vh;
-  box-shadow: 0px 0px 10px ${(props) => props.theme.grayColor};
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  padding: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 0px 10px ${(props) => props.theme.accentColor};
-    transform: translateY(-2px);
-    color: ${(props) => props.theme.accentColor};
   }
 `;
