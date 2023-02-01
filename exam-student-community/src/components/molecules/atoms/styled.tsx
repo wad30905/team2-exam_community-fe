@@ -1112,7 +1112,6 @@ export const RegisterContainer = styled.div`
   padding: 10px;
 `;
 
-
 // ------------Divide------------
 // ------------Divide------------
 

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
+import {
+  IconBackBtn,
+  IconMoreBtn,
+  IconPdHide,
+  IconPdShow,
+} from "../molecules/atoms/icons";
 import { useNavigate } from "react-router-dom";
 import {
   Header,
@@ -43,6 +48,8 @@ const Register = () => {
   const [idCheck, setIdCheck] = useState(false); // 아이디 중복 체크 확인 변수
   const [userId, setUserId] = useState(""); // 아이디 변수
   const [idError, setIdError] = useState(""); // 아이디 에러 체크
+  const [pdShow, setPdShow] = useState(false);
+  const [pdCheckShow, setPdCheckShow] = useState(false);
   const handleIdDoubleCheck = () => {
     // 아이디 중복 체크 실행
     // API 호출
@@ -74,6 +81,14 @@ const Register = () => {
     console.log(e.currentTarget.value);
     setUserId(e.currentTarget.value);
     setIdCheck(false);
+  };
+
+  const handleChangePdShow = () => {
+    setPdShow((prev) => !prev);
+  };
+
+  const handleChangePdCheckShow = () => {
+    setPdCheckShow((prev) => !prev);
   };
 
   const setName = useSetRecoilState(registerName);
@@ -163,7 +178,7 @@ const Register = () => {
           </button>
           <p style={{ color: "red" }}>{idError}</p>
         </InputBox>
-        <InputBox>
+        <InputBox short={true}>
           <label>비밀번호</label>
           <br />
           <input
@@ -178,25 +193,48 @@ const Register = () => {
                 message: "5~8 자리로 입력해주세요.",
               },
             })}
-            type="password"
+            type={pdShow ? "text" : "password"}
             name="password"
             placeholder="비밀번호를 입력해 주세요.(5~8자리)"
           />
+          <button
+            onClick={handleChangePdShow}
+            type="button"
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              fontSize: "20px",
+            }}
+          >
+            {pdShow ? <IconPdHide /> : <IconPdShow />}
+          </button>
           <p style={{ color: "red" }}>{errors?.password?.message}</p>
         </InputBox>
-        <InputBox>
+        <InputBox short={true}>
           <label>비밀번호 확인 </label>
           <br />
           <input
             {...register("passwordConfirm", {
               required: "빈칸을 입력해주세요.",
             })}
-            type="password"
+            type={pdCheckShow ? "text" : "password"}
             placeholder="비밀번호를 다시한번 입력해주세요"
           />
+          <button
+            onClick={handleChangePdCheckShow}
+            type="button"
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              fontSize: "20px",
+            }}
+          >
+            {pdCheckShow ? <IconPdHide /> : <IconPdShow />}
+          </button>
           <p style={{ color: "red" }}>{errors?.passwordConfirm?.message}</p>
         </InputBox>
-        <InputBox>
+
+        <InputBox short={true}>
           <label>핸드폰 번호</label>
           <br />
           <input
@@ -208,7 +246,7 @@ const Register = () => {
           />
           <p style={{ color: "red" }}>{errors?.phone?.message}</p>
         </InputBox>
-        <InputBox>
+        <InputBox short={true}>
           <label>이메일</label>
           <br />
           <input
