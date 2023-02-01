@@ -5,10 +5,10 @@ import { LoginForm } from "../molecules/atoms/styled";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
-import { loginCheck, kakaoLogin } from "../../api";
+import { loginCheck } from "../../api";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { loginState, userId } from "../../store/atoms";
-import Kakao from "kakao-js-sdk";
+import KakaoLogin from "../molecules/KakaoLogin";
 
 interface IForm {
   id: string;
@@ -74,16 +74,7 @@ function Login() {
           <Link to="/register1">회원가입</Link>
         </div>
 
-        <img
-          onClick={kakaoLogin}
-          style={{
-            height: "80px",
-            width: "100%",
-            cursor: "pointer",
-            margin: "0 auto",
-          }}
-          src="https://asp.pointpark.com/PlusPointMember/resources/images/mobileHomePage/btn_kakao.png"
-        />
+        <KakaoLogin />
       </LoginForm>
     </>
   );
