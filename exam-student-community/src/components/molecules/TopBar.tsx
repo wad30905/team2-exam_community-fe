@@ -4,6 +4,8 @@ import {
   TopBarMenu,
   TopBarMain,
   TopBarContainer,
+  DropdownBox,
+  Menu,
 } from "./atoms/styled";
 import { IconBackBtn, IconBar } from "./atoms/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,10 +25,24 @@ interface ITopBarProps {
 
 function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<any>(false);
   const navigate = useNavigate();
 
-  const toggle = () => setIsOpen((current) => !current);
+  const toggle = () => {
+    setIsOpen((current: any) => !current);
+    // setIsOpen((isOpen: boolean) => {
+    //   if (isOpen === true) {
+    //     console.log("isOpen true일때, false로 바꾸기");
+    //     return !isOpen;
+    //   } else {
+    //     setTimeout(() => {
+    //       console.log("isOpen false일때, true로 바꾸기");
+    //       return !isOpen;
+    //     }, 5000);
+    //   }
+    // });
+  };
+
   const onClickLogOut = () => {
     setIsLoggedIn(false);
     logout();
@@ -62,7 +78,14 @@ function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
         )}
       </TopContainer>
       {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
-      {isOpen ? <Dropdown /> : null}
+
+      {/* <Dropdown
+        classname={
+          isOpen ? "slide-fade-in-dropdown" : "slide-fade-out-dropdown"
+        }
+      /> */}
+      {/* <Dropdown isOpen={isOpen} /> */}
+      {isOpen ? <Dropdown isOpen={isOpen} /> : null}
     </TopBarContainer>
   );
 }
