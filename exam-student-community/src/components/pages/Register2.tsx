@@ -5,6 +5,8 @@ import {
   GenderCheckBtn,
   RegisterButton,
   RegisterForm,
+  RegisterContainer,
+  RegisterBackBtn,
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -29,6 +31,7 @@ const Register2 = () => {
   const [password, modPd] = useRecoilState(registerPd);
   const [phone, modPhone] = useRecoilState(registerPhone);
   const [email, modEmail] = useRecoilState(registerEmail);
+  const [isActive, setIsActive] = useState(true); // 버튼 활성화 변수
   const onClickPrev = () => {
     navigate("/register1");
   };
@@ -75,14 +78,12 @@ const Register2 = () => {
     setTime(e.target.value);
   };
   return (
-    <>
+    <RegisterContainer>
       <Header>
-        <button onClick={onClickPrev}>
-          <IconBackBtn />
-        </button>
+        <RegisterBackBtn onClick={onClickPrev}>이전</RegisterBackBtn>
         <h1>회원가입(2/2)</h1>
-        <button>
-          <IconMoreBtn />
+        <button style={{ visibility: "hidden" }}>
+          {/* <IconMoreBtn /> */}
         </button>
       </Header>
 
@@ -113,20 +114,30 @@ const Register2 = () => {
             여성
           </GenderCheckBtn>
         </div>
-        <label>공부기간</label>
-        <br />
-        <div style={{ padding: "10px" }}>
-          <select style={{ width: "50%" }} onChange={handleChangeSelect}>
-            <option value="">--선택--</option>
-            <option value="1">1년 이하</option>
-            <option value="2">1년~2년</option>
-            <option value="3">2년~3년</option>
-            <option>3년 이상</option>
-          </select>
+        <div style={{ marginTop: "35px" }}>
+          <label htmlFor="time">공부기간</label>
+          <br />
+          <div id="time" style={{ padding: "10px" }}>
+            <select style={{ width: "50%" }} onChange={handleChangeSelect}>
+              <option value="">--선택--</option>
+              <option value="1">1년 이하</option>
+              <option value="2">1년~2년</option>
+              <option value="3">2년~3년</option>
+              <option>3년 이상</option>
+            </select>
+          </div>
         </div>
-        <RegisterButton onClick={onClickRegisterBtn}>가입완료</RegisterButton>
+        <div style={{ marginTop: "35px" }}>
+          <RegisterButton
+            type="button"
+            onClick={onClickRegisterBtn}
+            className={isActive ? "active" : ""}
+          >
+            가입완료
+          </RegisterButton>
+        </div>
       </RegisterForm>
-    </>
+    </RegisterContainer>
   );
 };
 

@@ -64,6 +64,10 @@ body{
   margin: 0 auto;
   left: 0;
   right: 0;
+  // 사파리에서 body가 스크롤돼서 검정화면이 올라오는 경우 있어서 추가해봄. 셋중에 하나.
+  /* overflow: hidden;  */
+  /* pointer-events:none;  */
+  position: fixed;
 }
 a{
   display:block;

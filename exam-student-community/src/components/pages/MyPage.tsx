@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { updateProfile, getProfile } from "../../api";
 import { useForm } from "react-hook-form";
+import { LoginForm } from "../molecules/atoms/styled";
+import TopBar from "../molecules/TopBar";
+import Loading from "../molecules/Loading";
 
 interface IForm {
   age: string;
@@ -27,11 +30,6 @@ function MyPage() {
   });
 
   function onSubmit(data: IForm) {
-    console.log("age:", data.age);
-    console.log("name:", data.name);
-    console.log("email:", data.email);
-    console.log("phone:", data.phone);
-    console.log("gender:", data.gender);
     setUserData((state) => ({
       age: data.age,
       name: data.name,
@@ -60,7 +58,6 @@ function MyPage() {
     } else if (skipCount === 1) {
       setSkipCount(2);
     } else {
-      console.log("useEffect 2 userData :", userData);
       updateProfile(userData);
       alert("수정성공");
       window.location.href = "/";
@@ -69,7 +66,13 @@ function MyPage() {
 
   return !isLoading ? (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <TopBar
+        id={undefined}
+        mainService={"코코볼"}
+        needWrite={false}
+        needSearch={false}
+      />
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>나이</label>
         <input
           {...register("age", {
@@ -127,10 +130,10 @@ function MyPage() {
         <span className="errorMessage">{errors?.gender?.message}</span>
         <br />
         <button type="submit">수정하기</button>
-      </form>
+      </LoginForm>
     </>
   ) : (
-    <>로딩중</>
+    <Loading />
   );
 }
 
