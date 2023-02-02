@@ -78,7 +78,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
       <User height="5vh">
         <IconUser className="userIcon" />
         <UserInfo>
-          <Writer>{post?.user_id}</Writer>
+          <Writer>{post?.user_name}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
         {post.user_id == loginUserId && (

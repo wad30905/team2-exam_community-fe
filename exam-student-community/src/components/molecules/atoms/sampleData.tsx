@@ -74,7 +74,7 @@ export const samplePosts: IPostData[] = [
       like: 1,
       num: 1,
       title: "제곧내",
-      user_id: "ㅁㄴㅇㄻ",
+      user_name: "ㅁㄴㅇㄻ",
     },
     post_comments: [
       { user_id: "asdf", content: "12sdlf;jlasd", c_date: "2022-10-01" },

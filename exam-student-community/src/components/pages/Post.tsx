@@ -45,7 +45,7 @@ export interface IPost {
   like: number;
   num: number;
   title: string;
-  user_id: string;
+  user_name: string;
 }
 
 export interface IComment {
@@ -134,24 +134,12 @@ function Post() {
     console.log("postData :", postData);
     console.log("로그인한 유저 :", userName);
 
-    console.log("이글을 쓴 사용자 : ", postData?.post_detail.user_id);
+    console.log("이글을 쓴 사용자 : ", postData?.post_detail.user_name);
     // sample test
     // setIsLoading(false);
     // setIsLoggedIn(true);
     // setUserName("hongjin");
   }, []);
-
-  //url 복사
-  const [copied, setCopied] = useRecoilState(PostUrlCopyState);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-    } catch (err) {
-      console.error('Failed to copy URL to clipboard: ', err);
-    }
-  };
 
   return postData ? (
     <>
