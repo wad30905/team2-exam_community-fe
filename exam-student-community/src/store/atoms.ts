@@ -75,3 +75,9 @@ export const postOptionState = atom({
   key: "option",
   default: false,
 });
+
+//탑바드랍다운
+export const isTopBarOpen = atom({
+  key: "isTopBarOpen",
+  default: false,
+});

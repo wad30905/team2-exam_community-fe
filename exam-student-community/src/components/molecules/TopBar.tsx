@@ -10,7 +10,7 @@ import {
 import { IconBackBtn, IconBar } from "./atoms/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { loginState, user } from "../../store/atoms";
+import { isTopBarOpen, loginState, user } from "../../store/atoms";
 import { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import SearchBar from "./SearchBar";
@@ -25,7 +25,7 @@ interface ITopBarProps {
 
 function TopBar({ mainService, needWrite, needSearch, id }: ITopBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [isOpen, setIsOpen] = useState<any>(false);
+  const [isOpen, setIsOpen] = useRecoilState(isTopBarOpen);
   const navigate = useNavigate();
 
   const toggle = () => {

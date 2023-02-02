@@ -18,7 +18,7 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList } from "../molecules/atoms/sampleData";
+import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
 interface IWriteForm {
@@ -46,6 +46,7 @@ function Write() {
       setIsLoggedIn(authStatus);
       setUserName(authName);
       setIsLoading(false);
+
       if (authStatus) {
         setWriteState(state);
         console.log("!!");
@@ -62,11 +63,16 @@ function Write() {
     handleSubmit,
     formState: { errors },
     setError,
+    watch
   } = useForm<IWriteForm>();
   function onSubmit(data: IWriteForm) {
-    writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
+    const write = async () => {
+      await writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
+    }
+    write();
     navigate(`/posts/${data.BoardId}`);
   }
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -80,8 +86,8 @@ function Write() {
       <WriteForm onSubmit={handleSubmit(onSubmit)}>
         <WriteSelectorContainer>
           <WriteSelector {...register("BoardId")}>
-            {PostsList.map((Posts) => (
-              <option>{Posts}</option>
+            {Object.values(PostsObject).map((Posts, index) => (
+              <option value={index+1}>{Posts}</option>
             ))}
           </WriteSelector>
         </WriteSelectorContainer>
