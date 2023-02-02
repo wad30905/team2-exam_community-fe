@@ -72,7 +72,14 @@ function Login() {
         <br />
         <button type="submit">로그인</button>
         <div className="signUpBox">
-          <Link to="/register">아이디 찾기</Link>
+          <Link
+            onClick={() => {
+              alert("아직 안됨 ㅈㅅㅈㅅ");
+            }}
+            to="/login"
+          >
+            아이디 찾기
+          </Link>
           <Link to="/findpassword">비밀번호 찾기</Link>
           <Link to="/register1">회원가입</Link>
         </div>

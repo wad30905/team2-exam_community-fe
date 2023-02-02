@@ -10,7 +10,8 @@ interface IForm {
 }
 
 function ResetPassword() {
-  const token = useParams();
+  const { token } = useParams();
+
   const {
     register,
     handleSubmit,
@@ -27,19 +28,19 @@ function ResetPassword() {
 
     try {
       const response = await axios({
-        method: "post",
-        url: `${SERVER_URL}/api/login`,
+        method: "put",
+        url: `${SERVER_URL}/api/newpw`,
         data: {
-          password: data.password1,
+          pw: data.password1,
           token: token,
         },
       });
-      if (response.status == 201 || response.status == 202) {
-        alert("비밀번호 변경 성공");
+      console.log("response :", response);
+      if (response.status === 200) {
+        alert("변경성공");
         navigate("/login");
       } else {
-        alert("비밀번호 변경에 실패했습니다. 잠시후 시도해주세요.");
-        navigate("/");
+        alert("변경실패");
       }
     } catch (error) {
       console.log("catch error :", error);

@@ -37,7 +37,7 @@ function Router() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/oauth" element={<OAuth />} />
         <Route path="/findpassword" element={<FindPassword />} />
-        <Route path="/resetpassword/:token" element={<ResetPassword />} />
+        <Route path="/users/reset/:token" element={<ResetPassword />} />
         <Route path="/fail_login" element={<Login />} />
       </Routes>
     </BrowserRouter>

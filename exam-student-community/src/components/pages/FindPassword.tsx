@@ -9,7 +9,6 @@ import Loading from "../molecules/Loading";
 
 interface IForm {
   id: string;
-  email: string;
 }
 
 function FindPassword() {
@@ -19,6 +18,7 @@ function FindPassword() {
     formState: { errors },
   } = useForm<IForm>();
   const [emailLoading, setEmailLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
 
   async function onSubmit(data: IForm) {
@@ -41,13 +41,13 @@ function FindPassword() {
       // 아이디랑 이메일 값 서버로 post
       const response2 = await axios({
         method: "post",
-        url: `${SERVER_URL}/email`,
+        url: `${SERVER_URL}/api/newpw`,
         data: {
-          user_id: data.id,
-          user_email: data.email,
+          id: data.id,
         },
       });
       console.log("response2 : ", response2);
+      setUserEmail(response2.data.email);
       setEmailLoading(true);
     } catch (error) {
       console.log("catch error :", error);
@@ -56,8 +56,8 @@ function FindPassword() {
 
   return emailLoading ? (
     <LoginForm onSubmit={handleSubmit(onSubmit)}>
-      <label>이메일을 확인해주세요</label>
-      <label>이메일이 오지 않는다면?</label>
+      <div>이메일을 확인해보셈</div>
+      <div>인증 이메일 : {userEmail}</div>
     </LoginForm>
   ) : (
     <>
@@ -72,15 +72,6 @@ function FindPassword() {
         />
         <span className="errorMessage">{errors?.id?.message}</span>
         <br />
-        <label>본인 명의의 이메일을 입력해주세요.</label>
-        <input
-          {...register("email", {
-            required: "이메일을 입력해주세요",
-          })}
-          type="email"
-          name="email"
-        />
-        <span className="errorMessage">{errors?.email?.message}</span>
         <button>이메일 전송</button>
       </LoginForm>
     </>
