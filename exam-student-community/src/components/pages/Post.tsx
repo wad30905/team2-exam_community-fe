@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { loginState, postOptionState, user } from "../../store/atoms";
+import { loginState, postOptionState, PostUrlCopyState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost, deletePost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
@@ -26,6 +26,8 @@ import {
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 import TopBar from "../molecules/TopBar";
+import PostModal from "../molecules/PostModal";
+import { samplePost } from "../molecules/atoms/sampleData";
 
 interface IForm {
   comment: string;
@@ -74,7 +76,11 @@ function Post() {
   const boardName = state?.boardName;
   const navigate = useNavigate();
   const params = useParams();
-  const [isOptions, setIsOptions] = useRecoilState(postOptionState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(postOptionState);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleDelete = () => {
     if (window.confirm("글을 삭제하시겠습니까?")) {
@@ -129,17 +135,27 @@ function Post() {
     console.log("로그인한 유저 :", userName);
 
     console.log("이글을 쓴 사용자 : ", postData?.post_detail.user_id);
+    // sample test
+    // setIsLoading(false);
+    // setIsLoggedIn(true);
+    // setUserName("hongjin");
   }, []);
 
-  const onBack = () => {
-    navigate(-1);
+  //url 복사
+  const [copied, setCopied] = useRecoilState(PostUrlCopyState);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+    } catch (err) {
+      console.error('Failed to copy URL to clipboard: ', err);
+    }
   };
 
   return postData ? (
     <>
       <TopBar
-        id={undefined}
-        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />
@@ -183,24 +199,7 @@ function Post() {
         </CommentForm>
       </PostMain>
       {/* ----------Post Main---------- */}
-      {isOptions ? (
-        isLoggedIn ? (
-          <PostMenuBar>
-            {/* <PostMenuBtn>
-              <Link to={`/posts/${postId}/fix`} state={{ data: postData }}>
-                수정
-              </Link>
-            </PostMenuBtn>
-            <PostMenuBtn>삭제</PostMenuBtn> */}
-            <PostMenuBtn>URL 복사</PostMenuBtn>
-          </PostMenuBar>
-        ) : (
-          <PostMenuBar>
-            <PostMenuBtn>신고</PostMenuBtn>
-            <PostMenuBtn>URL 복사</PostMenuBtn>
-          </PostMenuBar>
-        )
-      ) : null}
+      <PostModal isOpen={isModalOpen} onClose={toggleModal} />
     </>
   ) : (
     <Loading />

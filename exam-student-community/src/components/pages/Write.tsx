@@ -78,8 +78,6 @@ function Write() {
   ) : (
     <>
       <TopBar
-        id={writeState?.id}
-        mainService={"자유게시판"}
         needWrite={false}
         needSearch={false}
       />

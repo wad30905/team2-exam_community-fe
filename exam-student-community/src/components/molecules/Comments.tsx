@@ -46,7 +46,7 @@ function Comments({ comments }: ICommentsProp) {
                 onLike(index);
               }}
             >
-              {likeClicked[index] ? <IconLiked /> : <IconLike />}
+              {likeClicked[index] ? <IconLiked style={{color: "red"}}/> : <IconLike />}
             </CommentButtons>
           </CommentContent>
         </Comment>

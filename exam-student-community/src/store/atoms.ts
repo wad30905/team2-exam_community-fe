@@ -76,8 +76,8 @@ export const postOptionState = atom({
   default: false,
 });
 
-//탑바드랍다운
-export const isTopBarOpen = atom({
-  key: "isTopBarOpen",
+//post url copy state
+export const PostUrlCopyState = atom({
+  key: "PostUrlCopyState",
   default: false,
 });

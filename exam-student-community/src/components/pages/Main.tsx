@@ -1,62 +1,58 @@
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
 import Loading from "../molecules/Loading";
-import { authCheck, getBoards, SERVER_URL } from "../../api";
+import { authCheck, getBoards, logout, SERVER_URL } from "../../api";
 import { useRecoilState } from "recoil";
-import { isTopBarOpen, loginState, user } from "../../store/atoms";
-import { useState, useEffect } from "react";
+import { loginState, user } from "../../store/atoms";
 import { sampleBoards } from "../molecules/atoms/sampleData";
-import { Link } from "react-router-dom";
-import SearchBar from "../molecules/SearchBar";
-import { useRef } from "react";
+import React, { useState, useEffect } from 'react';
 
-function Main() {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
-  const [isOpen, setIsOpen] = useRecoilState(isTopBarOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //다른데 누르면 모달이 닫히게 
-  const el:any = useRef();
-  const handleCloseModal = (e: any) => {
-    if (isOpen && (!el.current || !el.current.contains(e.target))) {
-      setIsOpen(false);
-    }
-  }
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
-  useEffect(() => {
-    window.addEventListener("click", handleCloseModal);
-    return () => {
-      window.removeEventListener("click", handleCloseModal);
-    }
-  }, [])
+  const onClickLogOut = () => {
+    setIsLoggedIn(false);
+    logout();
+  };
 
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
+      console.log("authData", authData);
       const authStatus = authData["isAuthenticated"];
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
       setUserName(authName);
-
       setIsLoading(false);
     };
     const paintBoards = async () => {
       const boardsData = await getBoards();
       setBoardsData(boardsData);
+      console.log("boardsData:", boardsData);
     };
     checkUserAuth();
     paintBoards();
+    // sample test
+    // setIsLoggedIn(true);
+    // setUserName("hongjin");
+    // setIsLoading(false);
   }, []);
-
-  console.log(isOpen);
 
   return !isLoading ? (
     <>
       <TopBar
-        id={undefined}
-        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />
@@ -65,7 +61,6 @@ function Main() {
   ) : (
     <Loading />
   );
-}
+};
 
 export default Main;
-

@@ -18,15 +18,7 @@ import { SERVER_URL } from "../../api";
 // import { getMyPost } from "../../api";
 
 function MyPosts() {
-  const navigate = useNavigate();
-  const [isMore, setIsMore] = useState(false);
   const [postsData, setPostsData] = useState<any | null>();
-  const onBack = () => {
-    navigate("/");
-  };
-  const onMore = () => {
-    setIsMore((current) => !current);
-  };
   useEffect(() => {
     axios({ method: "get", url: `${SERVER_URL}/mypost` }).then((response) => {
       setPostsData(response.data);
@@ -34,20 +26,7 @@ function MyPosts() {
   }, []);
   return (
     <>
-      <TopBarContainer>
-        <TopContainer>
-          <TopBarMenu onClick={onBack}>
-            <IconBackBtn />
-          </TopBarMenu>
-          <TopBarMain>
-            <Link to="/">코코볼</Link>
-          </TopBarMain>
-          <TopBarBtns>
-            <IconBar />
-          </TopBarBtns>
-        </TopContainer>
-        <SearchBar placeholder={"검색하시오."} />
-      </TopBarContainer>
+      <TopBar needSearch={true} needWrite={true} />
       <BoardName>내가 쓴 글</BoardName>
       <PostsList id={undefined} name={undefined} postsData={postsData} />
     </>

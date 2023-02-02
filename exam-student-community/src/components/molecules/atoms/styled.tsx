@@ -238,7 +238,7 @@ export const Searchbutton = styled.button`
 
 export const DropdownBox = styled.div`
   position: absolute;
-  top: 90%;
+  top: 5%;
   width: 100%;
   ul {
     position: relative;

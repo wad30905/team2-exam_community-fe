@@ -44,7 +44,7 @@ function Fix() {
   const id = data.post_detail.id;
 
   const navigate = useNavigate();
-  // 밑에 박홍진 테스트용 보세요.
+  
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -63,12 +63,6 @@ function Fix() {
     };
     checkUserAuth();
   }, []);
-  // 박홍진 테스트용
-  // useEffect(() => {
-  //   console.log("Im in");
-  //   setWriteState({id})
-  //   setIsLoading(false);
-  // }, []);
 
   const {
     register,
@@ -94,8 +88,6 @@ function Fix() {
   ) : (
     <>
       <TopBar
-        id={writeState?.id}
-        mainService={`${data.post_detail.num}번 게시판`}
         needWrite={false}
         needSearch={false}
       />

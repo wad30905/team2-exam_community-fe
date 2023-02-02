@@ -67,8 +67,6 @@ function MyPage() {
   return !isLoading ? (
     <>
       <TopBar
-        id={undefined}
-        mainService={"코코볼"}
         needWrite={false}
         needSearch={false}
       />
