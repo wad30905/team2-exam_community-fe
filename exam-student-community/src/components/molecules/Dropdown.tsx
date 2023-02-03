@@ -84,7 +84,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
                 <span>{`내가 쓴 글`}</span>
               </Menu>
             </Link>
-            <Link to="/mylikeposts">
+            {/* <Link to="/mylikeposts">
               <Menu>
                 <span>{`좋아요한 글`}</span>
               </Menu>
@@ -93,7 +93,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
               <Menu>
                 <span>{`스크랩한 글`}</span>
               </Menu>
-            </Link>
+            </Link> */}
             <Link to="/mypage">
               <Menu>
                 <span>{`내 정보 수정`}</span>
