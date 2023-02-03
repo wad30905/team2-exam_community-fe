@@ -677,7 +677,7 @@ export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  gap: 3px;
   @media ${({ theme }) => theme.device.desktop} {
     font-size: 22px;
   }
@@ -715,7 +715,7 @@ export const Content_Title = styled.p`
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin: 30px 0;
@@ -725,9 +725,9 @@ export const Content_Title = styled.p`
 `;
 
 export const Content_Content = styled.p`
+  line-height: 1.35;
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
-    font-weight: bold;
     font-size: 20px;
   }
   @media ${({ theme }) => theme.device.desktop} {
