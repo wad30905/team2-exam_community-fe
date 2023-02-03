@@ -132,9 +132,10 @@ const Register2 = () => {
             <select style={{ width: "50%" }} onChange={handleChangeSelect}>
               <option value="">--선택--</option>
               <option value="1년 이하">1년 이하</option>
-              <option value="1년~2년">1년~2년</option>
-              <option value="3년 이상">2년~3년</option>
-              <option>3년 이상</option>
+              <option value="1년이상~2년미만">1년~2년</option>
+              <option value="2년이상~3년미만">2년~3년</option>
+              <option value="3년이상~4년미만">3년~4년</option>
+              <option value="4년이상">4년 이상</option>
             </select>
           </div>
         </div>
