@@ -60,18 +60,6 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
       setLikeNum(post.like_num);
     }
   }, []);
-
-  //url 복사
-  const [copied, setCopied] = useRecoilState(PostUrlCopyState);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-    } catch (err) {
-      console.error('Failed to copy URL to clipboard: ', err);
-    }
-  };
   
   return (
     <PostMainContentsWrapper>

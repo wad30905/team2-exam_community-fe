@@ -32,9 +32,11 @@ const PostModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
+      alert("클립보드에 복사 되었습니다.");
       setCopied(true);
     } catch (err) {
       console.error('Failed to copy URL to clipboard: ', err);
+      alert("일시적인 네트워크 오류로 인한 복사 실패입니다. 죄송합니다.");
     }
   };
 
