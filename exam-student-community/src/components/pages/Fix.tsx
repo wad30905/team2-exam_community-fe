@@ -123,14 +123,18 @@ function Fix() {
         <Select defaultValue={options[Number(boardId)-1]} options={options} onChange={onSelect} placeholder={"게시판을 선택하십시오."} styles={customStyles} isDisabled={true}/>
         <TitleInput
           placeholder="제목"
-          {...register("PostTitle", { required: "제목을 입력하세요" })}
+          {...register("PostTitle", { required: "제목을 입력하세요", maxLength: {
+            value: 500,
+            message: "글자수가 너무 많습니다.",}  })}
         />
         {errors ? (
           <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage>
         ) : null}
         <ContentInput
           placeholder="내용을 입력하세요."
-          {...register("PostContent", { required: "내용을 입력하세요" })}
+          {...register("PostContent", { required: "내용을 입력하세요", maxLength: {
+            value: 500,
+            message: "글자수가 너무 많습니다.",}  })}
         />
         {errors ? (
           <ErrorMessage>{errors?.PostContent?.message}</ErrorMessage>
