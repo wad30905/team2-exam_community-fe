@@ -36,7 +36,7 @@ function Comments({ comments }: ICommentsProp) {
         <Comment key={index}>
           <CommenterBox>
             <IconUser className="iconUser" />
-            <CommenterName>{comment.user_id}</CommenterName>
+            <CommenterName>{comment.user_name}</CommenterName>
             <CommentTime>{timeCalculator(comment.c_date)}</CommentTime>
           </CommenterBox>
           <CommentContent>
@@ -46,7 +46,7 @@ function Comments({ comments }: ICommentsProp) {
                 onLike(index);
               }}
             >
-              {likeClicked[index] ? <IconLiked /> : <IconLike />}
+              {likeClicked[index] ? <IconLiked style={{color: "red"}}/> : <IconLike />}
             </CommentButtons>
           </CommentContent>
         </Comment>

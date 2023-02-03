@@ -238,7 +238,7 @@ export const Searchbutton = styled.button`
 
 export const DropdownBox = styled.div`
   position: absolute;
-  top: 90%;
+  top: 5%;
   width: 100%;
   ul {
     position: relative;
@@ -324,7 +324,7 @@ export const LoadingBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 30px;
-  transform: translateY(-50px);
+  transform: translateY(-50%);
   span {
     font-size: 30px;
     color: ${(props) => props.theme.accentColor};
@@ -343,7 +343,7 @@ export const BoardsList = styled.ul`
   z-index: 10;
   margin-top: 15vh;
   overflow-y: auto;
-
+  padding-bottom: 10vh;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
   &::-webkit-scrollbar {
@@ -394,8 +394,12 @@ export const Board = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
   }
   @media ${({ theme }) => theme.device.desktop} {
-    min-height: 250px;
+    height: 250px;
     max-width: 400px;
+    a {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 
@@ -673,7 +677,7 @@ export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  gap: 3px;
   @media ${({ theme }) => theme.device.desktop} {
     font-size: 22px;
   }
@@ -711,7 +715,7 @@ export const Content_Title = styled.p`
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin: 30px 0;
@@ -721,9 +725,9 @@ export const Content_Title = styled.p`
 `;
 
 export const Content_Content = styled.p`
+  line-height: 1.35;
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
-    font-weight: bold;
     font-size: 20px;
   }
   @media ${({ theme }) => theme.device.desktop} {
@@ -925,8 +929,8 @@ export const WriteForm = styled.form`
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin: 15vh auto;
-    width: 70%;
-    min-height: 85vh;
+    width: 50%;
+    height: 85vh;
   }
 `;
 
@@ -955,6 +959,7 @@ export const WriteSelector = styled.select`
 `;
 
 export const TitleInput = styled.input`
+  margin-top: 20px;
   padding: 10px 20px;
   display: block;
   height: 7%;
@@ -972,7 +977,7 @@ export const TitleInput = styled.input`
 `;
 
 export const ContentInput = styled.textarea`
-  padding: 20px;
+  padding: 10px;
   font-size: 18px;
   display: block;
   width: 100%;

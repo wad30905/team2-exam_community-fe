@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Board, BoardPost, BoardsList } from "./atoms/styled";
 import { IconComment, IconRarr } from "./atoms/icons";
-import { sampleBoards } from "./atoms/sampleData";
+import { PostsObject, sampleBoards } from "./atoms/sampleData";
+import { stringify } from "querystring";
 
 function Boards({ data }: any) {
   return (
@@ -12,11 +13,11 @@ function Boards({ data }: any) {
           <Board key={index}>
             <Link
               to="posts"
-              state={{ boardId: index + 1, boardName: `${index + 1}번 게시판` }}
+              state={{ boardId: index + 1, boardName: `${PostsObject[String(index+1)]}` }}
             >
               <div className="title_row">
                 <span className="title">
-                  {index + 1}번 게시판 <IconRarr />
+                {PostsObject[String(index+1)]} <IconRarr />
                 </span>
                 <span className="total_num">{board[1]}개의 이야기</span>
               </div>

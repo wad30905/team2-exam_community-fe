@@ -11,10 +11,7 @@ const KakaoLogin = () => {
 
   return (
     <>
-      <KakaoLoginButton
-        onClick={kakaoLogin}
-        src="https://asp.pointpark.com/PlusPointMember/resources/images/mobileHomePage/btn_kakao.png"
-      />
+      <KakaoLoginButton onClick={kakaoLogin} src="../../assets/button.png" />
     </>
   );
 };
