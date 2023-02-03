@@ -10,6 +10,7 @@ import {
 import { MdArrowBackIos, MdMoreVert } from "react-icons/md";
 import { IoCopy, IoCopyOutline } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
+import { BiShow, BiHide } from "react-icons/bi";
 
 export const IconBar = FaBars;
 export const IconComment = FaRegComment;
@@ -25,3 +26,5 @@ export const IconLiked = AiFillLike;
 export const IconLike = AiOutlineLike;
 export const IconCopy = IoCopyOutline;
 export const IconCopied = IoCopy;
+export const IconPdShow = BiShow;
+export const IconPdHide = BiHide;

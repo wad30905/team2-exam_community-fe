@@ -75,3 +75,8 @@ export const postOptionState = atom({
   key: "option",
   default: false,
 });
+
+export const restrict = atom({
+  key: "restrict",
+  default: true,
+});
