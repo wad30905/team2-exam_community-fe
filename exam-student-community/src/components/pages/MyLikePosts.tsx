@@ -17,7 +17,7 @@ import axios from "axios";
 import Dropdown from "../molecules/Dropdown";
 import { SERVER_URL } from "../../api";
 
-function MyscrapPosts() {
+function MyLikePosts() {
   const [postsData, setPostsData] = useState<any | null>();
 
   // 데이터 받아와서
@@ -31,9 +31,9 @@ function MyscrapPosts() {
   return (
     <>
       <TopBar needSearch={true} needWrite={true} />
-      <BoardName>스크랩한 글</BoardName>
+      <BoardName>좋아요한 글</BoardName>
       <PostsList id={undefined} name={undefined} postsData={postsData} />
     </>
   );
 }
-export default MyscrapPosts;
+export default MyLikePosts

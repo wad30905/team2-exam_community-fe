@@ -68,11 +68,35 @@ body{
   /* overflow: hidden;  */
   /* pointer-events:none;  */
   position: fixed;
+  // vh 때문에, 아이폰 사파리에서 제일 아래쪽이 안보이는 이슈
+  // body에 추가하는게 맞는건지, 각 컴포넌트마다 박아야하는지는 의문.
+  // 일단 body에 박아놓음.
+  height: -webkit-fill-available;
+  height: fill-available;
 }
 a{
   display:block;
   text-decoration:none;
   color:inherit;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 100;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 

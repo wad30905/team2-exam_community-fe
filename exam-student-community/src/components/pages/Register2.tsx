@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   Header,
@@ -9,7 +9,7 @@ import {
   RegisterBackBtn,
 } from "../molecules/atoms/styled";
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, redirect } from "react-router-dom";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import {
   registerName,
@@ -17,6 +17,7 @@ import {
   registerPd,
   registerPhone,
   registerEmail,
+  restrict,
 } from "../../store/atoms";
 import { registerUser } from "../../api";
 
@@ -32,6 +33,8 @@ const Register2 = () => {
   const [phone, modPhone] = useRecoilState(registerPhone);
   const [email, modEmail] = useRecoilState(registerEmail);
   const [isActive, setIsActive] = useState(true); // 버튼 활성화 변수
+
+  const [pageRestrict, setPageRestrict] = useRecoilState(restrict);
   const onClickPrev = () => {
     navigate("/register1");
   };
@@ -59,6 +62,7 @@ const Register2 = () => {
     modEmail("");
     modPhone("");
     modId("");
+    setPageRestrict(true);
     navigate("/login");
   };
   const onClickMaleBtn = (e: any) => {
@@ -77,6 +81,13 @@ const Register2 = () => {
   const handleChangeSelect = (e: any) => {
     setTime(e.target.value);
   };
+
+  useEffect(() => {
+    if (pageRestrict) {
+      return navigate("/register1");
+    }
+  }, []);
+
   return (
     <RegisterContainer>
       <Header>
@@ -120,10 +131,11 @@ const Register2 = () => {
           <div id="time" style={{ padding: "10px" }}>
             <select style={{ width: "50%" }} onChange={handleChangeSelect}>
               <option value="">--선택--</option>
-              <option value="1">1년 이하</option>
-              <option value="2">1년~2년</option>
-              <option value="3">2년~3년</option>
-              <option>3년 이상</option>
+              <option value="1년 이하">1년 이하</option>
+              <option value="1년이상~2년미만">1년~2년</option>
+              <option value="2년이상~3년미만">2년~3년</option>
+              <option value="3년이상~4년미만">3년~4년</option>
+              <option value="4년이상">4년 이상</option>
             </select>
           </div>
         </div>
