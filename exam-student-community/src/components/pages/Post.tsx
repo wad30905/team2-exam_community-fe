@@ -49,7 +49,7 @@ export interface IPost {
 }
 
 export interface IComment {
-  user_id: string;
+  user_name: string;
   content: string;
   c_date: string;
 }

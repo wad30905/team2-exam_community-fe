@@ -925,8 +925,8 @@ export const WriteForm = styled.form`
   }
   @media ${({ theme }) => theme.device.desktop} {
     margin: 15vh auto;
-    width: 70%;
-    min-height: 85vh;
+    width: 50%;
+    height: 85vh;
   }
 `;
 
@@ -955,6 +955,7 @@ export const WriteSelector = styled.select`
 `;
 
 export const TitleInput = styled.input`
+  margin-top: 20px;
   padding: 10px 20px;
   display: block;
   height: 7%;
@@ -972,7 +973,7 @@ export const TitleInput = styled.input`
 `;
 
 export const ContentInput = styled.textarea`
-  padding: 20px;
+  padding: 10px;
   font-size: 18px;
   display: block;
   width: 100%;

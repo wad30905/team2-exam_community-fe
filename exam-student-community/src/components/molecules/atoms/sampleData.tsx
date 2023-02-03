@@ -77,7 +77,7 @@ export const samplePosts: IPostData[] = [
       user_name: "ㅁㄴㅇㄻ",
     },
     post_comments: [
-      { user_id: "asdf", content: "12sdlf;jlasd", c_date: "2022-10-01" },
+      { user_name: "asdf", content: "12sdlf;jlasd", c_date: "2022-10-01" },
     ],
   },
 ];
