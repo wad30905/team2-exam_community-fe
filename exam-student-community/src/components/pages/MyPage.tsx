@@ -58,9 +58,13 @@ function MyPage() {
     } else if (skipCount === 1) {
       setSkipCount(2);
     } else {
-      updateProfile(userData);
-      alert("수정성공");
-      window.location.href = "/";
+      if (window.confirm("정말 수정합니까")) {
+        updateProfile(userData);
+        alert("수정 성공");
+        window.location.href = "/";
+      } else {
+        alert("수정 취소");
+      }
     }
   }, [userData]);
 
@@ -73,19 +77,7 @@ function MyPage() {
         needSearch={false}
       />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <label>나이</label>
-        <input
-          {...register("age", {
-            required: "나이를 입력해주세요",
-          })}
-          name="age"
-          type="age"
-          defaultValue={`${userData.age}`}
-        />
-        <span className="errorMessage">{errors?.age?.message}</span>
-
-        <br />
-        <label>이름</label>
+        <label>닉네임</label>
         <input
           {...register("name", {
             required: "이름을 입력해주세요",
@@ -95,6 +87,18 @@ function MyPage() {
           defaultValue={`${userData.name}`}
         />
         <span className="errorMessage">{errors?.name?.message}</span>
+        <br />
+        <label>공부한 기간</label>
+        <input
+          {...register("age", {
+            required: "공부한 기간 입력해주세요",
+          })}
+          name="age"
+          type="age"
+          defaultValue={`${userData.age}`}
+        />
+        <span className="errorMessage">{errors?.age?.message}</span>
+
         <br />
         <label>이메일</label>
         <input
@@ -119,6 +123,7 @@ function MyPage() {
         <span className="errorMessage">{errors?.phone?.message}</span>
         <br />
         <label>성별</label>
+
         <input
           {...register("gender", {
             required: "성별을 입력해주세요",
