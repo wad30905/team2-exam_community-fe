@@ -29,8 +29,6 @@ function Search() {
   return (
     <>
       <TopBar
-        id={1}
-        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />

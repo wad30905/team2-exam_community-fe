@@ -1,23 +1,36 @@
 import TopBar from "../molecules/TopBar";
 import Boards from "../molecules/Boards";
 import Loading from "../molecules/Loading";
-import { authCheck, getBoards, SERVER_URL } from "../../api";
+import { authCheck, getBoards, logout, SERVER_URL } from "../../api";
 import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
-import { useState, useEffect } from "react";
 import { sampleBoards } from "../molecules/atoms/sampleData";
-import { Link } from "react-router-dom";
-import SearchBar from "../molecules/SearchBar";
+import React, { useState, useEffect } from 'react';
 
-function Main() {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [boardsData, setBoardsData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const onClickLogOut = () => {
+    setIsLoggedIn(false);
+    logout();
+  };
 
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
+      console.log("authData", authData);
       const authStatus = authData["isAuthenticated"];
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
@@ -31,13 +44,15 @@ function Main() {
     };
     checkUserAuth();
     paintBoards();
+    // sample test
+    // setIsLoggedIn(true);
+    // setUserName("hongjin");
+    // setIsLoading(false);
   }, []);
 
   return !isLoading ? (
     <>
       <TopBar
-        id={undefined}
-        mainService={"코코볼"}
         needWrite={true}
         needSearch={true}
       />
@@ -46,6 +61,6 @@ function Main() {
   ) : (
     <Loading />
   );
-}
+};
 
 export default Main;

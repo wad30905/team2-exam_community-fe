@@ -34,8 +34,6 @@ function Posts() {
   return (
     <>
       <TopBar
-        id={state?.boardId}
-        mainService={state ? state.boardName : "게시판타고들어와라 ^^"}
         needWrite={true}
         needSearch={true}
       />

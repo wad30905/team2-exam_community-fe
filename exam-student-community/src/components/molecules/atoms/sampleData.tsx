@@ -74,10 +74,10 @@ export const samplePosts: IPostData[] = [
       like: 1,
       num: 1,
       title: "제곧내",
-      user_id: "ㅁㄴㅇㄻ",
+      user_name: "ㅁㄴㅇㄻ",
     },
     post_comments: [
-      { user_id: "asdf", content: "12sdlf;jlasd", c_date: "2022-10-01" },
+      { user_name: "asdf", content: "12sdlf;jlasd", c_date: "2022-10-01" },
     ],
   },
 ];
@@ -103,3 +103,14 @@ export const samplePost = {
 };
 
 export const PostsList = ["1", "2", "3", "4", "5", "6"];
+
+interface PostsObject {
+  [key: string] : string,
+}
+
+export const PostsObject: PostsObject = {
+  "1": "자유게시판",
+  "2": "비밀게시판",
+  "3": "리트게시판",
+  "4": "CPA게시판",
+}

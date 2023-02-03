@@ -27,7 +27,7 @@ import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postOptionState, userId } from "../../store/atoms";
+import { postOptionState, PostUrlCopyState, userId } from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
@@ -60,13 +60,13 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
       setLikeNum(post.like_num);
     }
   }, []);
-
+  
   return (
     <PostMainContentsWrapper>
       <User height="5vh">
         <IconUser className="userIcon" />
         <UserInfo>
-          <Writer>{post?.user_id}</Writer>
+          <Writer>{post?.user_name}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
         {post.user_id == loginUserId && (
@@ -87,7 +87,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
         <ContentBtns>
           <ContentBtn onClick={onLike}>
             {likeClicked ? (
-              <IconLiked className="icon" />
+              <IconLiked className="icon" style={{color: "red"}}/>
             ) : (
               <IconLike className="icon" />
             )}
@@ -95,7 +95,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
           </ContentBtn>
           <ContentBtn onClick={onCopy}>
             {scrapClicked ? (
-              <IconCopied className="icon" />
+              <IconCopied className="icon" style={{color: "green"}}/>
             ) : (
               <IconCopy className="icon" />
             )}

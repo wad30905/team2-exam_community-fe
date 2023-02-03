@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TopBar from "../molecules/TopBar";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Select from "react-select";
 
 import {
   ErrorMessage,
@@ -18,11 +19,11 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList } from "../molecules/atoms/sampleData";
+import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
+import { keyframes } from "styled-components";
 interface IWriteForm {
-  BoardId: string;
   PostTitle: string;
   PostContent: string;
 }
@@ -46,6 +47,7 @@ function Write() {
       setIsLoggedIn(authStatus);
       setUserName(authName);
       setIsLoading(false);
+
       if (authStatus) {
         setWriteState(state);
         console.log("!!");
@@ -62,39 +64,70 @@ function Write() {
     handleSubmit,
     formState: { errors },
     setError,
+    watch
   } = useForm<IWriteForm>();
-  function onSubmit(data: IWriteForm) {
-    writePost(userName, data.BoardId, data.PostTitle, data.PostContent);
-    navigate(`/posts/${data.BoardId}`);
+
+  const [boardId, setBoardId] = useState<any>()
+  const onSelect = (e:any) => {
+    setBoardId(e.value)
   }
+
+  function onSubmit(data: IWriteForm) {
+    const write = async () => {
+      await writePost(userName, boardId, data.PostTitle, data.PostContent);
+    }
+    write();
+    navigate(`/posts/${boardId}`);
+  }
+
+  //selector
+  let options = Object.keys(PostsObject).map((item, index) => {
+    return {value : item, label: PostsObject[item]}
+  })
+  const customStyles = {
+    option: (defaultStyles:any, state:any) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "white" : "#5928E5",
+      backgroundColor: state.isSelected ? "#5928E5" : "white",
+    }),
+
+    control: (defaultStyles:any) => ({
+      ...defaultStyles,
+      backgroundColor: "white",
+      padding: "10px",
+      border: "1px solid #eee",
+      boxShadow: "none",
+    }),
+    singleValue: (defaultStyles:any) => ({ ...defaultStyles, color: "#111" }),
+  };
+
+  console.log(boardId)
+
   return isLoading ? (
     <Loading />
   ) : (
     <>
       <TopBar
-        id={writeState?.id}
-        mainService={"자유게시판"}
         needWrite={false}
         needSearch={false}
       />
       <WriteForm onSubmit={handleSubmit(onSubmit)}>
-        <WriteSelectorContainer>
-          <WriteSelector {...register("BoardId")}>
-            {PostsList.map((Posts) => (
-              <option>{Posts}</option>
-            ))}
-          </WriteSelector>
-        </WriteSelectorContainer>
+        <Select options={options} onChange={onSelect} placeholder={"게시판을 선택하십시오."} styles={customStyles} />
         <TitleInput
           placeholder="제목"
-          {...register("PostTitle", { required: "제목을 입력하세요" })}
+          {...register("PostTitle", { required: "제목을 입력하세요", maxLength: {
+            value: 500,
+            message: "글자수가 너무 많습니다.",}  })}
         />
         {errors ? (
           <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage>
         ) : null}
         <ContentInput
           placeholder="내용을 입력하세요."
-          {...register("PostContent", { required: "내용을 입력하세요" })}
+          {...register("PostContent", { required: "내용을 입력하세요", maxLength: {
+            value: 500,
+            message: "글자수가 너무 많습니다.",} 
+          })}
         />
         {errors ? (
           <ErrorMessage>{errors?.PostContent?.message}</ErrorMessage>

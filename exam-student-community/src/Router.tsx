@@ -10,7 +10,7 @@ import Practice from "./components/pages/Practice";
 import MyscrapPosts from "./components/pages/MyscrapPosts";
 import Search from "./components/pages/Search";
 import MyPosts from "./components/pages/MyPosts";
-import MycommentPosts from "./components/pages/MycommentPosts";
+import MyLikePosts from "./components/pages/MyLikePosts";
 import Fix from "./components/pages/Fix";
 import MyPage from "./components/pages/MyPage";
 import OAuth from "./components/pages/OAuth";
@@ -25,8 +25,8 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/myposts" element={<MyPosts />} />
-        <Route path="/mycommentposts" element={<MycommentPosts />} />
-        <Route path="/myscrapposts" element={<MyscrapPosts />} />
+        {/* <Route path="/mylikeposts" element={<MyLikePosts />} />
+        <Route path="/myscrapposts" element={<MyscrapPosts />} /> */}
         <Route path="/posts/:id/fix" element={<Fix />} />
         <Route path="/posts/:id" element={<Post />} />
         <Route path="/posts/write" element={<Write />} />
