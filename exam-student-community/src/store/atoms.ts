@@ -81,3 +81,8 @@ export const PostUrlCopyState = atom({
   key: "PostUrlCopyState",
   default: false,
 });
+
+export const PostSelectBoardId = atom({
+  key: "PostSelectBoardId",
+  default: "",
+})
