@@ -30,19 +30,29 @@ export async function loginCheck(dataId: string, dataPw: string) {
     },
     withCredentials: true,
   });
-  if (response.status) {
-    console.log("로그인 성공");
-  } else if (response.status === 401) {
-    console.log("401 로그인 실패");
-  } else {
-    console.log("로그인 실패");
-  }
-  console.log("post 로그인 response : ", response);
+  return response;
+  // console.log(response);
+  // if (response.status) {
+  //   console.log("로그인 성공");
+  // } else {
+  //   loginFail();
+  // }
+  // console.log("post 로그인 response : ", response);
   // if (response.data) {
   //   console.log("loginCheck / 유저 맞음");
   // } else {
   //   console.log("loginCheck / 유저 아님");
   // }
+}
+
+// 로그인 실패 api
+// 확인필요
+export async function loginFail() {
+  const response = await axios({
+    method: "get",
+    url: `${SERVER_URL}/fail_login`,
+  });
+  console.log("loginFail response :", response);
 }
 
 export async function getBoards() {
@@ -173,7 +183,9 @@ export function timeCalculator(date: string | null) {
   if (date) {
     let startDate = date.replace("T", " ");
     startDate = startDate.slice(0, 16);
+
     const start = new Date(startDate);
+    start.setHours(start.getHours() + 9);
     const end = new Date();
 
     const diff = ((end as any) - (start as any)) / 1000;

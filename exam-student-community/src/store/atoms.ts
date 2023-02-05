@@ -86,3 +86,9 @@ export const PostSelectBoardId = atom({
   key: "PostSelectBoardId",
   default: "",
 })
+
+export const restrict = atom({
+  key: "restrict",
+  default: true,
+});
+

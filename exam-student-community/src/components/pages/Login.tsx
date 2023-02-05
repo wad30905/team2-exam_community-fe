@@ -23,18 +23,21 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
-  const [userLoginId, setUserId] = useRecoilState(userId);
 
-  function onSubmit(data: IForm) {
+  async function onSubmit(data: IForm) {
     const checkLogin = async () => {
       const loginStatus = await loginCheck(data.id, data.password);
-      console.log("loginStatus : ", loginStatus);
       setIsLoggedIn(loginStatus);
-      setUserId(data.id); // 유저 아이디 저장
-      console.log("navigate()");
       navigate("/");
     };
     checkLogin();
+
+    // const response = await loginCheck(data.id, data.password);
+    // if (response.status === 201 || response.status === 202) {
+    //   console.log("성공");
+    // } else {
+    //   console.log("실패");
+    // }
   }
 
   return (
@@ -67,12 +70,17 @@ function Login() {
         <br />
         <button type="submit">로그인</button>
         <div className="signUpBox">
-          <Link to="/register">아이디 찾기</Link>
-          <Link to="/register">비밀번호 찾기</Link>
+          <Link
+            onClick={() => {
+              alert("아직 안됨 ㅈㅅㅈㅅ");
+            }}
+            to="/login"
+          >
+            아이디 찾기
+          </Link>
+          <Link to="/findpassword">비밀번호 찾기</Link>
           <Link to="/register1">회원가입</Link>
         </div>
-
-        <KakaoLogin />
       </LoginForm>
     </>
   );

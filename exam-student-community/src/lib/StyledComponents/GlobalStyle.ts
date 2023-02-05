@@ -68,6 +68,11 @@ body{
   /* overflow: hidden;  */
   /* pointer-events:none;  */
   position: fixed;
+  // vh 때문에, 아이폰 사파리에서 제일 아래쪽이 안보이는 이슈
+  // body에 추가하는게 맞는건지, 각 컴포넌트마다 박아야하는지는 의문.
+  // 일단 body에 박아놓음.
+  height: -webkit-fill-available;
+  height: fill-available;
 }
 a{
   display:block;
