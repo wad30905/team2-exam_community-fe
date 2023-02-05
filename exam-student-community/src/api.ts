@@ -30,6 +30,7 @@ export async function loginCheck(dataId: string, dataPw: string) {
     },
     withCredentials: true,
   });
+  console.log("login response :", response);
   return response;
   // console.log(response);
   // if (response.status) {
