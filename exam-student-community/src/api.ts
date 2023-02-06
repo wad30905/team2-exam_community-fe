@@ -30,7 +30,7 @@ export async function loginCheck(dataId: string, dataPw: string) {
     },
     withCredentials: true,
   });
-  console.log("login response :", response);
+  console.log("로그인 response :", response);
   return response;
   // console.log(response);
   // if (response.status) {
@@ -217,34 +217,47 @@ export async function registerUser(
   name: string,
   id: string,
   pd: string,
-  phone: string,
   email: string,
   gender: string,
   age: string
 ) {
   // 유저 객체로 받음.
   // response 값에 따라 true / false 반환.
-  const response = await axios({
-    method: "post",
-    url: `${SERVER_URL}/register`,
-    data: {
-      name: name, // 이름
-      user_id: id, // 아이디
-      user_pw: pd, // 비번
-      phone: phone,
-      email: email,
-      gender: gender,
-      age: age,
-    },
-    withCredentials: true,
-  });
-  if (response.data) {
-    //로그인 성공
-    console.log("회원가입 성공");
-  } else {
-    //로그인 실패
-    console.log("회원가입 실패");
+  try {
+    const response = await axios({
+      method: "post",
+      url: `${SERVER_URL}/register`,
+      data: {
+        name: name, // 이름
+        user_id: id, // 아이디
+        user_pw: pd, // 비번
+        email: email,
+        phone: "000",
+        gender: gender,
+        age: age,
+      },
+      withCredentials: true,
+    });
+    console.log("회원가입 성공 : ", response);
+    console.log("회원가입 성공 : ", response.data);
+    if (response.status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log("회원가입 에러 : ", err);
+    return false;
   }
+
+  // console.log("회원가입 : ", response);
+  // if (response.data) {
+  //   //로그인 성공
+  //   console.log("회원가입 성공");
+  // } else {
+  //   //로그인 실패
+  //   console.log("회원가입 실패");
+  // }
 }
 
 // 아이디 중복 확인 API
