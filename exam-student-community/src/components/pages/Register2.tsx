@@ -15,7 +15,6 @@ import {
   registerName,
   registerId,
   registerPd,
-  registerPhone,
   registerEmail,
   restrict,
 } from "../../store/atoms";
@@ -30,7 +29,7 @@ const Register2 = () => {
   const [name, modName] = useRecoilState(registerName);
   const [id, modId] = useRecoilState(registerId);
   const [password, modPd] = useRecoilState(registerPd);
-  const [phone, modPhone] = useRecoilState(registerPhone);
+  //const [phone, modPhone] = useRecoilState(registerPhone);
   const [email, modEmail] = useRecoilState(registerEmail);
   const [isActive, setIsActive] = useState(true); // 버튼 활성화 변수
 
@@ -53,17 +52,33 @@ const Register2 = () => {
     const time_num = Number(time);
 
     // 회원가입 API 호출
-    registerUser(name, id, password, phone, email, gender, time);
-    //console.log(name, id, password, phone, email, gender, time_num);
+    const checkRegister = async () => {
+      const result = await registerUser(
+        name,
+        id,
+        password,
+        email,
+        gender,
+        time
+      );
+      if (result) {
+        // 회원가입 성공
+        alert("회원가입을 완료했습니다.");
+        modName("");
+        modPd("");
+        modEmail("");
+        //  modPhone("");
+        modId("");
+        setPageRestrict(true);
+        navigate("/login");
+      } else {
+        alert("회원가입을 실패했습니다.");
+      }
+    };
 
-    alert("회원가입을 완료했습니다.");
-    modName("");
-    modPd("");
-    modEmail("");
-    modPhone("");
-    modId("");
-    setPageRestrict(true);
-    navigate("/login");
+    checkRegister();
+
+    //console.log(name, id, password, phone, email, gender, time_num);
   };
   const onClickMaleBtn = (e: any) => {
     console.log(e.target.name);

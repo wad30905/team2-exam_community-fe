@@ -33,10 +33,7 @@ function Posts() {
 
   return (
     <>
-      <TopBar
-        needWrite={true}
-        needSearch={true}
-      />
+      <TopBar needWrite={true} needSearch={true} />
       <BoardName>{state?.boardName}</BoardName>
       <PostsList
         id={state?.boardId}

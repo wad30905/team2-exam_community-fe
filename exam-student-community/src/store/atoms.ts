@@ -38,11 +38,11 @@ export const registerPd = atom({
   key: "password",
   default: "",
 });
-export const registerPhone = atom({
-  // phone
-  key: "phone",
-  default: "",
-});
+// export const registerPhone = atom({
+//   // phone
+//   key: "phone",
+//   default: "",
+// });
 export const registerEmail = atom({
   // email
   key: "email",
@@ -73,12 +73,6 @@ export const searchModeState = atom({
 
 export const postOptionState = atom({
   key: "option",
-  default: false,
-});
-
-//post url copy state
-export const PostUrlCopyState = atom({
-  key: "PostUrlCopyState",
   default: false,
 });
 
