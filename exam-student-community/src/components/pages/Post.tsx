@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  loginState,
-  postOptionState,
-  PostUrlCopyState,
-  user,
-} from "../../store/atoms";
+import { loginState, postOptionState, user } from "../../store/atoms";
 import { authCheck, writeComment, getPost, deletePost } from "../../api";
 import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";

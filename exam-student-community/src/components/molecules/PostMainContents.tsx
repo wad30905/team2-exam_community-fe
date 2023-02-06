@@ -27,7 +27,7 @@ import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postOptionState, PostUrlCopyState, userId } from "../../store/atoms";
+import { loginState, postOptionState, userId } from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
@@ -41,6 +41,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   const [likeNum, setLikeNum] = useState();
   const [scrapNum, setScrapNum] = useState();
   const loginUserId = useRecoilValue(userId);
+  const loginCheck = useRecoilValue(loginState); //
 
   const [isOptions, setIsOptions] = useRecoilState(postOptionState);
   const onOptions = () => {
@@ -69,7 +70,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
           <Writer>{post?.user_name}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
-        {post.user_id == loginUserId && (
+        {loginCheck && post.user_id == loginUserId && (
           <UpdateDeleteBox>
             <button onClick={handleEdit}>수정</button>
             <button onClick={handleDelete}>삭제</button>

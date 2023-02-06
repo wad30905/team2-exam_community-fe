@@ -205,10 +205,6 @@ export const SearchSelection = styled.select`
   }
 `;
 
-export interface SearchProps {
-  placeholder: string;
-}
-
 export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
@@ -238,7 +234,6 @@ export const Searchbutton = styled.button`
 
 export const DropdownBox = styled.div`
   position: absolute;
-  top: 5%;
   width: 100%;
   ul {
     position: relative;
@@ -248,6 +243,7 @@ export const DropdownBox = styled.div`
     width: 99.5%;
     margin: auto;
     padding: 30px;
+    padding-top: 40px;
   }
   @keyframes slide-fade-in-dropdown-animation {
     0% {
@@ -289,6 +285,12 @@ export const DropdownBox = styled.div`
     margin-bottom: 10px;
     gap: 10px;
     margin: 0 auto;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    top: 8%;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    top: 6%;
   }
 `;
 
@@ -548,6 +550,7 @@ export const PostMain = styled.div`
   overflow-y: scroll;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
+  height: calc(var(--vh, 1vh) * 100);
   &::-webkit-scrollbar {
     display: none;
   }
@@ -996,12 +999,12 @@ export const ContentInput = styled.textarea`
 export const ErrorMessage = styled.span`
   display: block;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   color: red;
   font-size: 15px;
   font-weight: 600;
   width: 90%;
-  padding: 20px;
+  padding: 0px 20px;
   @media ${({ theme }) => theme.device.mobile} {
   }
   @media ${({ theme }) => theme.device.desktop} {

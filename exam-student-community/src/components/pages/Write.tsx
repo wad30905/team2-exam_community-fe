@@ -39,6 +39,16 @@ function Write() {
   const { state } = useLocation() as IWriteState;
   const navigate = useNavigate();
 
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+  //resize
+  window.addEventListener("resize", () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    console.log("vh :", vh);
+  });
+
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -73,6 +83,10 @@ function Write() {
   };
 
   function onSubmit(data: IWriteForm) {
+    if (boardId === undefined) {
+      alert("게시판을 선택해주세요");
+      return false;
+    }
     const write = async () => {
       await writePost(userName, boardId, data.PostTitle, data.PostContent);
     };

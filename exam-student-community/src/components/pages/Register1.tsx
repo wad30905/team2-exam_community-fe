@@ -23,7 +23,6 @@ import {
   registerName,
   registerId,
   registerPd,
-  registerPhone,
   registerEmail,
   restrict,
 } from "../../store/atoms";
@@ -35,7 +34,7 @@ interface IForm {
   password: string;
   passwordConfirm: string;
   email: string;
-  phone: string;
+  // phone: string;
 }
 
 const Register = () => {
@@ -60,7 +59,7 @@ const Register = () => {
   const [registerName_, setName] = useRecoilState(registerName);
   const [registerId_, setId] = useRecoilState(registerId);
   const [registerPd_, setPd] = useRecoilState(registerPd);
-  const [registerPhone_, setPhone] = useRecoilState(registerPhone);
+  // const [registerPhone_, setPhone] = useRecoilState(registerPhone);
   const [registerEmail_, setEmail] = useRecoilState(registerEmail);
   const [pageRestrict, setPageRestrict] = useRecoilState(restrict);
 
@@ -69,13 +68,13 @@ const Register = () => {
   };
 
   useEffect(() => {
-    console.log(registerPhone_);
+    // console.log(registerPhone_);
     setNickName(registerName_);
     setUserId(registerId_);
     setUserPd(registerPd_);
     setUserPdCheck(registerPd_);
     setUserEmail(registerEmail_);
-    setPhoneNum(registerPhone_);
+    //   setPhoneNum(registerPhone_);
   }, []);
 
   // useEffect(() => {
@@ -160,7 +159,7 @@ const Register = () => {
     setName(data.username);
     setId(userId);
     setPd(data.password);
-    setPhone(data.phone);
+    // setPhone(data.phone);
     setEmail(data.email);
     setPageRestrict(false);
     navigate("/register2"); // 다음 페이지로 이동.
@@ -280,7 +279,7 @@ const Register = () => {
           <p style={{ color: "red" }}>{errors?.passwordConfirm?.message}</p>
         </InputBox>
 
-        <InputBox short={true}>
+        {/* <InputBox short={true}>
           <label>핸드폰 번호</label>
           <br />
           <input
@@ -293,7 +292,7 @@ const Register = () => {
             onChange={handlePhoneNumChange}
           />
           <p style={{ color: "red" }}>{errors?.phone?.message}</p>
-        </InputBox>
+        </InputBox> */}
         <InputBox short={true}>
           <label>이메일</label>
           <br />
