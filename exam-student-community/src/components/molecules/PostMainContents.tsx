@@ -27,7 +27,12 @@ import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postOptionState, PostUrlCopyState, userId } from "../../store/atoms";
+import {
+  loginState,
+  postOptionState,
+  PostUrlCopyState,
+  userId,
+} from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
@@ -41,6 +46,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   const [likeNum, setLikeNum] = useState();
   const [scrapNum, setScrapNum] = useState();
   const loginUserId = useRecoilValue(userId);
+  const loginCheck = useRecoilValue(loginState); //
 
   const [isOptions, setIsOptions] = useRecoilState(postOptionState);
   const onOptions = () => {
@@ -60,7 +66,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
       setLikeNum(post.like_num);
     }
   }, []);
-  
+
   return (
     <PostMainContentsWrapper>
       <User height="5vh">
@@ -69,7 +75,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
           <Writer>{post?.user_name}</Writer>
           <Details>{timeCalculator(post?.c_date)}</Details>
         </UserInfo>
-        {post.user_id == loginUserId && (
+        {loginCheck && post.user_id == loginUserId && (
           <UpdateDeleteBox>
             <button onClick={handleEdit}>수정</button>
             <button onClick={handleDelete}>삭제</button>
@@ -87,7 +93,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
         <ContentBtns>
           <ContentBtn onClick={onLike}>
             {likeClicked ? (
-              <IconLiked className="icon" style={{color: "red"}}/>
+              <IconLiked className="icon" style={{ color: "red" }} />
             ) : (
               <IconLike className="icon" />
             )}
@@ -95,7 +101,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
           </ContentBtn>
           <ContentBtn onClick={onCopy}>
             {scrapClicked ? (
-              <IconCopied className="icon" style={{color: "green"}}/>
+              <IconCopied className="icon" style={{ color: "green" }} />
             ) : (
               <IconCopy className="icon" />
             )}

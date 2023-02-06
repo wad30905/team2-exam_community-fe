@@ -23,11 +23,13 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [loginUserId, setLoginUserId] = useRecoilState(userId);
 
   async function onSubmit(data: IForm) {
     const checkLogin = async () => {
       const loginStatus = await loginCheck(data.id, data.password);
       setIsLoggedIn(loginStatus);
+      setLoginUserId(data.id); // 코드 합칠때 주의
       navigate("/");
     };
     checkLogin();
@@ -42,10 +44,7 @@ function Login() {
 
   return (
     <>
-      <TopBar
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBar needWrite={false} needSearch={false} />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input
