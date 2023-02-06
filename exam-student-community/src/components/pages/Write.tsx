@@ -39,6 +39,16 @@ function Write() {
   const { state } = useLocation() as IWriteState;
   const navigate = useNavigate();
 
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+  //resize
+  window.addEventListener("resize", () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    console.log("vh :", vh);
+  });
+
   useEffect(() => {
     const checkUserAuth = async () => {
       const authData = await authCheck();
@@ -64,69 +74,82 @@ function Write() {
     handleSubmit,
     formState: { errors },
     setError,
-    watch
+    watch,
   } = useForm<IWriteForm>();
 
-  const [boardId, setBoardId] = useState<any>()
-  const onSelect = (e:any) => {
-    setBoardId(e.value)
-  }
+  const [boardId, setBoardId] = useState<any>();
+  const onSelect = (e: any) => {
+    setBoardId(e.value);
+  };
 
   function onSubmit(data: IWriteForm) {
+    if (boardId === undefined) {
+      alert("게시판을 선택해주세요");
+      return false;
+    }
     const write = async () => {
       await writePost(userName, boardId, data.PostTitle, data.PostContent);
-    }
+    };
     write();
     navigate(`/posts/${boardId}`);
   }
 
   //selector
   let options = Object.keys(PostsObject).map((item, index) => {
-    return {value : item, label: PostsObject[item]}
-  })
+    return { value: item, label: PostsObject[item] };
+  });
   const customStyles = {
-    option: (defaultStyles:any, state:any) => ({
+    option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       color: state.isSelected ? "white" : "#5928E5",
       backgroundColor: state.isSelected ? "#5928E5" : "white",
     }),
 
-    control: (defaultStyles:any) => ({
+    control: (defaultStyles: any) => ({
       ...defaultStyles,
       backgroundColor: "white",
       padding: "10px",
       border: "1px solid #eee",
       boxShadow: "none",
     }),
-    singleValue: (defaultStyles:any) => ({ ...defaultStyles, color: "#111" }),
+    singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#111" }),
   };
 
-  console.log(boardId)
+  console.log(boardId);
 
   return isLoading ? (
     <Loading />
   ) : (
     <>
-      <TopBar
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBar needWrite={false} needSearch={false} />
       <WriteForm onSubmit={handleSubmit(onSubmit)}>
-        <Select options={options} onChange={onSelect} placeholder={"게시판을 선택하십시오."} styles={customStyles} />
+        <Select
+          options={options}
+          onChange={onSelect}
+          placeholder={"게시판을 선택하십시오."}
+          styles={customStyles}
+        />
         <TitleInput
           placeholder="제목"
-          {...register("PostTitle", { required: "제목을 입력하세요", maxLength: {
-            value: 500,
-            message: "글자수가 너무 많습니다.",}  })}
+          {...register("PostTitle", {
+            required: "제목을 입력하세요",
+            maxLength: {
+              value: 500,
+              message: "글자수가 너무 많습니다.",
+            },
+          })}
         />
         {errors ? (
           <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage>
         ) : null}
         <ContentInput
           placeholder="내용을 입력하세요."
-          {...register("PostContent", { required: "내용을 입력하세요", maxLength: {
-            value: 500,
-            message: "글자수가 너무 많습니다.",} 
+          {...register("PostContent", {
+            required: "내용을 입력하세요",
+            maxLength: {
+              value: 500,
+              message: "글자수가 너무 많습니다.",
+            },
           })}
         />
         {errors ? (

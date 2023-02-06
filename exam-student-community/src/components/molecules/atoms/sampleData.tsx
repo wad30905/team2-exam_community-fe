@@ -105,12 +105,12 @@ export const samplePost = {
 export const PostsList = ["1", "2", "3", "4", "5", "6"];
 
 interface PostsObject {
-  [key: string] : string,
+  [key: string]: string;
 }
 
 export const PostsObject: PostsObject = {
   "1": "자유게시판",
-  "2": "비밀게시판",
-  "3": "리트게시판",
+  "2": "정보게시판",
+  "3": "LEET게시판",
   "4": "CPA게시판",
-}
+};

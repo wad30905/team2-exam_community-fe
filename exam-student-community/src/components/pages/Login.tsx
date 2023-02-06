@@ -23,29 +23,26 @@ function Login() {
   } = useForm<IForm>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const [loginUserId, setLoginUserId] = useRecoilState(userId);
 
   async function onSubmit(data: IForm) {
-    const checkLogin = async () => {
-      const loginStatus = await loginCheck(data.id, data.password);
-      setIsLoggedIn(loginStatus);
+    const response = await loginCheck(data.id, data.password);
+    if (response.data.message === "id error") {
+      alert("존재하지 않는 아이디입니다.");
+      return false;
+    } else if (response.data.message === "password error") {
+      alert("비밀번호가 틀렸습니다.");
+      return false;
+    } else {
+      setIsLoggedIn(true);
+      setLoginUserId(data.id); // 코드 합칠때 주의
       navigate("/");
-    };
-    checkLogin();
-
-    // const response = await loginCheck(data.id, data.password);
-    // if (response.status === 201 || response.status === 202) {
-    //   console.log("성공");
-    // } else {
-    //   console.log("실패");
-    // }
+    }
   }
 
   return (
     <>
-      <TopBar
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBar needWrite={false} needSearch={false} />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input
