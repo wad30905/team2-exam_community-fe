@@ -13,18 +13,25 @@ function Boards({ data }: any) {
           <Board key={index}>
             <Link
               to="posts"
-              state={{ boardId: index + 1, boardName: `${PostsObject[String(index+1)]}` }}
+              state={{
+                boardId: index + 1,
+                boardName: `${PostsObject[String(index + 1)]}`,
+              }}
             >
               <div className="title_row">
                 <span className="title">
-                {PostsObject[String(index+1)]} <IconRarr />
+                  {PostsObject[String(index + 1)]} <IconRarr />
                 </span>
                 <span className="total_num">{board[1]}개의 이야기</span>
               </div>
               <ul>
                 {board[0].map((post: any, index: number) => (
                   <BoardPost key={index}>
-                    <span>{post.title}</span>
+                    {post.title.length <= 20 ? (
+                      <span>{post.title}</span>
+                    ) : (
+                      <span>{post.title.slice(0, 20) + "..."}</span>
+                    )}
                     <span>
                       <IconComment /> {`${post.comment_num}`}
                     </span>

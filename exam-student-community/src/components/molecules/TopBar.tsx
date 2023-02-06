@@ -48,11 +48,7 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
           </TopBarMain>
           {isLoggedIn ? (
             <TopBarBtns>
-              {needWrite ? (
-                <Link to="/posts/write">
-                  글쓰기
-                </Link>
-              ) : null}
+              {needWrite ? <Link to="/posts/write">글쓰기</Link> : null}
               <Link to="/" onClick={onClickLogOut}>
                 로그아웃
               </Link>
@@ -71,7 +67,6 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
           }
         /> */}
         {/* <Dropdown isOpen={isOpen} /> */}
-        
       </TopBarContainer>
       <Dropdown isOpen={isModalOpen} onClose={toggleModal} />
     </>

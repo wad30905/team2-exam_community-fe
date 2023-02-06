@@ -25,7 +25,12 @@ function PostsList({ id, name, postsData }: IPostsListProp) {
               to={`/posts/${post.id}`}
               state={{ postId: post.id, boardName: name }}
             >
-              <PostTitle>{post.title}</PostTitle>
+              {post.title.length <= 23 ? (
+                <PostTitle>{post.title}</PostTitle>
+              ) : (
+                <PostTitle>{post.title.slice(0, 23) + "..."}</PostTitle>
+              )}
+
               <PostInfo>
                 <span>조회수{post.click_num}</span>
                 <span>댓글수{post.comment_num}</span>
