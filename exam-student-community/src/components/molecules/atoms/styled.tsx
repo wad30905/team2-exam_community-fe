@@ -234,7 +234,6 @@ export const Searchbutton = styled.button`
 
 export const DropdownBox = styled.div`
   position: absolute;
-  top: 8%;
   width: 100%;
   ul {
     position: relative;
@@ -244,7 +243,7 @@ export const DropdownBox = styled.div`
     width: 99.5%;
     margin: auto;
     padding: 30px;
-    padding-top: 50px;
+    padding-top: 40px;
   }
   @keyframes slide-fade-in-dropdown-animation {
     0% {
@@ -286,6 +285,12 @@ export const DropdownBox = styled.div`
     margin-bottom: 10px;
     gap: 10px;
     margin: 0 auto;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    top: 8%;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    top: 6%;
   }
 `;
 
