@@ -27,7 +27,7 @@ import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postOptionState, PostUrlCopyState, userId } from "../../store/atoms";
+import { postOptionState, userId } from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
@@ -41,7 +41,6 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   const [likeNum, setLikeNum] = useState();
   const [scrapNum, setScrapNum] = useState();
   const loginUserId = useRecoilValue(userId);
-
   const [isOptions, setIsOptions] = useRecoilState(postOptionState);
   const onOptions = () => {
     setIsOptions((current) => !current);
@@ -60,7 +59,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
       setLikeNum(post.like_num);
     }
   }, []);
-  
+
   return (
     <PostMainContentsWrapper>
       <User height="5vh">
@@ -87,7 +86,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
         <ContentBtns>
           <ContentBtn onClick={onLike}>
             {likeClicked ? (
-              <IconLiked className="icon" style={{color: "red"}}/>
+              <IconLiked className="icon" style={{ color: "red" }} />
             ) : (
               <IconLike className="icon" />
             )}
@@ -95,7 +94,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
           </ContentBtn>
           <ContentBtn onClick={onCopy}>
             {scrapClicked ? (
-              <IconCopied className="icon" style={{color: "green"}}/>
+              <IconCopied className="icon" style={{ color: "green" }} />
             ) : (
               <IconCopy className="icon" />
             )}
