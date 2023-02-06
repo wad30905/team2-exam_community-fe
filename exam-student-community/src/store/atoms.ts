@@ -76,19 +76,12 @@ export const postOptionState = atom({
   default: false,
 });
 
-//post url copy state
-export const PostUrlCopyState = atom({
-  key: "PostUrlCopyState",
-  default: false,
-});
-
 export const PostSelectBoardId = atom({
   key: "PostSelectBoardId",
   default: "",
-})
+});
 
 export const restrict = atom({
   key: "restrict",
   default: true,
 });
-

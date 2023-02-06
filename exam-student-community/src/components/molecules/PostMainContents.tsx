@@ -27,12 +27,7 @@ import { IPostData } from "../pages/Post";
 import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  loginState,
-  postOptionState,
-  PostUrlCopyState,
-  userId,
-} from "../../store/atoms";
+import { loginState, postOptionState, userId } from "../../store/atoms";
 
 interface IPostProp {
   post?: any | null;
