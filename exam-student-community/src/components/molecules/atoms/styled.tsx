@@ -1186,3 +1186,23 @@ export const MainContents = styled.div`
   @media ${({ theme }) => theme.device.desktop} {
   }
 `;
+
+// footer 추가
+export const FooterContainer = styled.div`
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: black;
+
+  padding: 15px;
+
+  p {
+    font-weight: 700;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+
+  @media ${({ theme }) => theme.device.desktop} {
+  }
+`;
