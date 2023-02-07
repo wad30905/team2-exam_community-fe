@@ -41,7 +41,7 @@ function FindPassword() {
       // 아이디랑 이메일 값 서버로 post
       const response2 = await axios({
         method: "post",
-        url: `${SERVER_URL}/api/newpw`,
+        url: `${SERVER_URL}/apis/users/newpw`,
         data: {
           id: data.id,
         },
