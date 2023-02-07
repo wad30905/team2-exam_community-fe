@@ -7,7 +7,7 @@ export async function authCheck() {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/login`,
+    url: `${SERVER_URL}/apis/users/login`,
   });
   if (response.data.isAuthenticated) {
     console.log("유저 맞을 때 response :", response);
@@ -23,7 +23,7 @@ export async function authCheck() {
 export async function loginCheck(dataId: string, dataPw: string) {
   const response = await axios({
     method: "post",
-    url: `${SERVER_URL}/login`,
+    url: `${SERVER_URL}/apis/users/login`,
     data: {
       user_id: dataId,
       user_pw: dataPw,
@@ -60,7 +60,7 @@ export async function getBoards() {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/blogs`,
+    url: `${SERVER_URL}/apis/posts/blogs`,
   });
   console.log("getBoards :", response);
   return response.data;
@@ -69,7 +69,7 @@ export async function getBoards() {
 export async function getPosts(boardId: number) {
   return axios({
     method: "get",
-    url: `${SERVER_URL}/blogs/${boardId}`,
+    url: `${SERVER_URL}/apis/posts/${boardId}`,
     data: {
       boardId,
     },
@@ -86,7 +86,7 @@ export async function getPost(id: number) {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/detail/${id}`,
+    url: `${SERVER_URL}/apis/posts/detail/${id}`,
   });
 
   return response.data;
@@ -100,7 +100,7 @@ export function writePost(
 ) {
   axios({
     method: "post",
-    url: `${SERVER_URL}/detail`,
+    url: `${SERVER_URL}/apis/posts/detail`,
     data: {
       title,
       num,
@@ -127,7 +127,7 @@ export function fixPost(
 ) {
   axios({
     method: "put",
-    url: `${SERVER_URL}/detail/${id}`,
+    url: `${SERVER_URL}/apis/posts/detail/${id}`,
     data: {
       title,
       content,
@@ -148,7 +148,7 @@ export function fixPost(
 export function deletePost(postId: number | undefined) {
   axios({
     method: "delete",
-    url: `${SERVER_URL}/detail/${postId}`,
+    url: `${SERVER_URL}/apis/posts/detail/${postId}`,
   })
     .then((response) => {
       console.log(response);
@@ -163,7 +163,7 @@ export function deletePost(postId: number | undefined) {
 export async function writeComment(newComment: string, post_key: string) {
   const response = await axios({
     method: "post",
-    url: `/comment`,
+    url: `${SERVER_URL}/apis/comments `,
     data: {
       // post_key: 게시물id,
       content: newComment,
@@ -226,7 +226,7 @@ export async function registerUser(
   try {
     const response = await axios({
       method: "post",
-      url: `${SERVER_URL}/register`,
+      url: `${SERVER_URL}/apis/users/apis/users/register`,
       data: {
         name: name, // 이름
         user_id: id, // 아이디
@@ -265,7 +265,7 @@ export async function checkId(userId: string) {
   // response 값에 따라 true / false 반환.
   axios({
     method: "get",
-    url: `${SERVER_URL}/id_compare`,
+    url: `${SERVER_URL}/apis/users/compareId`,
     data: {
       user_id: userId, // 아이디
     },
@@ -285,7 +285,7 @@ export async function searchPosts(keyword: string | undefined, mode: any) {
   }
   const response = await axios({
     method: "post",
-    url: `${SERVER_URL}/findpost/${mode}`,
+    url: `${SERVER_URL}/apis/posts/find/${mode}`,
     data: {
       [datakey]: keyword,
     },
@@ -305,14 +305,14 @@ export async function searchPosts(keyword: string | undefined, mode: any) {
 export function logout() {
   axios({
     method: "post",
-    url: `${SERVER_URL}/logout`,
+    url: `${SERVER_URL}/apis/users/logout`,
   });
 }
 
 export const getProfile = async () => {
   const response = await axios({
     method: "get",
-    url: `/register`,
+    url: `${SERVER_URL}/apis/users/apis/users/register`,
   });
   if (200) {
     // 잘 들어갔으면
@@ -329,7 +329,7 @@ export const updateProfile = async (data: any) => {
   console.log("server에 들어온 data :", data);
   const response = await axios({
     method: "post",
-    url: `/mypage`,
+    url: `${SERVER_URL}/apis/user/mypage`,
     data: {
       name,
       age,

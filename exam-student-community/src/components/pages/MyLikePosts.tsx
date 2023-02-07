@@ -23,7 +23,7 @@ function MyLikePosts() {
   // 데이터 받아와서
   // postData 에다가 setPostData
   useEffect(() => {
-    axios({ method: "get", url: `${SERVER_URL}/mypost` }).then((response) => {
+    axios({ method: "get", url: `${SERVER_URL}/apis/posts/my` }).then((response) => {
       setPostsData(response.data);
     });
   }, []);
