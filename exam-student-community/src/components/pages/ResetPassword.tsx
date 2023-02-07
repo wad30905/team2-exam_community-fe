@@ -29,7 +29,7 @@ function ResetPassword() {
     try {
       const response = await axios({
         method: "put",
-        url: `${SERVER_URL}/api/newpw`,
+        url: `${SERVER_URL}/apis/users/newpw`,
         data: {
           pw: data.password1,
           token: token,
