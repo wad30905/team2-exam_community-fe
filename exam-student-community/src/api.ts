@@ -60,7 +60,7 @@ export async function getBoards() {
   const response = await axios({
     method: "get",
     withCredentials: true,
-    url: `${SERVER_URL}/apis/posts/blogs`,
+    url: `${SERVER_URL}/apis/posts`,
   });
   console.log("getBoards :", response);
   return response.data;
