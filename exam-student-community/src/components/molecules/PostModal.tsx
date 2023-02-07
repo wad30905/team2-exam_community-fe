@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { postOptionState } from "../../store/atoms";
 
 import { PostMenuBar, PostMenuBtn } from "./atoms/styled";
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const PostModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const [state, setState] = useRecoilState(postOptionState)
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       const modal = event.target as HTMLElement;
@@ -22,6 +24,7 @@ const PostModal: React.FC<Props> = ({ isOpen, onClose }) => {
     }
 
     return () => {
+      isOpen && setState(false);
       document.removeEventListener("click", handleClick);
     };
   }, [isOpen, onClose]);

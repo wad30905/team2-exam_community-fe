@@ -106,6 +106,7 @@ function Fix() {
 
   function onSubmit(data: IWriteForm) {
     //hideuser false 로 해놓았는데 이 옵션 추가 해야 함.
+    window.localStorage.setItem("content", data.PostContent);
     fixPost(id, data.PostTitle, data.PostContent, false);
     alert("수정을 완료했습니다.");
     //  navigate(`/posts/${data.BoardId}`);
@@ -116,7 +117,10 @@ function Fix() {
   ) : (
     <>
       <TopBar needWrite={false} needSearch={false} />
-      <WriteForm onSubmit={handleSubmit(onSubmit)}>
+      <WriteForm
+        onSubmit={handleSubmit(onSubmit)}
+        height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
+      >
         <Select
           defaultValue={options[Number(boardId) - 1]}
           options={options}

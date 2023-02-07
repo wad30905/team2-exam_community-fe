@@ -919,12 +919,14 @@ export const CommentButton = styled.button`
 `;
 
 // ------------Write------------
-
-export const WriteForm = styled.form`
+interface WriteFormProps {
+  height: string;
+}
+export const WriteForm = styled.form<WriteFormProps>`
   @media ${({ theme }) => theme.device.mobile} {
     position: absolute;
     top: 7vh;
-    height: 93vh;
+    height: ${(props) => props.height};
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1189,5 +1191,32 @@ export const MainContents = styled.div`
     border-bottom: 2px solid #aaa;
   }
   @media ${({ theme }) => theme.device.desktop} {
+  }
+`;
+
+export const FindPwBox = styled.div`
+  margin: 0 auto;
+  margin-top: 7vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5vh;
+  p {
+    font-size: 1.5rem;
+  }
+  span {
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+    color: ${({ theme }) => theme.grayColor};
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+    max-width: 600px;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    width: 600px;
   }
 `;

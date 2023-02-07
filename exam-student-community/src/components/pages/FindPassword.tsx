@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { checkId, SERVER_URL } from "../../api";
-import { LoginForm } from "../molecules/atoms/styled";
+import { FindPwBox, LoginForm } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
 
 interface IForm {
@@ -55,10 +55,18 @@ function FindPassword() {
   }
 
   return emailLoading ? (
-    <LoginForm onSubmit={handleSubmit(onSubmit)}>
-      <div>이메일을 확인해보셈</div>
-      <div>인증 이메일 : {userEmail}</div>
-    </LoginForm>
+    <FindPwBox>
+      <p>이메일을 확인해보세요.</p>
+      <p>인증 이메일 : {userEmail}</p>
+      <span
+        onClick={() => {
+          alert("죄송합니다. 이메일 전송을 다시 눌러주세요.");
+          setEmailLoading(false);
+        }}
+      >
+        이메일이 오지 않는다면?
+      </span>
+    </FindPwBox>
   ) : (
     <>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>

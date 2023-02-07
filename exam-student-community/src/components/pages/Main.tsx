@@ -34,7 +34,6 @@ const Main = () => {
       const authName = authData["username"];
       setIsLoggedIn(authStatus);
       setUserName(authName);
-
       setIsLoading(false);
     };
     const paintBoards = async () => {
