@@ -122,7 +122,7 @@ function Write() {
   ) : (
     <>
       <TopBar needWrite={false} needSearch={false} />
-      <WriteForm onSubmit={handleSubmit(onSubmit)}>
+      <WriteForm onSubmit={handleSubmit(onSubmit)} height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}>
         <Select
           options={options}
           onChange={onSelect}
