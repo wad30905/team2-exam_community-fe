@@ -79,13 +79,8 @@ function Fix() {
   });
 
   //selector
-<<<<<<< HEAD
-  let options = Object.keys(PostsObject).map((item, index) => {
-    return { value: item, label: PostsObject[item] };
-=======
   let options = Object.keys(BoardsObject).map((item, index) => {
     return { value: item, label: BoardsObject[item] };
->>>>>>> develop
   });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
@@ -138,7 +133,7 @@ function Fix() {
           {...register("PostTitle", {
             required: "제목을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}
@@ -151,7 +146,7 @@ function Fix() {
           {...register("PostContent", {
             required: "내용을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}
