@@ -69,7 +69,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <div>
       {isOpen && (
-        <div className="modal-overlay">
+        <div className="modal-overlay" >
           <DropdownBox className="modal-content">
             <ul
               className={
