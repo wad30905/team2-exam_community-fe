@@ -21,7 +21,8 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        {/* <Route path="/" element={<Main />} /> */}
+        <Route path="/" element={<Posts />} />
         <Route path="/login" element={<Login />} />
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/myposts" element={<MyPosts />} />
