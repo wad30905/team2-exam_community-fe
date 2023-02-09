@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { LoginForm } from "../molecules/atoms/styled";
+import {
+  BoardOption,
+  BoardOptions,
+  LoginForm,
+  Wrapper,
+} from "../molecules/atoms/styled";
 import { useNavigate } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
@@ -9,6 +14,7 @@ import { loginCheck } from "../../api";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { loginState, userId } from "../../store/atoms";
 import KakaoLogin from "../molecules/KakaoLogin";
+import { BoardsObject } from "../molecules/atoms/sampleData";
 
 interface IForm {
   id: string;

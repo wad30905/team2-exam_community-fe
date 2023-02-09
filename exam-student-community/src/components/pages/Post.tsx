@@ -7,7 +7,13 @@ import { useForm } from "react-hook-form";
 import { IconSend } from "../molecules/atoms/icons";
 import PostMainContents from "../molecules/PostMainContents";
 import Comments from "../molecules/Comments";
-import { PostMain, PostMoreBtn } from "../molecules/atoms/styled";
+import {
+  BoardOption,
+  BoardOptions,
+  PostMain,
+  PostMoreBtn,
+  Wrapper,
+} from "../molecules/atoms/styled";
 import {
   CommentForm,
   CommentInput,
@@ -27,7 +33,7 @@ import {
 import { IconBackBtn, IconMoreBtn } from "../molecules/atoms/icons";
 import TopBar from "../molecules/TopBar";
 import PostModal from "../molecules/PostModal";
-import { samplePost } from "../molecules/atoms/sampleData";
+import { BoardsObject, samplePost } from "../molecules/atoms/sampleData";
 
 interface IForm {
   comment: string;
@@ -142,8 +148,22 @@ function Post() {
   }, []);
 
   return postData ? (
-    <>
+    <Wrapper>
       <TopBar needWrite={true} needSearch={true} />
+      <BoardOptions>
+        {Object.keys(BoardsObject).map((key, index) => (
+          <Link
+            key={key}
+            to="/posts"
+            state={{
+              boardId: parseInt(key),
+              boardName: BoardsObject[key],
+            }}
+          >
+            <BoardOption>{BoardsObject[key]}</BoardOption>
+          </Link>
+        ))}
+      </BoardOptions>
       {/* ----------Top Bar---------- */}
       <PostMain>
         <PostMainContents
@@ -185,7 +205,7 @@ function Post() {
       </PostMain>
       {/* ----------Post Main---------- */}
       <PostModal isOpen={isModalOpen} onClose={toggleModal} />
-    </>
+    </Wrapper>
   ) : (
     <Loading />
   );
