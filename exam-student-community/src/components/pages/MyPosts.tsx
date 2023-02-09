@@ -7,7 +7,7 @@ import {
   TopBarContainer,
   TopBarMain,
   TopBarMenu,
-  TopContainer,
+  TopBarTopRow,
 } from "../molecules/atoms/styled";
 import { Link } from "react-router-dom";
 import SearchBar from "../molecules/SearchBar";

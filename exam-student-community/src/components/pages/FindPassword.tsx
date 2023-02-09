@@ -27,9 +27,6 @@ function FindPassword() {
       const response1 = await axios({
         method: "get",
         url: `${SERVER_URL}/apis/users/compareId`,
-        data: {
-          user_id: data.id,
-        },
       });
       console.log("response1 :", response1);
       if (response1.data.boo) {

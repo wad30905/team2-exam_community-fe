@@ -1,5 +1,5 @@
 import React from "react";
-import { FooterContainer } from "./molecules/atoms/styled";
+import { FooterContainer } from "./atoms/styled";
 
 const Footer = () => {
   return (

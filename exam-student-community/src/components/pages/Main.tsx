@@ -6,7 +6,8 @@ import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { sampleBoards } from "../molecules/atoms/sampleData";
 import React, { useState, useEffect } from "react";
-import Footer from "../Footer";
+import Footer from "../molecules/Footer";
+import { TopBarOption, TopBarOptions } from "../molecules/atoms/styled";
 
 interface Props {
   isOpen: boolean;

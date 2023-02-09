@@ -17,7 +17,7 @@ import Loading from "../molecules/Loading";
 import SearchBar from "../molecules/SearchBar";
 import {
   TopBarContainer,
-  TopContainer,
+  TopBarTopRow,
   TopBarMenu,
   TopBarMain,
   TopBarBtns,

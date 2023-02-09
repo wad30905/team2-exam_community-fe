@@ -404,3 +404,21 @@ export const resetPassword = async (
   });
   return response;
 };
+
+// 아이디 중복체크
+
+export const idDoubleCheck = async (userId: string) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${SERVER_URL}/apis/users/compareId/${userId}`,
+    });
+    console.log("idDoubleCheck api response :", response);
+    // 아이디가 중복되는게 있으면 false
+    // 아이디가 중복되는게 없으면 true
+    return response.data.boo;
+  } catch (err) {
+    console.log("idDoubleCheck api error :", err);
+    return "에러";
+  }
+};

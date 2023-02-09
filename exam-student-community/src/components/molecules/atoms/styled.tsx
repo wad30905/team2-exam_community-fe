@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div``;
+
 // ------------Login / Mypage------------
 
 export const LoginForm = styled.form`
@@ -72,21 +74,29 @@ export const KakaoLoginButton = styled.img`
 // ------------TopBar------------
 
 export const TopBarContainer = styled.div`
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 999;
+  display: flex;
+  flex-direction: column;
 `;
 
-export const TopContainer = styled.div`
-  position: relative;
+export const TopBarTopRow = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 999;
   background-color: ${(props) => props.theme.accentColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 7vh;
-  padding: 25px 5%;
+  height: 7%;
+  padding: 0px 5%;
+`;
+
+export const TopBarMiddleRow = styled.div`
+  position: fixed;
+  top: 7%;
+  width: 100%;
+  background-color: ${(props) => props.theme.accentColor};
 `;
 
 export const TopBarMenu = styled.div`
@@ -148,6 +158,23 @@ export const TopBarBtns = styled.div`
   @media ${({ theme }) => theme.device.desktop} {
     margin-right: 10%;
   }
+`;
+
+export const TopBarOptions = styled.div`
+  background-color: ${({ theme }) => theme.accentColor};
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const TopBarOption = styled.p`
+  color: ${({ theme }) => theme.whiteColor};
+  font-weight: 600;
+`;
+
+export const TopBarBottmRow = styled.div`
+  margin-top: 16%;
 `;
 
 // ------------SearchBar------------
