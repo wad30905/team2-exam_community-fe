@@ -134,7 +134,7 @@ function Fix() {
           {...register("PostTitle", {
             required: "제목을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}
@@ -147,7 +147,7 @@ function Fix() {
           {...register("PostContent", {
             required: "내용을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}

@@ -742,7 +742,7 @@ export const Content = styled.div`
     padding: 20px 10px;
   }
 `;
-export const Content_Title = styled.p`
+export const Content_Title = styled.pre`
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-weight: bold;
@@ -755,7 +755,7 @@ export const Content_Title = styled.p`
   }
 `;
 
-export const Content_Content = styled.p`
+export const Content_Content = styled.pre`
   line-height: 1.35;
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
