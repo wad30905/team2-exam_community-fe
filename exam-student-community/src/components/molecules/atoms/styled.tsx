@@ -1,6 +1,33 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 15vh;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    margin-top: 7vh;
+  }
+`;
+
+export const BoardOptions = styled.div`
+  background-color: ${({ theme }) => theme.accentColor};
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const BoardOption = styled.p`
+  pointer-events: auto;
+  color: ${({ theme }) => theme.whiteColor};
+  font-size: 0.8rem;
+  cursor: pointer;
+`;
 
 // ------------Login / Mypage------------
 
@@ -74,29 +101,21 @@ export const KakaoLoginButton = styled.img`
 // ------------TopBar------------
 
 export const TopBarContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const TopBarTopRow = styled.div`
   position: fixed;
   top: 0;
+  width: 100%;
   z-index: 999;
+`;
+
+export const TopContainer = styled.div`
+  position: relative;
   background-color: ${(props) => props.theme.accentColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 7%;
-  padding: 0px 5%;
-`;
-
-export const TopBarMiddleRow = styled.div`
-  position: fixed;
-  top: 7%;
-  width: 100%;
-  background-color: ${(props) => props.theme.accentColor};
+  height: 7vh;
+  padding: 25px 5%;
 `;
 
 export const TopBarMenu = styled.div`
@@ -158,23 +177,6 @@ export const TopBarBtns = styled.div`
   @media ${({ theme }) => theme.device.desktop} {
     margin-right: 10%;
   }
-`;
-
-export const TopBarOptions = styled.div`
-  background-color: ${({ theme }) => theme.accentColor};
-  height: 30px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
-
-export const TopBarOption = styled.p`
-  color: ${({ theme }) => theme.whiteColor};
-  font-weight: 600;
-`;
-
-export const TopBarBottmRow = styled.div`
-  margin-top: 16%;
 `;
 
 // ------------SearchBar------------
@@ -452,16 +454,15 @@ export const BoardPost = styled.li`
 export const BoardName = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 17vh;
+    margin: 5% auto;
     font-size: 25px;
     font-weight: 600;
     padding-left: 20px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 15vh;
+    margin: 2% auto;
+
     width: 80%;
     font-size: 35px;
     font-weight: 600;

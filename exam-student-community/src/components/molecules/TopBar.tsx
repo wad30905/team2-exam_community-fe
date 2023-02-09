@@ -1,15 +1,11 @@
 import {
   TopBarBtns,
+  TopContainer,
   TopBarMenu,
   TopBarMain,
   TopBarContainer,
   DropdownBox,
   Menu,
-  TopBarOption,
-  TopBarOptions,
-  TopBarTopRow,
-  TopBarMiddleRow,
-  TopBarBottmRow,
 } from "./atoms/styled";
 import { IconBackBtn, IconBar } from "./atoms/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,7 +41,7 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
   return (
     <>
       <TopBarContainer>
-        <TopBarTopRow>
+        <TopContainer>
           <TopBarMenu>
             <IconBar onClick={toggleModal} className="iconBar" />
           </TopBarMenu>
@@ -64,18 +60,8 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
               <Link to="/login">로그인</Link>
             </TopBarBtns>
           )}
-        </TopBarTopRow>
-        <TopBarMiddleRow>
-          {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
-        </TopBarMiddleRow>
-        <TopBarBottmRow>
-          <TopBarOptions>
-            <TopBarOption>옵션1</TopBarOption>
-            <TopBarOption>옵션1</TopBarOption>
-            <TopBarOption>옵션1</TopBarOption>
-            <TopBarOption>옵션1</TopBarOption>
-          </TopBarOptions>
-        </TopBarBottmRow>
+        </TopContainer>
+        {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
       </TopBarContainer>
       <Dropdown isOpen={isModalOpen} onClose={toggleModal} />
     </>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Board, BoardPost, BoardsList } from "./atoms/styled";
 import { IconComment, IconRarr } from "./atoms/icons";
-import { PostsObject, sampleBoards } from "./atoms/sampleData";
+import { BoardsObject, sampleBoards } from "./atoms/sampleData";
 import { stringify } from "querystring";
 
 function Boards({ data }: any) {
@@ -15,12 +15,12 @@ function Boards({ data }: any) {
               to="posts"
               state={{
                 boardId: index + 1,
-                boardName: `${PostsObject[String(index + 1)]}`,
+                boardName: `${BoardsObject[String(index + 1)]}`,
               }}
             >
               <div className="title_row">
                 <span className="title">
-                  {PostsObject[String(index + 1)]} <IconRarr />
+                  {BoardsObject[String(index + 1)]} <IconRarr />
                 </span>
                 <span className="total_num">{board[1]}개의 이야기</span>
               </div>
