@@ -6,7 +6,7 @@ import { searchPosts } from "../../api";
 import SearchBar from "../molecules/SearchBar";
 import { useRecoilState } from "recoil";
 import { searchModeState } from "../../store/atoms";
-import { BoardName } from "../molecules/atoms/styled";
+import { BoardName, Wrapper } from "../molecules/atoms/styled";
 
 function Search() {
   const [postsData, setPostsData] = useState<any | null>();
@@ -27,11 +27,11 @@ function Search() {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <TopBar needWrite={true} needSearch={true} />
       <BoardName>{`${keyword} 검색결과`}</BoardName>
       <PostsList id={1} name={`${keyword} 검색결과`} postsData={postsData} />
-    </>
+    </Wrapper>
   );
 }
 

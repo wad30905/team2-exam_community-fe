@@ -1222,7 +1222,33 @@ export const MainContents = styled.div`
   }
 `;
 
-// footer 추가
+export const FindPwBox = styled.div`
+  margin: 0 auto;
+  margin-top: 7vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5vh;
+  p {
+    font-size: 1.5rem;
+  }
+  span {
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+    color: ${({ theme }) => theme.grayColor};
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+    max-width: 600px;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    width: 600px;
+  }
+`;
+
 export const FooterContainer = styled.div`
   font-size: 0.7em;
   display: flex;
