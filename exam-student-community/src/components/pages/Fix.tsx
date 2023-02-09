@@ -106,6 +106,7 @@ function Fix() {
 
   function onSubmit(data: IWriteForm) {
     //hideuser false 로 해놓았는데 이 옵션 추가 해야 함.
+    window.localStorage.setItem("content", data.PostContent);
     fixPost(id, data.PostTitle, data.PostContent, false);
     alert("수정을 완료했습니다.");
     //  navigate(`/posts/${data.BoardId}`);
@@ -133,7 +134,7 @@ function Fix() {
           {...register("PostTitle", {
             required: "제목을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}
@@ -146,7 +147,7 @@ function Fix() {
           {...register("PostContent", {
             required: "내용을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}

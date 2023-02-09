@@ -95,6 +95,7 @@ function Posts() {
   const [changeBoardLoading, setChangeBoardLoading] = useState(false);
 
   useEffect(() => {
+    console.log("posts page state :", state);
     setChangeBoardLoading(true);
     const paintPosts = async () => {
       if (state === null) {

@@ -95,7 +95,7 @@ export function writePost(
       title,
       num,
       content,
-      hide_user: false,
+      is_user_hid: false,
     },
   })
     .then((response) => {
@@ -113,7 +113,7 @@ export function fixPost(
   id: number,
   title: string,
   content: string,
-  hide_user: boolean
+  is_user_hid: boolean
 ) {
   axios({
     method: "put",
@@ -121,7 +121,7 @@ export function fixPost(
     data: {
       title,
       content,
-      hide_user,
+      is_user_hid,
     },
   })
     .then((response) => {
