@@ -11,21 +11,25 @@ import {
   Wrapper,
 } from "../molecules/atoms/styled";
 import { BoardsObject } from "../molecules/atoms/sampleData";
+import Loading from "../molecules/Loading";
 
 function Posts() {
   const navigate = useNavigate();
   const [postsData, setPostsData] = useState();
   const [boardIdState, setBoardIdState] = useState(2);
   const [boardNameState, setBoardNameState] = useState("정보게시판");
+  const [changeBoardLoading, setChangeBoardLoading] = useState(false);
 
   useEffect(() => {
     // const url = `${SERVER_URL}/blogs/${boardIdState}`;
     // axios({ method: "get", url, data: boardIdState }).then((response) =>
     //   setPostsData(response.data[0])
     // );
+    setChangeBoardLoading(true);
     const paintPosts = async () => {
       const response = await getPosts(boardIdState);
       setPostsData(response[0]);
+      setChangeBoardLoading(false);
     };
     paintPosts();
     console.log("boardId : ", boardIdState);
@@ -47,45 +51,17 @@ function Posts() {
             {BoardsObject[key]}
           </BoardOption>
         ))}
-        {/* <BoardOption
-          onClick={() => {
-            setBoardIdState(1);
-            setBoardNameState("자유게시판");
-          }}
-        >
-          욥션1
-        </BoardOption>
-        <BoardOption
-          onClick={() => {
-            setBoardIdState(2);
-            setBoardNameState("정보게시판");
-          }}
-        >
-          욥션2
-        </BoardOption>
-        <BoardOption
-          onClick={() => {
-            setBoardIdState(3);
-            setBoardNameState("LEET게시판");
-          }}
-        >
-          욥션3
-        </BoardOption>
-        <BoardOption
-          onClick={() => {
-            setBoardIdState(4);
-            setBoardNameState("CPA게시판");
-          }}
-        >
-          욥션4
-        </BoardOption> */}
       </BoardOptions>
       <BoardName>{boardNameState}</BoardName>
-      <PostsList
-        id={boardIdState}
-        name={boardNameState}
-        postsData={postsData}
-      />
+      {changeBoardLoading ? (
+        <Loading />
+      ) : (
+        <PostsList
+          id={boardIdState}
+          name={boardNameState}
+          postsData={postsData}
+        />
+      )}
     </Wrapper>
   );
 }
