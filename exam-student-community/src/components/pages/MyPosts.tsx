@@ -3,11 +3,14 @@ import PostsList from "../molecules/PostsList";
 import { IconBackBtn, IconBar, IconMoreBtn } from "../molecules/atoms/icons";
 import {
   BoardName,
+  BoardOption,
+  BoardOptions,
   TopBarBtns,
   TopBarContainer,
   TopBarMain,
   TopBarMenu,
   TopContainer,
+  Wrapper,
 } from "../molecules/atoms/styled";
 import { Link } from "react-router-dom";
 import SearchBar from "../molecules/SearchBar";
@@ -15,6 +18,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { SERVER_URL } from "../../api";
+import { BoardsObject } from "../molecules/atoms/sampleData";
 // import { getMyPost } from "../../api";
 
 function MyPosts() {
@@ -25,11 +29,25 @@ function MyPosts() {
     });
   }, []);
   return (
-    <>
+    <Wrapper>
       <TopBar needSearch={true} needWrite={true} />
+      <BoardOptions>
+        {Object.keys(BoardsObject).map((key, index) => (
+          <Link
+            key={key}
+            to="/posts"
+            state={{
+              boardId: parseInt(key),
+              boardName: BoardsObject[key],
+            }}
+          >
+            <BoardOption>{BoardsObject[key]}</BoardOption>
+          </Link>
+        ))}
+      </BoardOptions>
       <BoardName>내가 쓴 글</BoardName>
       <PostsList id={undefined} name={undefined} postsData={postsData} />
-    </>
+    </Wrapper>
   );
 }
 export default MyPosts;
