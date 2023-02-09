@@ -19,7 +19,7 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
+import { PostsList, BoardsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
 import { keyframes } from "styled-components";
@@ -95,8 +95,8 @@ function Write() {
   }
 
   //selector
-  let options = Object.keys(PostsObject).map((item, index) => {
-    return { value: item, label: PostsObject[item] };
+  let options = Object.keys(BoardsObject).map((item, index) => {
+    return { value: item, label: BoardsObject[item] };
   });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
@@ -122,7 +122,10 @@ function Write() {
   ) : (
     <>
       <TopBar needWrite={false} needSearch={false} />
-      <WriteForm onSubmit={handleSubmit(onSubmit)} height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}>
+      <WriteForm
+        onSubmit={handleSubmit(onSubmit)}
+        height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
+      >
         <Select
           options={options}
           onChange={onSelect}
@@ -134,7 +137,7 @@ function Write() {
           {...register("PostTitle", {
             required: "제목을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}
@@ -147,7 +150,7 @@ function Write() {
           {...register("PostContent", {
             required: "내용을 입력하세요",
             maxLength: {
-              value: 500,
+              value: 22000,
               message: "글자수가 너무 많습니다.",
             },
           })}

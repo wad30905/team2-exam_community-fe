@@ -3,44 +3,66 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
 import axios from "axios";
-import { SERVER_URL } from "../../api";
-import { BoardName } from "../molecules/atoms/styled";
-
-export interface IPostsState {
-  state: {
-    boardId: number;
-    boardName: string;
-  } | null;
-}
+import { getPosts, SERVER_URL } from "../../api";
+import {
+  BoardName,
+  BoardOption,
+  BoardOptions,
+  Wrapper,
+} from "../molecules/atoms/styled";
+import { BoardsObject } from "../molecules/atoms/sampleData";
+import Loading from "../molecules/Loading";
 
 function Posts() {
-  const { state } = useLocation() as IPostsState;
   const navigate = useNavigate();
   const [postsData, setPostsData] = useState();
+  const [boardIdState, setBoardIdState] = useState(2);
+  const [boardNameState, setBoardNameState] = useState("정보게시판");
+  const [changeBoardLoading, setChangeBoardLoading] = useState(false);
 
   useEffect(() => {
-    if (state === null) {
-      navigate("/");
-      console.log("navigate");
-    }
-    const url = `${SERVER_URL}/blogs/${state?.boardId}`;
-    axios({ method: "get", url, data: state?.boardId }).then((response) =>
-      setPostsData(response.data[0])
-    );
-    console.log("state?.boardId :", state?.boardId);
-    console.log("state?.boardName :", state?.boardName);
-  }, []);
+    // const url = `${SERVER_URL}/blogs/${boardIdState}`;
+    // axios({ method: "get", url, data: boardIdState }).then((response) =>
+    //   setPostsData(response.data[0])
+    // );
+    setChangeBoardLoading(true);
+    const paintPosts = async () => {
+      const response = await getPosts(boardIdState);
+      setPostsData(response[0]);
+      setChangeBoardLoading(false);
+    };
+    paintPosts();
+    console.log("boardId : ", boardIdState);
+    console.log("boardName : ", boardNameState);
+  }, [boardIdState]);
 
   return (
-    <>
+    <Wrapper>
       <TopBar needWrite={true} needSearch={true} />
-      <BoardName>{state?.boardName}</BoardName>
-      <PostsList
-        id={state?.boardId}
-        name={state?.boardName}
-        postsData={postsData}
-      />
-    </>
+      <BoardOptions>
+        {Object.keys(BoardsObject).map((key, index) => (
+          <BoardOption
+            key={key}
+            onClick={() => {
+              setBoardIdState(parseInt(key));
+              setBoardNameState(BoardsObject[key]);
+            }}
+          >
+            {BoardsObject[key]}
+          </BoardOption>
+        ))}
+      </BoardOptions>
+      <BoardName>{boardNameState}</BoardName>
+      {changeBoardLoading ? (
+        <Loading />
+      ) : (
+        <PostsList
+          id={boardIdState}
+          name={boardNameState}
+          postsData={postsData}
+        />
+      )}
+    </Wrapper>
   );
 }
 export default Posts;

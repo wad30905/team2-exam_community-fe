@@ -28,6 +28,7 @@ import Loading from "./Loading";
 import { timeCalculator } from "../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState, postOptionState, userId } from "../../store/atoms";
+import { replaceUrlsWithHyperlinks } from "../../functions";
 
 interface IPostProp {
   post?: any | null;
@@ -41,7 +42,7 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
   const [likeNum, setLikeNum] = useState();
   const [scrapNum, setScrapNum] = useState();
   const loginUserId = useRecoilValue(userId);
-  const loginCheck = useRecoilValue(loginState); //
+  const loginCheck = useRecoilValue(loginState); 
 
   const [isOptions, setIsOptions] = useRecoilState(postOptionState);
   const onOptions = () => {
@@ -81,8 +82,8 @@ function PostMainContents({ post, handleDelete, handleEdit }: IPostProp) {
         </PostMoreBtn>
       </User>
       <Content>
-        <Content_Title>{post?.title}</Content_Title>
-        <Content_Content>{post?.content}</Content_Content>
+        <Content_Title dangerouslySetInnerHTML={{ __html: replaceUrlsWithHyperlinks(post?.title) }} ></Content_Title>
+        <Content_Content dangerouslySetInnerHTML={{ __html: replaceUrlsWithHyperlinks(post?.content) }} ></Content_Content>
       </Content>
       <ContentInfo>
         <ContentBtns>
