@@ -37,6 +37,7 @@ const Main = () => {
       setUserName(authName);
       setIsLoading(false);
     };
+
     const paintBoards = async () => {
       const boardsData = await getBoards();
       setBoardsData(boardsData);

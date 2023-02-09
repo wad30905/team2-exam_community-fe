@@ -10,9 +10,9 @@ export async function authCheck() {
     url: `${SERVER_URL}/apis/users/login`,
   });
   if (response.data.isAuthenticated) {
-    console.log("유저 맞을 때 response :", response);
+    console.log("authCheck api response(유저 맞을 때) :", response);
   } else {
-    console.log("유저 아닐 때 response:", response);
+    console.log("authCheck api response(유저 아닐 때) :", response);
   }
 
   return response.data;
@@ -30,20 +30,8 @@ export async function loginCheck(dataId: string, dataPw: string) {
     },
     withCredentials: true,
   });
-  console.log("로그인 response :", response);
+  console.log("loginCheck api response :", response);
   return response;
-  // console.log(response);
-  // if (response.status) {
-  //   console.log("로그인 성공");
-  // } else {
-  //   loginFail();
-  // }
-  // console.log("post 로그인 response : ", response);
-  // if (response.data) {
-  //   console.log("loginCheck / 유저 맞음");
-  // } else {
-  //   console.log("loginCheck / 유저 아님");
-  // }
 }
 
 // 로그인 실패 api
@@ -62,7 +50,7 @@ export async function getBoards() {
     withCredentials: true,
     url: `${SERVER_URL}/apis/posts`,
   });
-  console.log("getBoards :", response);
+  console.log("getBoards api response :", response);
   return response.data;
 }
 
@@ -226,13 +214,12 @@ export async function registerUser(
   try {
     const response = await axios({
       method: "post",
-      url: `${SERVER_URL}/apis/users/apis/users/register`,
+      url: `${SERVER_URL}/apis/users/register`,
       data: {
         name: name, // 이름
         user_id: id, // 아이디
         user_pw: pd, // 비번
         email: email,
-        phone: "000",
         gender: gender,
         age: age,
       },
@@ -388,4 +375,32 @@ export const sendKakaoTokenToServer = async (token: string) => {
   } else {
     window.alert("로그인에 실패하였습니다.");
   }
+};
+
+// 비밀번호 찾을 이메일 보내기
+export const sendEmail = async (id: string) => {
+  const response = await axios({
+    method: "post",
+    url: `${SERVER_URL}/apis/users/newpw`,
+    data: {
+      id,
+    },
+  });
+  return response;
+};
+
+// 비밀번호 재설정
+export const resetPassword = async (
+  password: string,
+  token: string | undefined
+) => {
+  const response = await axios({
+    method: "put",
+    url: `${SERVER_URL}/apis/users/newpw`,
+    data: {
+      pw: password,
+      token: token,
+    },
+  });
+  return response;
 };

@@ -920,13 +920,13 @@ export const CommentButton = styled.button`
 
 // ------------Write------------
 interface WriteFormProps {
-  height:string;
+  height: string;
 }
 export const WriteForm = styled.form<WriteFormProps>`
   @media ${({ theme }) => theme.device.mobile} {
     position: absolute;
     top: 7vh;
-    height: ${props => props.height};
+    height: ${(props) => props.height};
     width: 100%;
     display: flex;
     flex-direction: column;
