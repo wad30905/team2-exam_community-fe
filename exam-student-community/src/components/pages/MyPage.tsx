@@ -70,10 +70,7 @@ function MyPage() {
 
   return !isLoading ? (
     <>
-      <TopBar
-        needWrite={false}
-        needSearch={false}
-      />
+      <TopBar needWrite={false} needSearch={false} />
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <label>닉네임</label>
         <input
@@ -121,7 +118,6 @@ function MyPage() {
         <span className="errorMessage">{errors?.phone?.message}</span>
         <br />
         <label>성별</label>
-
         <input
           {...register("gender", {
             required: "성별을 입력해주세요",

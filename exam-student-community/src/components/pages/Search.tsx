@@ -28,10 +28,7 @@ function Search() {
 
   return (
     <>
-      <TopBar
-        needWrite={true}
-        needSearch={true}
-      />
+      <TopBar needWrite={true} needSearch={true} />
       <BoardName>{`${keyword} 검색결과`}</BoardName>
       <PostsList id={1} name={`${keyword} 검색결과`} postsData={postsData} />
     </>

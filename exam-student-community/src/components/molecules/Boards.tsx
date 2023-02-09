@@ -7,6 +7,9 @@ import { stringify } from "querystring";
 
 function Boards({ data }: any) {
   return (
+    <div onClick={() => {
+      console.log('뒤에꺼')
+    }}>
     <BoardsList>
       {data?.map((board: any, index: number) => {
         return (
@@ -43,6 +46,7 @@ function Boards({ data }: any) {
         );
       })}
     </BoardsList>
+    </div>
   );
 }
 
