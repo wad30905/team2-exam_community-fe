@@ -62,13 +62,6 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
           )}
         </TopContainer>
         {needSearch ? <SearchBar placeholder={"검색하시오."} /> : null}
-
-        {/* <Dropdown
-          classname={
-            isOpen ? "slide-fade-in-dropdown" : "slide-fade-out-dropdown"
-          }
-        /> */}
-        {/* <Dropdown isOpen={isOpen} /> */}
       </TopBarContainer>
       <Dropdown isOpen={isModalOpen} onClose={toggleModal} />
     </>

@@ -17,7 +17,7 @@ import {
   RegisterBackBtn,
 } from "../molecules/atoms/styled";
 import { useForm } from "react-hook-form";
-import { checkId, SERVER_URL } from "../../api";
+import { checkId, idDoubleCheck, SERVER_URL } from "../../api";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   registerName,
@@ -83,33 +83,27 @@ const Register = () => {
   //   );
   // }, [phoneNum]);
 
-  const handleIdDoubleCheck = () => {
+  const handleIdDoubleCheck = async () => {
     // 아이디 중복 체크 실행
     // API 호출
     if (userId === "") {
       alert("아이디를 입력해 주세요.");
       return;
     }
-    axios({
-      method: "post",
-      url: `${SERVER_URL}/id_compare`,
-      data: {
-        user_id: userId,
-      },
-    }).then((response) => {
-      console.log(response.data.boo);
-      if (response.data.boo) {
-        // 사용 가능
-        setIdError("");
-        alert("해당 아이디는 사용 가능한 아이디 입니다.");
-        setIdCheck(true);
-      } else {
-        setIdError("");
-        alert("해당 아이디는 이미 사용중인 아이디 입니다.");
-        setIdCheck(false);
-      }
-    });
+    const response = await idDoubleCheck(userId);
+    console.log("response :", response);
+    if (response === "에러") return false;
+    if (response) {
+      setIdError("");
+      alert("해당 아이디는 사용 가능한 아이디 입니다.");
+      setIdCheck(true);
+    } else {
+      setIdError("");
+      alert("해당 아이디는 이미 사용중인 아이디 입니다.");
+      setIdCheck(false);
+    }
   };
+
   const handleIdChange = (e: React.FormEvent<HTMLInputElement>) => {
     console.log(e.currentTarget.value);
     setUserId(e.currentTarget.value);

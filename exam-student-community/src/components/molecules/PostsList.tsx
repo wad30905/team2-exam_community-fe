@@ -11,11 +11,6 @@ interface IPostsListProp {
 }
 
 function PostsList({ id, name, postsData }: IPostsListProp) {
-  // 서버 연결됐을때는, samplePosts를 postsData로 수정
-  console.log("PostsList");
-  console.log("postsData:", postsData);
-  console.log("name :", name);
-
   if (postsData) {
     return (
       <PostsContainer>

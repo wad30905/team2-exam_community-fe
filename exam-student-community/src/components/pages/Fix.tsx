@@ -19,7 +19,7 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
+import { PostsList, BoardsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
 import { IPostData } from "./Post";
@@ -79,8 +79,8 @@ function Fix() {
   });
 
   //selector
-  let options = Object.keys(PostsObject).map((item, index) => {
-    return { value: item, label: PostsObject[item] };
+  let options = Object.keys(BoardsObject).map((item, index) => {
+    return { value: item, label: BoardsObject[item] };
   });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({

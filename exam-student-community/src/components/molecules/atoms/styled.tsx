@@ -1,5 +1,34 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 15vh;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    margin-top: 7vh;
+  }
+`;
+
+export const BoardOptions = styled.div`
+  background-color: ${({ theme }) => theme.accentColor};
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const BoardOption = styled.p`
+  pointer-events: auto;
+  color: ${({ theme }) => theme.whiteColor};
+  font-size: 0.8rem;
+  cursor: pointer;
+`;
+
 // ------------Login / Mypage------------
 
 export const LoginForm = styled.form`
@@ -425,16 +454,15 @@ export const BoardPost = styled.li`
 export const BoardName = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 17vh;
+    margin: 5% auto;
     font-size: 25px;
     font-weight: 600;
     padding-left: 20px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 15vh;
+    margin: 2% auto;
+
     width: 80%;
     font-size: 35px;
     font-weight: 600;
@@ -1218,5 +1246,24 @@ export const FindPwBox = styled.div`
   }
   @media ${({ theme }) => theme.device.desktop} {
     width: 600px;
+  }
+`;
+
+export const FooterContainer = styled.div`
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: black;
+
+  padding: 15px;
+
+  p {
+    font-weight: 700;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+
+  @media ${({ theme }) => theme.device.desktop} {
   }
 `;

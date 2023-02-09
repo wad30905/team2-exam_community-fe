@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { SERVER_URL } from "../../api";
+import { resetPassword, SERVER_URL } from "../../api";
 import { LoginForm } from "../molecules/atoms/styled";
 
 interface IForm {
@@ -25,7 +25,11 @@ function ResetPassword() {
       setError("password2", { message: "비밀번호가 다릅니다." });
       return false;
     }
-
+    // const resetPw = async () => {
+    //   const response = resetPassword(data.password1, token);
+    //   console.log("response :", response);
+    // };
+    // resetPw();
     try {
       const response = await axios({
         method: "put",
