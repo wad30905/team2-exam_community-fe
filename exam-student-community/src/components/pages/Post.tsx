@@ -40,7 +40,7 @@ export interface IPost {
   click_num: number;
   comment_num: number;
   content: string;
-  hide_user: boolean;
+  is_user_hid: boolean;
   id: number;
   like: number;
   num: number;

@@ -14,7 +14,6 @@ import { BoardsObject } from "../molecules/atoms/sampleData";
 import Loading from "../molecules/Loading";
 
 function Posts() {
-  const navigate = useNavigate();
   const [postsData, setPostsData] = useState();
   const [boardIdState, setBoardIdState] = useState(2);
   const [boardNameState, setBoardNameState] = useState("정보게시판");
