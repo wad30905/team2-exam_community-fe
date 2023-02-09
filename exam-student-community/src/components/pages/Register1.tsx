@@ -91,8 +91,8 @@ const Register = () => {
       return;
     }
     axios({
-      method: "post",
-      url: `${SERVER_URL}/id_compare`,
+      method: "get",
+      url: `${SERVER_URL}/apis/users/compareId`,
       data: {
         user_id: userId,
       },
