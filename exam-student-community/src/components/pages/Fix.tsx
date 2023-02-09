@@ -19,7 +19,7 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
+import { PostsList, BoardsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
 import { IPostData } from "./Post";
@@ -79,8 +79,8 @@ function Fix() {
   });
 
   //selector
-  let options = Object.keys(PostsObject).map((item, index) => {
-    return { value: item, label: PostsObject[item] };
+  let options = Object.keys(BoardsObject).map((item, index) => {
+    return { value: item, label: BoardsObject[item] };
   });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
@@ -106,6 +106,7 @@ function Fix() {
 
   function onSubmit(data: IWriteForm) {
     //hideuser false 로 해놓았는데 이 옵션 추가 해야 함.
+    window.localStorage.setItem("content", data.PostContent);
     fixPost(id, data.PostTitle, data.PostContent, false);
     alert("수정을 완료했습니다.");
     //  navigate(`/posts/${data.BoardId}`);
@@ -115,12 +116,19 @@ function Fix() {
     <Loading />
   ) : (
     <>
-      <TopBar
-        needWrite={false}
-        needSearch={false}
-      />
-      <WriteForm onSubmit={handleSubmit(onSubmit)} height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}>
-        <Select defaultValue={options[Number(boardId)-1]} options={options} onChange={onSelect} placeholder={"게시판을 선택하십시오."} styles={customStyles} isDisabled={true}/>
+      <TopBar needWrite={false} needSearch={false} />
+      <WriteForm
+        onSubmit={handleSubmit(onSubmit)}
+        height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
+      >
+        <Select
+          defaultValue={options[Number(boardId) - 1]}
+          options={options}
+          onChange={onSelect}
+          placeholder={"게시판을 선택하십시오."}
+          styles={customStyles}
+          isDisabled={true}
+        />
         <TitleInput
           placeholder="제목"
           {...register("PostTitle", {

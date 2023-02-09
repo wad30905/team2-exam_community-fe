@@ -1,5 +1,34 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 15vh;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    margin-top: 7vh;
+  }
+`;
+
+export const BoardOptions = styled.div`
+  background-color: ${({ theme }) => theme.accentColor};
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const BoardOption = styled.p`
+  pointer-events: auto;
+  color: ${({ theme }) => theme.whiteColor};
+  font-size: 0.8rem;
+  cursor: pointer;
+`;
+
 // ------------Login / Mypage------------
 
 export const LoginForm = styled.form`
@@ -425,16 +454,15 @@ export const BoardPost = styled.li`
 export const BoardName = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 17vh;
+    margin: 5% auto;
     font-size: 25px;
     font-weight: 600;
     padding-left: 20px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     color: ${({ theme }) => theme.accentColor};
-    margin: 0 auto;
-    margin-top: 15vh;
+    margin: 2% auto;
+
     width: 80%;
     font-size: 35px;
     font-weight: 600;
@@ -920,13 +948,13 @@ export const CommentButton = styled.button`
 
 // ------------Write------------
 interface WriteFormProps {
-  height:string;
+  height: string;
 }
 export const WriteForm = styled.form<WriteFormProps>`
   @media ${({ theme }) => theme.device.mobile} {
     position: absolute;
     top: 7vh;
-    height: ${props => props.height};
+    height: ${(props) => props.height};
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -1190,6 +1218,52 @@ export const MainContents = styled.div`
     padding: 10px;
     border-bottom: 2px solid #aaa;
   }
+  @media ${({ theme }) => theme.device.desktop} {
+  }
+`;
+
+export const FindPwBox = styled.div`
+  margin: 0 auto;
+  margin-top: 7vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5vh;
+  p {
+    font-size: 1.5rem;
+  }
+  span {
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+    color: ${({ theme }) => theme.grayColor};
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+    max-width: 600px;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    width: 600px;
+  }
+`;
+
+export const FooterContainer = styled.div`
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: black;
+
+  padding: 15px;
+
+  p {
+    font-weight: 700;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+  }
+
   @media ${({ theme }) => theme.device.desktop} {
   }
 `;

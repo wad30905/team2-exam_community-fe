@@ -19,7 +19,7 @@ import {
   ContentInput,
   Submit,
 } from "../molecules/atoms/styled";
-import { PostsList, PostsObject } from "../molecules/atoms/sampleData";
+import { PostsList, BoardsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
 import { keyframes } from "styled-components";
@@ -95,8 +95,8 @@ function Write() {
   }
 
   //selector
-  let options = Object.keys(PostsObject).map((item, index) => {
-    return { value: item, label: PostsObject[item] };
+  let options = Object.keys(BoardsObject).map((item, index) => {
+    return { value: item, label: BoardsObject[item] };
   });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
@@ -122,7 +122,10 @@ function Write() {
   ) : (
     <>
       <TopBar needWrite={false} needSearch={false} />
-      <WriteForm onSubmit={handleSubmit(onSubmit)} height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}>
+      <WriteForm
+        onSubmit={handleSubmit(onSubmit)}
+        height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
+      >
         <Select
           options={options}
           onChange={onSelect}

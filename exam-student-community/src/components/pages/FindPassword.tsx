@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { checkId, SERVER_URL } from "../../api";
-import { LoginForm } from "../molecules/atoms/styled";
+import { checkId, sendEmail, SERVER_URL } from "../../api";
+import { FindPwBox, LoginForm } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
 
 interface IForm {
@@ -25,11 +25,8 @@ function FindPassword() {
     try {
       // 존재하는 아이디인지 확인
       const response1 = await axios({
-        method: "post",
-        url: `${SERVER_URL}/id_compare`,
-        data: {
-          user_id: data.id,
-        },
+        method: "get",
+        url: `${SERVER_URL}/apis/users/compareId`,
       });
       console.log("response1 :", response1);
       if (response1.data.boo) {
@@ -38,10 +35,13 @@ function FindPassword() {
         return false;
       }
 
+      // const response2 = sendEmail(data.id);
+      // console.log(response2);
+
       // 아이디랑 이메일 값 서버로 post
       const response2 = await axios({
         method: "post",
-        url: `${SERVER_URL}/api/newpw`,
+        url: `${SERVER_URL}/apis/users/newpw`,
         data: {
           id: data.id,
         },
@@ -55,10 +55,18 @@ function FindPassword() {
   }
 
   return emailLoading ? (
-    <LoginForm onSubmit={handleSubmit(onSubmit)}>
-      <div>이메일을 확인해보셈</div>
-      <div>인증 이메일 : {userEmail}</div>
-    </LoginForm>
+    <FindPwBox>
+      <p>이메일을 확인해보세요.</p>
+      <p>인증 이메일 : {userEmail}</p>
+      <span
+        onClick={() => {
+          alert("죄송합니다. 이메일 전송을 다시 눌러주세요.");
+          setEmailLoading(false);
+        }}
+      >
+        이메일이 오지 않는다면?
+      </span>
+    </FindPwBox>
   ) : (
     <>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
