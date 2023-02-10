@@ -584,15 +584,15 @@ export const PostMain = styled.div`
   }
   @media ${({ theme }) => theme.device.mobile} {
     width: 100%;
-    margin-top: 15vh;
+    margin-top: 1vh;
     height: 85vh;
     padding: 10px;
   }
   @media ${({ theme }) => theme.device.desktop} {
     width: 80%;
     height: 85vh;
-    margin: 0 auto;
-    margin-top: 10vh;
+    margin: 3vh auto;
+
     display: flex;
     flex-direction: column;
   }
@@ -743,6 +743,9 @@ export const Content = styled.div`
   }
 `;
 export const Content_Title = styled.pre`
+  white-space: pre-wrap;
+  word-break: break-all;
+
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-weight: bold;
@@ -757,6 +760,9 @@ export const Content_Title = styled.pre`
 
 export const Content_Content = styled.pre`
   line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-all;
+
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-size: 20px;
