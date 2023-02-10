@@ -743,6 +743,9 @@ export const Content = styled.div`
   }
 `;
 export const Content_Title = styled.pre`
+  white-space: pre-wrap;
+  word-break: break-all;
+
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-weight: bold;
@@ -757,6 +760,9 @@ export const Content_Title = styled.pre`
 
 export const Content_Content = styled.pre`
   line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-all;
+
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 20px;
     font-size: 20px;
