@@ -16,8 +16,15 @@ import MyPage from "./components/pages/MyPage";
 import OAuth from "./components/pages/OAuth";
 import FindPassword from "./components/pages/FindPassword";
 import ResetPassword from "./components/pages/ResetPassword";
+import Timer from "./components/pages/Timer";
 
 function Router() {
+  onmessage = function (event) {
+    if (event.data === "start") {
+      Timer();
+    }
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -40,6 +47,7 @@ function Router() {
         <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/users/reset/:token" element={<ResetPassword />} />
         <Route path="/fail_login" element={<Login />} />
+        <Route path="/timer" element={<Timer />} />
       </Routes>
     </BrowserRouter>
   );

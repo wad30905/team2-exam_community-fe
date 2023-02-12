@@ -69,7 +69,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <div>
       {isOpen && (
-        <div className="modal-overlay" >
+        <div className="modal-overlay">
           <DropdownBox className="modal-content">
             <ul
               className={
@@ -97,6 +97,11 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
               <Link to="/mypage">
                 <Menu>
                   <span>{`내 정보 수정`}</span>
+                </Menu>
+              </Link>
+              <Link to="/timer">
+                <Menu>
+                  <span>{`공부시간 재기`}</span>
                 </Menu>
               </Link>
             </ul>

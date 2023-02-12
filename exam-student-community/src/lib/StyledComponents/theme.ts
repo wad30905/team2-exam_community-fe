@@ -1,6 +1,6 @@
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme, DeviceTheme } from "styled-components";
 
-const deviceSizes = {
+export const deviceSizes: DeviceTheme = {
   mobile: "800px",
   desktop: "801px",
 };

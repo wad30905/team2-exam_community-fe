@@ -14,15 +14,25 @@ export const Wrapper = styled.div`
 `;
 
 export const BoardOptions = styled.div`
+  max-width: 100vw;
+  overflow-x: scroll;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   background-color: ${({ theme }) => theme.accentColor};
   height: 30px;
   display: flex;
-  justify-content: space-around;
+  justify-content: baseline;
+  gap: 5%;
   align-items: center;
+  padding-left: 5%;
   z-index: 999;
 `;
 
 export const BoardOption = styled.p`
+  white-space: nowrap;
   pointer-events: auto;
   color: ${({ theme }) => theme.whiteColor};
   font-size: 0.8rem;
@@ -1255,21 +1265,102 @@ export const FindPwBox = styled.div`
   }
 `;
 
+// ------------Footer------------
+
 export const FooterContainer = styled.div`
-  font-size: 0.7em;
+  font-size: 0.8em;
+  font-weight: 600;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   color: black;
-
   padding: 15px;
-
+  gap: 5px;
   p {
     font-weight: 700;
+  }
+  a {
+    font-weight: 200;
+    text-decoration: underline;
   }
   @media ${({ theme }) => theme.device.mobile} {
   }
 
   @media ${({ theme }) => theme.device.desktop} {
+  }
+`;
+
+// ------------Timer------------
+
+export interface ITimerProps {
+  isActive: boolean;
+}
+
+export const Timer_container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  gap: 5vh;
+`;
+
+export const Timer_time_container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Timer_time = styled.div`
+  font-size: 72px;
+  color: #333;
+  text-shadow: 1px 1px #ddd;
+`;
+
+export const Timer_label = styled.div`
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+  text-shadow: 1px 1px #ddd;
+`;
+
+export const Timer_buttons = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const Timer_button = styled.button<ITimerProps>`
+  padding: 10px 20px;
+  background-color: ${({ theme }) => theme.accentColor};
+  color: ${(props) => (props.isActive ? "white" : "white")};
+  pointer-events: ${(props) => (props.isActive ? "pointer" : "none")};
+  background-color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.grayColor};
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  :hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  }
+  :active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export const Timer_user = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 `;
