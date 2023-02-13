@@ -1,0 +1,118 @@
+로직1
+
+[state]
+count : 매 초 계산
+ongoing : 진행중이었는지, 정지상태였는지.
+
+[localStorage]
+count : 매 초 계산
+ongoing : 진행중이었는지, 정지상태였는지.
+
+[logic]
+start 버튼 누르면
+
+- setInterval(count 1씩 증가)
+-
+
+stop 버튼 누르면
+
+- clearInterval
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+로직2 (날짜 이용)
+
+[state]
+start_Date : 시작 날짜시간.
+now_Date : 현재 날짜시간
+ongoing : 진행중이었는지.
+
+[localStorage]
+start_Date : 시작 날짜시간.
+onoging : 진행중이었는지.
+
+[logic]
+start 버튼 누르면
+
+- startDate 로컬스토리지 저장.
+- setInterval(
+  현재 날짜 시간(now_Date)을 업데이트함.
+  now_Date - start_Date 차이를 계산.
+  이 차이를 시간초로 계산하기.
+  )
+- ongoing 을 true로 localstorage 저장.
+
+stop 버튼 누르면
+
+- clearInterval
+- ongoing을 false로 localstorage 저장
+
+중간에 들어왔을 때,
+
+- localstorage ongoing 확인.
+  - ongoing true면, setInterval 계속
+  - ongoing false면, 가만히.
+
+다시 들어왔을때
+
+- 측정중이였을 경우
+  -> ongoing이 true
+  -> 로직 그대로 가면 됨. nowDate()-startDate() 뺀 걸로 해줘.
+
+- 측정안하고 있었을 경우
+  - 멈춰놨었는데, 종료할 경우
+    -> 그냥 종료버튼이기때문에 가면됨.
+  - 멈춰놨었는데, 다시 시작하고 싶은 경우
+    -> ongoing이 false
+    -> 현재까지 측정 시간 // start Date를 지금으로 갱신해야함.
+    ->
+
+nowcount
+optionCount
+
+totalCount
+
+const start = ()=>{
+setInterval
+localstorage.set (ongoing true)
+}
+
+const stop = ()=>{
+clearInterval
+localstorage.set (ongoing false)
+}
+
+useEffect(
+if(ongoing)
+setInterval
+
+    return clearInterval
+
+, [])
+
+----------------------------이슈----------------------------
+
+ongoing = true인 상태에서, 새로고침하면 초기화되는 이슈.
+
+정지했다가, 다시 시작하면 count 올라가는데 2초 걸리는 이슈 (interval 돌릴때, 날짜 빼기로 계산하기 때문에 0초부터 올라가기 시작하기 때문.)
+
+----------------------------로직 정리----------------------------
+
+실질적으로 시간을 측정하는 변수 3개
+
+- totalCount : count + optionCount
+- count : count
+- optionCount : 정지되었을때 count값을 저장.
+
+렌더링은, totalCount를 시간 / 분 / 초 로 바꿔서 렌더링 (렌더링용 3개의 state 설정)
+
+start 누르면, 날짜
+
+stop 누르면
+
+- count를 optionCount에 박아넣고
+- optionCount 로컬스토리지 저장.
+
+start 누르면
+
+- 로컬스토리지 optionCount가 있으면, optionCount를 로컬스토리지 optionCount +=
