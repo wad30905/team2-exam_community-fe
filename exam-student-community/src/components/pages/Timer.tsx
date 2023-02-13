@@ -22,22 +22,35 @@ function Timer() {
   const [ongoing, setOngoing] = useState(false as boolean);
   const [myTime, setMyTime] = useState(0 as number);
 
-  var diff: number;
-
   const [count, setCount] = useState(0 as number);
   const [optionCount, setOptionCount] = useState(0 as number);
   let totalCount = count + optionCount;
 
   let startDate: object;
+  var diff: number;
   const intervalRef = useRef(null as any);
 
   const start = () => {
+    console.log(
+      "start 버튼 : count / optionCount / totalCount",
+      count,
+      optionCount,
+      totalCount
+    );
+
+    // totalCount가 있고, 정지상태였을때,
     if (
       JSON.parse(localStorage.getItem("totalCount") as any) > 0 &&
       JSON.parse(localStorage.getItem("ongoing") as any) === false
     ) {
+      console.log("totalCount가 있고, 정지상태였을때");
       setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
       setCount(1);
+    }
+
+    if (JSON.parse(localStorage.getItem("totalCount") as any) === null) {
+      console.log("로컬스토리지 totalCount === null 일때, setOptionCount(0)");
+      setOptionCount(0);
     }
     startDate = new Date();
 
@@ -54,6 +67,7 @@ function Timer() {
 
     localStorage.setItem("ongoing", JSON.stringify(false));
     localStorage.setItem("totalCount", JSON.stringify(totalCount));
+    setOptionCount(totalCount);
   };
 
   const done = () => {
@@ -75,10 +89,10 @@ function Timer() {
       const nowDate = new Date();
       diff = Math.floor(((nowDate as any) - (startDate as any)) / 1000);
       setCount((count) => {
-        localStorage.setItem("count", JSON.stringify(count));
-        localStorage.setItem("totalCount", JSON.stringify(totalCount));
         return diff;
       });
+      localStorage.setItem("count", JSON.stringify(count));
+      localStorage.setItem("totalCount", JSON.stringify(totalCount));
     }, 1000);
   };
 
