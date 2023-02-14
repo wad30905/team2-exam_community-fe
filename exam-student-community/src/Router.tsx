@@ -16,10 +16,12 @@ import MyPage from "./components/pages/MyPage";
 import OAuth from "./components/pages/OAuth";
 import FindPassword from "./components/pages/FindPassword";
 import ResetPassword from "./components/pages/ResetPassword";
+import RouteChangeTracker from "./components/molecules/RouteChangeTracker";
 
 function Router() {
   return (
     <BrowserRouter>
+      <RouteChangeTracker />
       <Routes>
         {/* <Route path="/" element={<Main />} /> */}
         <Route path="/" element={<Posts />} />
