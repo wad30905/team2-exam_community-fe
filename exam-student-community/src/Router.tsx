@@ -7,19 +7,19 @@ import Register1 from "./components/pages/Register1";
 import Register2 from "./components/pages/Register2";
 import Write from "./components/pages/Write";
 import Practice from "./components/pages/Practice";
-import MyscrapPosts from "./components/pages/MyscrapPosts";
 import Search from "./components/pages/Search";
 import MyPosts from "./components/pages/MyPosts";
-import MyLikePosts from "./components/pages/MyLikePosts";
 import Fix from "./components/pages/Fix";
 import MyPage from "./components/pages/MyPage";
 import OAuth from "./components/pages/OAuth";
 import FindPassword from "./components/pages/FindPassword";
 import ResetPassword from "./components/pages/ResetPassword";
+import RouteChangeTracker from "./components/molecules/RouteChangeTracker";
 
 function Router() {
   return (
     <BrowserRouter>
+      <RouteChangeTracker />
       <Routes>
         {/* <Route path="/" element={<Main />} /> */}
         <Route path="/" element={<Posts />} />
