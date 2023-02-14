@@ -301,7 +301,7 @@ export function logout() {
 export const getProfile = async () => {
   const response = await axios({
     method: "get",
-    url: `${SERVER_URL}/apis/users/apis/users/register`,
+    url: `${SERVER_URL}/apis/users/register`,
   });
   if (200) {
     // 잘 들어갔으면

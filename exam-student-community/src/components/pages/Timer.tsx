@@ -14,8 +14,6 @@ import Footer from "../molecules/Footer";
 import TopBar from "../molecules/TopBar";
 
 function Timer() {
-  const userName = useRecoilValue(user);
-
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
@@ -24,6 +22,7 @@ function Timer() {
 
   const [count, setCount] = useState(0 as number);
   const [optionCount, setOptionCount] = useState(0 as number);
+
   let totalCount = count + optionCount;
 
   let startDate: object;
@@ -31,27 +30,24 @@ function Timer() {
   const intervalRef = useRef(null as any);
 
   const start = () => {
-    console.log(
-      "start 버튼 : count / optionCount / totalCount",
-      count,
-      optionCount,
-      totalCount
-    );
-
     // totalCount가 있고, 정지상태였을때,
+    // optionCount에 tatalCount 넣고.
+    // count는 1로 세팅
     if (
       JSON.parse(localStorage.getItem("totalCount") as any) > 0 &&
       JSON.parse(localStorage.getItem("ongoing") as any) === false
     ) {
-      console.log("totalCount가 있고, 정지상태였을때");
       setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
-      setCount(1);
+      setCount(0);
     }
 
+    // totalCount가 null일때 (첫 시작일때)
     if (JSON.parse(localStorage.getItem("totalCount") as any) === null) {
-      console.log("로컬스토리지 totalCount === null 일때, setOptionCount(0)");
-      setOptionCount(0);
     }
+
+    // 공통
+    // startDate 찍어서 로컬스토리지 저장.
+
     startDate = new Date();
 
     localStorage.setItem("startDate", JSON.stringify(startDate));
@@ -64,9 +60,10 @@ function Timer() {
   const stop = () => {
     clearInterval(intervalRef.current);
     setOngoing(false);
-
+    setCount(0);
     localStorage.setItem("ongoing", JSON.stringify(false));
     localStorage.setItem("totalCount", JSON.stringify(totalCount));
+
     setOptionCount(totalCount);
   };
 
@@ -108,15 +105,33 @@ function Timer() {
 
   // count 변화에 따라, timer 함수 렌더링
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem("totalCount") as any) === null) {
+      localStorage.setItem("totalCount", JSON.stringify(0));
+    }
     if (
       localStorage.getItem("totalCount") &&
       JSON.parse(localStorage.getItem("ongoing") as any) === false
     ) {
+      console.log("ongoing false // totalCount >0");
+      console.log(typeof localStorage.getItem("totalCount"));
       setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
-      setCount(1);
-    } else {
-      setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
+      setCount(0);
     }
+    // if (
+    //   localStorage.getItem("totalCount") &&
+    //   JSON.parse(localStorage.getItem("ongoing") as any) === true
+    // ) {
+    //   console.log("ongoing true // totalCount >0");
+    //   setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
+    //   start();
+    // }
+
+    console.log(
+      "setInterval count / optionCount / totalCount :",
+      count,
+      optionCount,
+      totalCount
+    );
     timeConverter();
   }, [count]);
 
@@ -155,6 +170,7 @@ function Timer() {
             완료버튼
           </Timer_button>
         </Timer_buttons>
+
         <div>{myTime}초 공부했습니다. ㅊㅊ</div>
       </Timer_container>
       <Footer />
