@@ -35,13 +35,6 @@ const RouteChangeTracker = (): any => {
     }
   }, [initialized, location]);
 
-  // 개발용
-  useEffect(() => {
-    ReactGA.initialize(TRACKING_ID as any);
-    ReactGA.set({ page: location.pathname });
-    ReactGA.send("pageview");
-  }, [location]);
-
   return;
 };
 
