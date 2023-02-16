@@ -31,15 +31,7 @@ function ResetPassword() {
     // };
     // resetPw();
     try {
-      const response = await axios({
-        method: "put",
-        url: `${SERVER_URL}/apis/users/newpw`,
-        data: {
-          pw: data.password1,
-          token: token,
-        },
-      });
-      console.log("response :", response);
+      const response = await resetPassword(data.password1, token);
       if (response.status === 200) {
         alert("변경성공");
         navigate("/login");

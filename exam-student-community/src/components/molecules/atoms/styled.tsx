@@ -139,6 +139,7 @@ export const TopBarMenu = styled.div`
     cursor: pointer;
   }
   @media ${({ theme }) => theme.device.mobile} {
+    width: 33%;
     justify-content: baseline;
     font-weight: 600;
     padding-left: 5%;
@@ -165,8 +166,7 @@ export const TopBarMain = styled.div`
   font-size: 1.1em;
   cursor: pointer;
   @media ${({ theme }) => theme.device.mobile} {
-  }
-  @media ${({ theme }) => theme.device.desktop} {
+    width: 33%;
   }
 `;
 
@@ -181,6 +181,7 @@ export const TopBarBtns = styled.div`
     font-size: 0.0001em;
   }
   @media ${({ theme }) => theme.device.mobile} {
+    width: 33%;
     justify-content: flex-end;
     align-items: center;
   }

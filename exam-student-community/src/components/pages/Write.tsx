@@ -119,8 +119,6 @@ function Write() {
     singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#111" }),
   };
 
-  console.log(boardId);
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -128,7 +126,7 @@ function Write() {
       <TopBar needWrite={false} needSearch={false} />
       <WriteForm
         onSubmit={handleSubmit(onSubmit)}
-        height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
+        height={`calc(55vh - ${window.innerHeight - window.outerHeight}px)`}
       >
         <Select
           options={options}
