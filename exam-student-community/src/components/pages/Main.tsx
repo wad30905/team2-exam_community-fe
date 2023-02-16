@@ -6,8 +6,6 @@ import { useRecoilState } from "recoil";
 import { loginState, user } from "../../store/atoms";
 import { sampleBoards } from "../molecules/atoms/sampleData";
 import React, { useState, useEffect } from "react";
-import Footer from "../molecules/Footer";
-import { BoardOption, BoardOptions } from "../molecules/atoms/styled";
 
 interface Props {
   isOpen: boolean;
@@ -55,7 +53,6 @@ const Main = () => {
     <>
       <TopBar needWrite={true} needSearch={true} />
       <Boards data={boardsData} />
-      <Footer />
     </>
   ) : (
     <Loading />
