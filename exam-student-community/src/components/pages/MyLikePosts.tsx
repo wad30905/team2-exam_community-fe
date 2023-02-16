@@ -31,7 +31,6 @@ function MyLikePosts() {
     fetchMyLikePosts();
   }, []);
 
-  console.log(postsData);
   return (
     <>
       <TopBar needSearch={true} needWrite={true} />
