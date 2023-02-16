@@ -1,5 +1,17 @@
 import { IPostData } from "../../pages/Post";
 
+interface BoardsObject {
+  [key: string]: string;
+}
+
+export const BoardsObject: BoardsObject = {
+  "1": "자유게시판",
+  "2": "정보게시판",
+  "3": "LEET게시판",
+  "4": "CPA게시판",
+  "5": "공부시간 인증",
+};
+
 export const sampleBoards = [
   [
     [
@@ -103,14 +115,3 @@ export const samplePost = {
 };
 
 export const PostsList = ["1", "2", "3", "4", "5", "6"];
-
-interface BoardsObject {
-  [key: string]: string;
-}
-
-export const BoardsObject: BoardsObject = {
-  "1": "자유게시판",
-  "2": "정보게시판",
-  "3": "LEET게시판",
-  "4": "CPA게시판",
-};

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+
 import {
   IconBackBtn,
   IconMoreBtn,
@@ -26,7 +25,6 @@ import {
   registerEmail,
   restrict,
 } from "../../store/atoms";
-import { theme } from "../../lib/StyledComponents/theme";
 
 interface IForm {
   username: string;

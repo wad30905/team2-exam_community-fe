@@ -82,6 +82,14 @@ export async function getPost(id: number) {
   return response.data;
 }
 
+export async function getMyPosts() {
+  const response = await axios({
+    method: "get",
+    url: `${SERVER_URL}/apis/posts/my`,
+  });
+  return response.data;
+}
+
 export function writePost(
   user_name: string,
   num: string,
@@ -301,7 +309,7 @@ export function logout() {
 export const getProfile = async () => {
   const response = await axios({
     method: "get",
-    url: `${SERVER_URL}/apis/users/apis/users/register`,
+    url: `${SERVER_URL}/apis/users/register`,
   });
   if (200) {
     // 잘 들어갔으면
@@ -318,12 +326,11 @@ export const updateProfile = async (data: any) => {
   console.log("server에 들어온 data :", data);
   const response = await axios({
     method: "post",
-    url: `${SERVER_URL}/apis/user/mypage`,
+    url: `${SERVER_URL}/apis/users/mypage`,
     data: {
       name,
       age,
       email,
-      phone,
       gender,
     },
   });
