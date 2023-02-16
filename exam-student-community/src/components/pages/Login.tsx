@@ -12,7 +12,7 @@ import TopBar from "../molecules/TopBar";
 import Dropdown from "../molecules/Dropdown";
 import { loginCheck } from "../../api";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { loginState, userId } from "../../store/atoms";
+import { loginState, user, userId } from "../../store/atoms";
 import KakaoLogin from "../molecules/KakaoLogin";
 import { BoardsObject } from "../molecules/atoms/sampleData";
 
@@ -30,6 +30,7 @@ function Login() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [loginUserId, setLoginUserId] = useRecoilState(userId);
+  const [userName, setUserName] = useRecoilState(user);
 
   async function onSubmit(data: IForm) {
     const response = await loginCheck(data.id, data.password);
@@ -42,6 +43,7 @@ function Login() {
     } else {
       setIsLoggedIn(true);
       setLoginUserId(data.id); // 코드 합칠때 주의
+      setUserName(response.data.name);
       navigate("/");
     }
   }

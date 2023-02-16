@@ -11,7 +11,12 @@ interface Props {
   onClose: () => void;
 }
 
-const options = ["기능1", "기능2", "기능3"];
+const notLoggedInoptions = ["기능1", "기능2", "기능3"];
+const loggedInOptions = {
+  "내 프로필": "myprofile",
+  "내가 쓴 글": "myposts",
+  "공부시간 재기": "timer",
+};
 const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -51,7 +56,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
                   <span>로그인해주세요</span>
                 </div>
                 {isOpen &&
-                  options.map((option, index) => (
+                  notLoggedInoptions.map((option, index) => (
                     <Menu style={{ color: "gray" }} key={index}>
                       <span>{option}</span>
                       <span>
@@ -69,7 +74,7 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <div>
       {isOpen && (
-        <div className="modal-overlay" >
+        <div className="modal-overlay">
           <DropdownBox className="modal-content">
             <ul
               className={
@@ -79,26 +84,13 @@ const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {
               <div className="title">
                 <span>{userName}님 환영합니다</span>
               </div>
-              <Link to="/myposts">
-                <Menu>
-                  <span>{`내가 쓴 글`}</span>
-                </Menu>
-              </Link>
-              {/* <Link to="/mylikeposts">
-              <Menu>
-                <span>{`좋아요한 글`}</span>
-              </Menu>
-            </Link>
-            <Link to="/myscrapposts">
-              <Menu>
-                <span>{`스크랩한 글`}</span>
-              </Menu>
-            </Link> */}
-              <Link to="/mypage">
-                <Menu>
-                  <span>{`내 정보 수정`}</span>
-                </Menu>
-              </Link>
+              {Object.entries(loggedInOptions).map(([option, url]) => (
+                <Link to={`/${url}`} key={option}>
+                  <Menu>
+                    <span>{option}</span>
+                  </Menu>
+                </Link>
+              ))}
             </ul>
           </DropdownBox>
         </div>

@@ -12,6 +12,7 @@ import {
 } from "../molecules/atoms/styled";
 import { BoardsObject } from "../molecules/atoms/sampleData";
 import Loading from "../molecules/Loading";
+import Footer from "../molecules/Footer";
 
 export interface IPostsState {
   state: {
@@ -54,6 +55,7 @@ function Posts() {
   return (
     <Wrapper>
       <TopBar needWrite={true} needSearch={true} />
+
       <BoardOptions>
         {Object.keys(BoardsObject).map((key, index) => (
           <Link
@@ -81,6 +83,7 @@ function Posts() {
           />
         </>
       )}
+      <Footer />
     </Wrapper>
   );
 }

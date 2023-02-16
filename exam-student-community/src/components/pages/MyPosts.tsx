@@ -17,16 +17,19 @@ import SearchBar from "../molecules/SearchBar";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { SERVER_URL } from "../../api";
+import { getMyPosts, SERVER_URL } from "../../api";
 import { BoardsObject } from "../molecules/atoms/sampleData";
 // import { getMyPost } from "../../api";
 
 function MyPosts() {
   const [postsData, setPostsData] = useState<any | null>();
+
   useEffect(() => {
-    axios({ method: "get", url: `${SERVER_URL}/mypost` }).then((response) => {
-      setPostsData(response.data);
-    });
+    const paintMyPosts = async () => {
+      const response = await getMyPosts();
+      setPostsData(response);
+    };
+    paintMyPosts();
   }, []);
   return (
     <Wrapper>
