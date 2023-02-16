@@ -18,6 +18,7 @@ import RouteChangeTracker from "./components/molecules/RouteChangeTracker";
 import Timer from "./components/pages/Timer";
 import MyProfile from "./components/pages/MyProfile";
 import WriteTimer from "./components/pages/WriteTimer";
+import MyLikePosts from "./components/pages/MyLikePosts";
 
 function Router() {
   return (
@@ -29,8 +30,8 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/posts/*" element={<Posts />} />
         <Route path="/myposts" element={<MyPosts />} />
-        {/* <Route path="/mylikeposts" element={<MyLikePosts />} />
-        <Route path="/myscrapposts" element={<MyscrapPosts />} /> */}
+        <Route path="/mylikeposts" element={<MyLikePosts />} />
+        {/* <Route path="/myscrapposts" element={<MyscrapPosts />} /> */}
         <Route path="/posts/:id/fix" element={<Fix />} />
         <Route path="/posts/:id" element={<Post />} />
         <Route path="/posts/write" element={<Write />} />
