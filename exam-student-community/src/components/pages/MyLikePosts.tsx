@@ -15,26 +15,28 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Dropdown from "../molecules/Dropdown";
-import { SERVER_URL } from "../../api";
+import { getMyLikePosts, SERVER_URL } from "../../api";
+import Loading from "../molecules/Loading";
+import { IPost } from "./Post";
 
 function MyLikePosts() {
-  const [postsData, setPostsData] = useState<any | null>();
+  const [postsData, setPostsData] = useState<IPost[]>();
 
   // 데이터 받아와서
   // postData 에다가 setPostData
   useEffect(() => {
-    axios({ method: "get", url: `${SERVER_URL}/apis/posts/my` }).then(
-      (response) => {
-        setPostsData(response.data);
-      }
-    );
+    const fetchMyLikePosts = async () => {
+      const data = await getMyLikePosts();
+    }
+    fetchMyLikePosts();
   }, []);
 
   return (
     <>
       <TopBar needSearch={true} needWrite={true} />
       <BoardName>좋아요한 글</BoardName>
-      <PostsList id={undefined} name={undefined} postsData={postsData} />
+
+      {!postsData ? <Loading/> : <PostsList id={undefined} name={undefined} postsData={postsData} />}
     </>
   );
 }

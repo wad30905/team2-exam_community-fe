@@ -430,3 +430,12 @@ export const idDoubleCheck = async (userId: string) => {
     return "에러";
   }
 };
+
+//좋아요한 게시물들 불러오기
+export const getMyLikePosts = async () => {
+  const response = await axios({
+    method: "get",
+    url: `${SERVER_URL}/apis/posts/mylike`,
+  });
+  return response.data;
+};

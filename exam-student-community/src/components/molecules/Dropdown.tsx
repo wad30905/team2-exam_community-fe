@@ -11,10 +11,11 @@ interface Props {
   onClose: () => void;
 }
 
-const notLoggedInoptions = ["기능1", "기능2", "기능3"];
+const notLoggedInoptions = ["기능1", "기능2", "기능3", "기능4"];
 const loggedInOptions = {
   "내 프로필": "myprofile",
   "내가 쓴 글": "myposts",
+  "내가 좋아요한 글": "mylikeposts",
   "공부시간 재기": "timer",
 };
 const Dropdown: React.FC<Props> = ({ isOpen, onClose }) => {

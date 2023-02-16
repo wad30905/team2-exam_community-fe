@@ -269,8 +269,6 @@ export const DropdownBox = styled.div`
   position: absolute;
   width: 100%;
   ul {
-    position: relative;
-    top: 110%;
     z-index: 10;
     background-color: ${({ theme }) => theme.whiteColor};
     width: 99.5%;
