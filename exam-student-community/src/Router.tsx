@@ -18,6 +18,7 @@ import RouteChangeTracker from "./components/molecules/RouteChangeTracker";
 import Timer from "./components/pages/Timer";
 import MyProfile from "./components/pages/MyProfile";
 import WriteTimer from "./components/pages/WriteTimer";
+import Footer from "./components/molecules/Footer";
 
 function Router() {
   return (
@@ -47,6 +48,7 @@ function Router() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/writetimer" element={<WriteTimer />} />
       </Routes>
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

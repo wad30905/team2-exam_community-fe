@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import TopBar from "../molecules/TopBar";
 import PostsList from "../molecules/PostsList";
-import axios from "axios";
+
 import { getPosts, SERVER_URL } from "../../api";
 import {
   BoardName,
@@ -12,7 +12,6 @@ import {
 } from "../molecules/atoms/styled";
 import { BoardsObject } from "../molecules/atoms/sampleData";
 import Loading from "../molecules/Loading";
-import Footer from "../molecules/Footer";
 
 export interface IPostsState {
   state: {
@@ -83,7 +82,6 @@ function Posts() {
           />
         </>
       )}
-      <Footer />
     </Wrapper>
   );
 }

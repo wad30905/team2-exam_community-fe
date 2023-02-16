@@ -1,15 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
-  }
-  @media ${({ theme }) => theme.device.mobile} {
-    margin-top: 15vh;
-  }
-  @media ${({ theme }) => theme.device.desktop} {
-    margin-top: 7vh;
   }
 `;
 
@@ -111,8 +104,8 @@ export const KakaoLoginButton = styled.img`
 // ------------TopBar------------
 
 export const TopBarContainer = styled.div`
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   width: 100%;
   z-index: 999;
 `;
@@ -359,6 +352,7 @@ export const Menu = styled.li`
 export const LoadingBox = styled.div`
   height: 100%;
   width: 100%;
+  z-index: 999;
   position: absolute;
   top: 50vh;
   display: flex;
@@ -384,10 +378,9 @@ export const BoardsList = styled.ul`
   padding: 10px;
   z-index: 10;
   margin-top: 15vh;
-  overflow-y: auto;
+
   padding-bottom: 10vh;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -481,9 +474,6 @@ export const BoardName = styled.div`
 `;
 
 export const PostsContainer = styled.ul`
-  overflow-y: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
   &::-webkit-scrollbar {
     display: none;
   }
@@ -586,9 +576,6 @@ export const PostInfo = styled.div`
 
 // PostMainContents
 export const PostMain = styled.div`
-  overflow-y: scroll;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
   height: calc(var(--vh, 1vh) * 100);
   &::-webkit-scrollbar {
     display: none;
@@ -1303,7 +1290,6 @@ export const Timer_container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
   font-family: Arial, sans-serif;
   gap: 5vh;
 `;

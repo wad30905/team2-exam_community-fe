@@ -12,7 +12,7 @@ import {
   Timer_time_container,
   Timer_user,
 } from "../molecules/atoms/styled";
-import Footer from "../molecules/Footer";
+
 import TopBar from "../molecules/TopBar";
 
 interface IMyTime {
@@ -195,7 +195,6 @@ function Timer() {
           <p>시간이 계속 측정되는 상태에서 새로고침하면 초기화됨</p>
         </Timer_guide>
       </Timer_container>
-      <Footer />
     </>
   );
 }
