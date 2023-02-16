@@ -43,7 +43,12 @@ function TopBar({ needWrite, needSearch }: ITopBarProps) {
       <TopBarContainer>
         <TopContainer>
           <TopBarMenu>
-            <IconBar onClick={toggleModal} className="iconBar" />
+            <IconBar
+              onClick={() => {
+                toggleModal();
+              }}
+              className="iconBar"
+            />
           </TopBarMenu>
           <TopBarMain>
             <Link to="/">코코볼</Link>
