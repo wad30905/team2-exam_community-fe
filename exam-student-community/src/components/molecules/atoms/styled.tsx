@@ -111,6 +111,8 @@ export const KakaoLoginButton = styled.img`
 // ------------TopBar------------
 
 export const TopBarContainer = styled.div`
+  display: flex;
+  align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
@@ -206,8 +208,8 @@ export const SearchForm = styled.form`
   }
   @media ${({ theme }) => theme.device.desktop} {
     position: absolute;
-    top: 12px;
     left: 20%;
+    top:
     width: 50%;
   }
 `;
@@ -246,7 +248,6 @@ export const SearchSelection = styled.select`
 
 export const SearchInput = styled.input`
   width: 100%;
-  height: 100%;
   /* placeholder: ${(props) => props.placeholder}; */
   padding: 10px;
   border-radius: 0px 5px 5px 0px;
