@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { checkId, sendEmail, SERVER_URL } from "../../api";
+import { checkId, idDoubleCheck, sendEmail, SERVER_URL } from "../../api";
 import { FindPwBox, LoginForm } from "../molecules/atoms/styled";
 import Loading from "../molecules/Loading";
 
@@ -24,29 +24,16 @@ function FindPassword() {
   async function onSubmit(data: IForm) {
     try {
       // 존재하는 아이디인지 확인
-      const response1 = await axios({
-        method: "get",
-        url: `${SERVER_URL}/apis/users/compareId`,
-      });
+      const response1 = await idDoubleCheck(data.id);
       console.log("response1 :", response1);
-      if (response1.data.boo) {
+      if (response1) {
         // 없는 아이디다.
         alert("없는 아이디입니다. 다시 확인 ㄱㄱ");
         return false;
       }
 
-      // const response2 = sendEmail(data.id);
-      // console.log(response2);
-
       // 아이디랑 이메일 값 서버로 post
-      const response2 = await axios({
-        method: "post",
-        url: `${SERVER_URL}/apis/users/newpw`,
-        data: {
-          id: data.id,
-        },
-      });
-      console.log("response2 : ", response2);
+      const response2 = await sendEmail(data.id);
       setUserEmail(response2.data.email);
       setEmailLoading(true);
     } catch (error) {
