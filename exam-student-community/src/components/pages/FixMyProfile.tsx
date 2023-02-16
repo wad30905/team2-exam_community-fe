@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { LoginForm } from "../molecules/atoms/styled";
 import TopBar from "../molecules/TopBar";
 import Loading from "../molecules/Loading";
+import { useRecoilState } from "recoil";
+import { user } from "../../store/atoms";
 
 interface IForm {
   age: string;
@@ -13,7 +15,7 @@ interface IForm {
   gender: string;
 }
 
-function MyPage() {
+function FixMyProfile() {
   const {
     register,
     handleSubmit,
@@ -28,6 +30,7 @@ function MyPage() {
     phone: "default",
     gender: "default",
   });
+  const [userName, setUserName] = useRecoilState(user);
 
   function onSubmit(data: IForm) {
     setUserData((state) => ({
@@ -60,8 +63,9 @@ function MyPage() {
     } else {
       if (window.confirm("정말 수정합니까")) {
         updateProfile(userData);
+        setUserName(userData.name);
         alert("수정 성공");
-        window.location.href = "/";
+        window.location.href = "/myprofile";
       } else {
         alert("수정 취소");
       }
@@ -136,4 +140,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default FixMyProfile;

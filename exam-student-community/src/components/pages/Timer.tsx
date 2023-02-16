@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { user } from "../../store/atoms";
 import {
   Timer_button,
   Timer_buttons,
   Timer_container,
+  Timer_guide,
   Timer_label,
   Timer_time,
   Timer_time_container,
@@ -13,15 +15,27 @@ import {
 import Footer from "../molecules/Footer";
 import TopBar from "../molecules/TopBar";
 
+interface IMyTime {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 function Timer() {
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
   const [ongoing, setOngoing] = useState(false as boolean);
-  const [myTime, setMyTime] = useState(0 as number);
+
+  const [myTime, setMyTime] = useState<IMyTime>({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   const [count, setCount] = useState(0 as number);
   const [optionCount, setOptionCount] = useState(0 as number);
+  const navigate = useNavigate();
 
   let totalCount = count + optionCount;
 
@@ -71,11 +85,19 @@ function Timer() {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
     }
-    alert(`공부한 시간은 ${totalCount} 초 입니다.`);
+    alert(
+      `공부시간 : ${currentHours}시간 ${currentMinutes}분 ${currentSeconds}초`
+    );
+    setMyTime((myTime) => {
+      const copyCurrentTime = {
+        hours: currentHours,
+        minutes: currentMinutes,
+        seconds: currentSeconds,
+      };
+      return copyCurrentTime;
+    });
     localStorage.setItem("ongoing", JSON.stringify(false));
-    localStorage.setItem("count", JSON.stringify(0));
     localStorage.setItem("totalCount", JSON.stringify(0));
-    setMyTime(totalCount);
     setCount(0);
     setOptionCount(0);
     setOngoing(false);
@@ -88,8 +110,6 @@ function Timer() {
       setCount((count) => {
         return diff;
       });
-      localStorage.setItem("count", JSON.stringify(count));
-      localStorage.setItem("totalCount", JSON.stringify(totalCount));
     }, 1000);
   };
 
@@ -117,14 +137,6 @@ function Timer() {
       setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
       setCount(0);
     }
-    // if (
-    //   localStorage.getItem("totalCount") &&
-    //   JSON.parse(localStorage.getItem("ongoing") as any) === true
-    // ) {
-    //   console.log("ongoing true // totalCount >0");
-    //   setOptionCount(parseInt(localStorage.getItem("totalCount") as any));
-    //   start();
-    // }
 
     console.log(
       "setInterval count / optionCount / totalCount :",
@@ -132,8 +144,12 @@ function Timer() {
       optionCount,
       totalCount
     );
+
     timeConverter();
-  }, [count]);
+    if (myTime.seconds > 0) {
+      navigate("/writetimer", { state: myTime });
+    }
+  }, [count, myTime]);
 
   return (
     <>
@@ -161,17 +177,23 @@ function Timer() {
 
         <Timer_buttons>
           <Timer_button isActive={!ongoing} onClick={start}>
-            시작버튼
+            시작
           </Timer_button>
           <Timer_button isActive={ongoing} onClick={stop}>
-            정지버튼
+            정지
           </Timer_button>
           <Timer_button isActive={true} onClick={done}>
-            완료버튼
+            완료
           </Timer_button>
         </Timer_buttons>
-
-        <div>{myTime}초 공부했습니다. ㅊㅊ</div>
+        <Timer_guide>
+          <p>시작버튼 : 공부 시작</p>
+          <p>정지버튼 : 공부 일시 정지</p>
+          <p>완료버튼 : 공부시간 기록</p>
+          <p>***주의사항***</p>
+          <p>정지하고 새로고침하면 시간 그대로 유지됨</p>
+          <p>시간이 계속 측정되는 상태에서 새로고침하면 초기화됨</p>
+        </Timer_guide>
       </Timer_container>
       <Footer />
     </>

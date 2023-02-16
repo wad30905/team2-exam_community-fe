@@ -4,15 +4,13 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Select from "react-select";
-
 import {
   ErrorMessage,
   WriteForm,
   WriteSelectorContainer,
   WriteSubmitContainer,
 } from "../molecules/atoms/styled";
-import { getBoards, writePost } from "../../api";
-import { authCheck } from "../../api";
+import { writePost, authCheck } from "../../api";
 import {
   WriteSelector,
   TitleInput,
@@ -22,21 +20,28 @@ import {
 import { PostsList, BoardsObject } from "../molecules/atoms/sampleData";
 import { loginState, user } from "../../store/atoms";
 import Loading from "../molecules/Loading";
-import { keyframes } from "styled-components";
+
 interface IWriteForm {
   PostTitle: string;
   PostContent: string;
 }
 
-interface IWriteState {
-  state: { id: number };
+interface ILinkState {
+  state: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
 }
-function Write() {
+
+function WriteTimer() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [userName, setUserName] = useRecoilState(user);
   const [isLoading, setIsLoading] = useState(true);
   const [writeState, setWriteState] = useState<{ id: number }>();
-  const { state } = useLocation() as IWriteState;
+  const { state } = useLocation() as ILinkState;
+  const boardId = "5";
+  const options = { value: "5", label: "공부시간 인증" };
   const navigate = useNavigate();
 
   let vh = window.innerHeight * 0.01;
@@ -57,15 +62,8 @@ function Write() {
       setIsLoggedIn(authStatus);
       setUserName(authName);
       setIsLoading(false);
-
-      if (authStatus) {
-        setWriteState(state);
-        console.log("!!");
-      } else {
-        alert("로그인하셔야 글쓰기를 할 수 있습니다.");
-        navigate("/login");
-      }
     };
+    console.log("Link state :", state);
 
     checkUserAuth();
   }, []);
@@ -77,31 +75,18 @@ function Write() {
     watch,
   } = useForm<IWriteForm>();
 
-  const [boardId, setBoardId] = useState<any>();
-  const onSelect = (e: any) => {
-    setBoardId(e.value);
-  };
-
   function onSubmit(data: IWriteForm) {
     if (boardId === undefined) {
       alert("게시판을 선택해주세요");
       return false;
     }
-    if (boardId === "5") {
-      alert("공부시간 인증은, 직접 작성이 불가능합니다.");
-      return navigate("/timer");
-    }
     const write = async () => {
       await writePost(userName, boardId, data.PostTitle, data.PostContent);
     };
     write();
-    navigate(`/posts/${boardId}`);
+    navigate(`/posts`);
   }
 
-  //selector
-  let options = Object.keys(BoardsObject).map((item, index) => {
-    return { value: item, label: BoardsObject[item] };
-  });
   const customStyles = {
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
@@ -119,8 +104,6 @@ function Write() {
     singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: "#111" }),
   };
 
-  console.log(boardId);
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -131,12 +114,12 @@ function Write() {
         height={`calc(100vh - ${window.innerHeight - window.outerHeight}px)`}
       >
         <Select
-          options={options}
-          onChange={onSelect}
+          value={options}
           placeholder={"게시판을 선택하십시오."}
           styles={customStyles}
         />
         <TitleInput
+          defaultValue={`${userName} ${state.hours}시간 ${state.minutes}분 인증`}
           placeholder="제목"
           {...register("PostTitle", {
             required: "제목을 입력하세요",
@@ -150,6 +133,9 @@ function Write() {
           <ErrorMessage>{errors?.PostTitle?.message}</ErrorMessage>
         ) : null}
         <ContentInput
+          defaultValue={`총 공부시간 : ${state.hours}시간 ${state.minutes}분 ${state.seconds}초
+          한마디 입력하세요.
+          `}
           placeholder="내용을 입력하세요."
           {...register("PostContent", {
             required: "내용을 입력하세요",
@@ -170,4 +156,4 @@ function Write() {
   );
 }
 
-export default Write;
+export default WriteTimer;

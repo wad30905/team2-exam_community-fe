@@ -1033,6 +1033,7 @@ export const ContentInput = styled.textarea`
   height: 50%;
   border: none;
   resize: none;
+  line-height: 1.7rem;
   &:focus {
     outline: none;
   }
@@ -1362,5 +1363,101 @@ export const Timer_user = styled.div`
   .title {
     font-size: 1.5rem;
     font-weight: 600;
+  }
+`;
+
+export const Timer_guide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 10px;
+`;
+
+// ------------My Profile------------
+
+export const ProfileContainer = styled.div`
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 15vh;
+  }
+  @media ${({ theme }) => theme.device.desktop} {
+    margin-top: 7vh;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #f2f2f2;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1); */
+  border-radius: 10px;
+  padding: 50px;
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+export const ProfilePhoto = styled.img`
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+`;
+
+export const Name = styled.h1`
+  font-size: 36px;
+  color: #333;
+  margin-top: 10px;
+  margin-bottom: 30px;
+`;
+
+export const Bio = styled.div`
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+`;
+
+export const Email = styled.div`
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+`;
+export const Gender = styled.div`
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+`;
+export const Age = styled.div`
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+`;
+
+export const SmallButton = styled.button`
+  margin-top: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  background-color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.whiteColor};
+  font-size: 1rem;
+  border: 1px solid ${(props) => props.theme.accentColor};
+  border-radius: 0.5rem;
+  cursor: pointer;
+  :hover {
+    background-color: ${(props) => props.theme.whiteColor};
+    color: ${(props) => props.theme.accentColor};
   }
 `;

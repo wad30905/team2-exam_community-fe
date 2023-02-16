@@ -12,19 +12,15 @@ import Search from "./components/pages/Search";
 import MyPosts from "./components/pages/MyPosts";
 import MyLikePosts from "./components/pages/MyLikePosts";
 import Fix from "./components/pages/Fix";
-import MyPage from "./components/pages/MyPage";
+import FixMyProfile from "./components/pages/FixMyProfile";
 import OAuth from "./components/pages/OAuth";
 import FindPassword from "./components/pages/FindPassword";
 import ResetPassword from "./components/pages/ResetPassword";
 import Timer from "./components/pages/Timer";
+import MyProfile from "./components/pages/MyProfile";
+import WriteTimer from "./components/pages/WriteTimer";
 
 function Router() {
-  onmessage = function (event) {
-    if (event.data === "start") {
-      Timer();
-    }
-  };
-
   return (
     <BrowserRouter>
       <Routes>
@@ -42,12 +38,14 @@ function Router() {
         <Route path="/register2" element={<Register2 />} />
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="/practice" element={<Practice />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/fixmyprofile" element={<FixMyProfile />} />
         <Route path="/oauth" element={<OAuth />} />
         <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/users/reset/:token" element={<ResetPassword />} />
         <Route path="/fail_login" element={<Login />} />
         <Route path="/timer" element={<Timer />} />
+        <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/writetimer" element={<WriteTimer />} />
       </Routes>
     </BrowserRouter>
   );
